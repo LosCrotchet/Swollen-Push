@@ -3,15 +3,12 @@ extends Panel
 # 在你的原变量区域，替换掉 to_val 和 to_direction
 var pos_tween: Tween
 var box_pos_tween: Tween
-var facing_coord: Vector2i = Vector2i(0, 1)    # 角色正前方的网格坐标
 
 const HEIGHT: int = 12
 const WIDTH: int = 16
 
 @onready var base: TileMapLayer = $Base
 @onready var cursor: TileMapLayer = $Cursor
-@onready var mouse = $Mouse
-
 
 const TEXTURES = preload("res://assets/textures.tres")
 const CUBE = preload("res://scene/cube.tscn")
@@ -20,7 +17,6 @@ const WALL = preload("res://scene/wall.tscn")
 
 func _ready() -> void:
 	cursor.clear()
-	mouse.move_to(Vector2(5, 5))
 
 func _physics_process(delta: float) -> void:
 	if GameManager.is_editing:
@@ -29,7 +25,16 @@ func _physics_process(delta: float) -> void:
 	_update_cube_pattern()
 	
 func _update_cube_pattern():
-	facing_coord = mouse.coordinate + mouse.facing
+	var mouse_position = get_global_mouse_position()
+	var grid_mouse_position = mouse_position - position - cursor.position
+	
+	if grid_mouse_position.x < 0 or grid_mouse_position.x >= WIDTH*64 or\
+	grid_mouse_position.y < 0 or grid_mouse_position.y >= HEIGHT*64:
+		cursor.clear()
+		return
+	
+	@warning_ignore("integer_division")
+	var mouse_coord = Vector2i(int(grid_mouse_position.x) / 64, int(grid_mouse_position.y) / 64)
 	
 	for item in get_tree().get_nodes_in_group("cubes"):
 		item.statue = GameManager.STATUE.NORMAL
@@ -37,7 +42,7 @@ func _update_cube_pattern():
 	var center = null
 	for item in get_tree().get_nodes_in_group("cubes"):
 		var cube_rect = get_grid_rect(item.coordinate, item.radius)
-		if cube_rect.has_point(facing_coord):
+		if cube_rect.has_point(mouse_coord):
 			center = item
 			item.statue = GameManager.STATUE.INTERACTING
 			break
@@ -70,7 +75,6 @@ func _update_cursor():
 
 
 func _on_reset_button_pressed() -> void:
-	mouse.move_to(Vector2(5, 5))
 	cursor.clear()
 
 # 新增辅助函数：获取物体在网格上占据的包围盒

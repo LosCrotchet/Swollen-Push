@@ -28,9 +28,9 @@ func _physics_process(delta: float) -> void:
 		GameManager.STATUE.NORMAL:
 			$Outlook.modulate = Color(1, 1, 1, 1)
 		GameManager.STATUE.INTERACTING:
-			$Outlook.modulate = Color(1.0, 0.75, 0.75, 1.0)
+			$Outlook.modulate = Color(1.0, 0.65, 0.65, 1.0)
 		GameManager.STATUE.PASSIVE:
-			$Outlook.modulate = Color(0.75, 0.75, 1.0, 1.0)
+			$Outlook.modulate = Color(0.65, 0.65, 1.0, 1.0)
 
 func set_radius(to_radius: float):
 	radius = to_radius

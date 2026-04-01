@@ -39,6 +39,19 @@ func _input(event: InputEvent) -> void:
 	else:
 		is_left_pressing = false
 		is_right_pressing = false
+		
+		var mouse_position = get_local_mouse_position()
+		var grid_mouse_position = mouse_position - OFFSET
+		
+		if grid_mouse_position.x >= 0 and grid_mouse_position.x < GameManager.WIDTH*64 and\
+		grid_mouse_position.y >= 0 and grid_mouse_position.y < GameManager.HEIGHT*64:
+			@warning_ignore("integer_division")
+			var mouse_coord = Vector2i(int(grid_mouse_position.x) / 64, int(grid_mouse_position.y) / 64)
+		
+			if event.is_action_pressed("mouse_left"):
+				GridManager.update_cube(mouse_coord, 1)
+			if event.is_action_pressed("mouse_right"):
+				GridManager.update_cube(mouse_coord, -1)
 
 
 func create(what: GameManager.CONTENT, coord: Vector2i):
@@ -158,8 +171,6 @@ func _create_hole(hole_coord: Vector2i):
 
 func delete(coord: Vector2i):
 	for item in get_tree().get_nodes_in_group("Objects"):
-		if item.type == GameManager.CONTENT.MOUSE:
-			continue
 		if item.is_in_group("cubes") and item.has_point(coord):
 			item.remove_from_group("cubes")
 			item.remove_from_group("Objects")

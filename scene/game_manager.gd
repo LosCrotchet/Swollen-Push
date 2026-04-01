@@ -19,8 +19,7 @@ enum CONTENT{
 	CUBE_STATIC,
 	WALL,
 	BOX,
-	HOLE,
-	MOUSE
+	HOLE
 }
 
 enum DIRECTION{

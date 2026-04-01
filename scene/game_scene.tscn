@@ -7,7 +7,16 @@
 [ext_resource type="ButtonGroup" uid="uid://ca7sum6ni0by2" path="res://assets/set_content.tres" id="3_f3g3v"]
 [ext_resource type="Script" uid="uid://ch5jbwb6lk6ix" path="res://scene/grid_manager.gd" id="4_juocg"]
 [ext_resource type="Script" uid="uid://deolo8ggam6u0" path="res://scene/map_editor.gd" id="5_f3g3v"]
-[ext_resource type="PackedScene" uid="uid://djuc55da87cpo" path="res://scene/mouse.tscn" id="6_0in77"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_f3g3v"]
+font_size = 48
+shadow_size = 8
+shadow_color = Color(0, 0, 0, 0.3764706)
+shadow_offset = Vector2(6, 6)
+
+[sub_resource type="LabelSettings" id="LabelSettings_juocg"]
+font_size = 18
+font_color = Color(0.8740001, 0.92, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_0in77"]
 font_size = 24
@@ -21,13 +30,37 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_0in77")
 
+[node name="Title" type="Label" parent="." unique_id=704162460]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 32.0
+offset_right = 416.0
+offset_bottom = 160.0
+text = "Swollen Push"
+label_settings = SubResource("LabelSettings_f3g3v")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 1
+
+[node name="Version" type="Label" parent="." unique_id=1708376371]
+layout_mode = 0
+offset_left = 256.0
+offset_top = 128.0
+offset_right = 448.0
+offset_bottom = 160.0
+text = "V0.2.0 - develop"
+label_settings = SubResource("LabelSettings_juocg")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 1
+
 [node name="GameManager" type="Node" parent="." unique_id=894234069]
 script = ExtResource("1_volm0")
 
 [node name="DebugPanel" type="Panel" parent="." unique_id=2111042467]
 layout_mode = 0
 offset_left = 32.0
-offset_top = 32.0
+offset_top = 160.0
 offset_right = 448.0
 offset_bottom = 864.0
 
@@ -37,9 +70,8 @@ offset_left = 32.0
 offset_top = 416.0
 offset_right = 384.0
 offset_bottom = 704.0
-text = "WASD / 手柄左摇杆：移动
-E / 手柄右扳机：放大方块
-Q / 手柄左扳机：减小方块
+text = "鼠标左键：膨胀方块
+鼠标右键：收缩方块
 
 [编辑模式]
 鼠标左键：放置内容
@@ -182,11 +214,6 @@ z_as_relative = false
 position = Vector2(32, 32)
 tile_map_data = PackedByteArray("AAAEAAIAAAABAAQAAAA=")
 tile_set = ExtResource("2_sl1kl")
-
-[node name="Mouse" parent="MapPanel" unique_id=2120081821 groups=["Objects"] instance=ExtResource("6_0in77")]
-z_as_relative = false
-position = Vector2(64, 64)
-facing = Vector2(1, 0)
 
 [connection signal="pressed" from="DebugPanel/ResetButton" to="MapPanel" method="_on_reset_button_pressed"]
 [connection signal="pressed" from="DebugPanel/ResetButton" to="MapPanel/MapEditor" method="_on_reset_button_pressed"]
