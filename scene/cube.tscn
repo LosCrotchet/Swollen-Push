@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://d1ady4twdnqt4"]
+
+[ext_resource type="Script" uid="uid://cqdamn22rqi64" path="res://scene/cube.gd" id="1_pw53m"]
+[ext_resource type="Texture2D" uid="uid://0i1bludgdjr8" path="res://assets/textures.png" id="2_leuu7"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_h6iok"]
+font_size = 32
+font_color = Color(0, 0, 0, 1)
+
+[node name="Cube" type="Node2D" unique_id=1808176274]
+script = ExtResource("1_pw53m")
+
+[node name="Outlook" type="Sprite2D" parent="." unique_id=413986272]
+position = Vector2(-3.8146973e-06, -3.8146973e-06)
+texture = ExtResource("2_leuu7")
+offset = Vector2(0, 20)
+region_enabled = true
+region_rect = Rect2(256, 0, 448, 448)
+
+[node name="Label" type="Label" parent="." unique_id=1130938711]
+visible = false
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+text = "100"
+label_settings = SubResource("LabelSettings_h6iok")
+horizontal_alignment = 1
+vertical_alignment = 1

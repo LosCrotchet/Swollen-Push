@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://cu7f7lri5kimi"]
+
+[ext_resource type="Script" uid="uid://dkvj28khktdvh" path="res://scene/box.gd" id="1_3tsfx"]
+[ext_resource type="Texture2D" uid="uid://0i1bludgdjr8" path="res://assets/textures.png" id="1_dmwsn"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_3tsfx"]
+font_color = Color(0, 0, 0, 1)
+
+[node name="Box" type="Node2D" unique_id=462183607]
+script = ExtResource("1_3tsfx")
+
+[node name="Outlook" type="Sprite2D" parent="." unique_id=405598546]
+texture = ExtResource("1_dmwsn")
+region_enabled = true
+region_rect = Rect2(0, 256, 64, 64)
+
+[node name="Label" type="Label" parent="." unique_id=1592980495]
+visible = false
+offset_left = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+text = "100"
+label_settings = SubResource("LabelSettings_3tsfx")
+horizontal_alignment = 1
+vertical_alignment = 1

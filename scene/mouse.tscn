@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://djuc55da87cpo"]
+
+[ext_resource type="Texture2D" uid="uid://0i1bludgdjr8" path="res://assets/textures.png" id="1_gh1e6"]
+[ext_resource type="Script" uid="uid://c46gnaujg6tmw" path="res://scene/mouse.gd" id="1_tb56o"]
+
+[node name="Mouse" type="Node2D" unique_id=2120081821]
+script = ExtResource("1_tb56o")
+facing = Vector2(1, 1)
+
+[node name="Outlook" type="Sprite2D" parent="." unique_id=1286655435]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_gh1e6")
+region_enabled = true
+region_rect = Rect2(0, 320, 128, 128)
+
+[node name="MoveTimer" type="Timer" parent="." unique_id=652998810]
+one_shot = true
+
+[node name="InteractTimer" type="Timer" parent="." unique_id=1807779976]
+one_shot = true
