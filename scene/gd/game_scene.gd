@@ -1,0 +1,17 @@
+extends Control
+
+
+func _on_button_toggled(toggled_on: bool, type: int) -> void:
+	match type:
+		1: GameManager.now_setting = GameManager.CONTENT.CUBE_SIMPLE
+		2: GameManager.now_setting = GameManager.CONTENT.WALL
+		3: GameManager.now_setting = GameManager.CONTENT.BOX
+		4: GameManager.now_setting = GameManager.CONTENT.HOLE
+		5: GameManager.now_setting = GameManager.CONTENT.CUBE_STICKY
+		6: GameManager.now_setting = GameManager.CONTENT.CUBE_STATIC
+
+
+
+func _on_edit_mode_enable_toggled(toggled_on: bool) -> void:
+	$DebugPanel/EditModeEnable.text = "编辑模式：" + ("开" if toggled_on else "关")
+	GameManager.is_editing = toggled_on

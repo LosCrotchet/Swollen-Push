@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b5ljmko2kek77"]
 
-[ext_resource type="Script" uid="uid://b1gee0wno41bs" path="res://scene/hole.gd" id="1_ooe4y"]
+[ext_resource type="Script" uid="uid://b1gee0wno41bs" path="res://scene/gd/hole.gd" id="1_ooe4y"]
 [ext_resource type="Texture2D" uid="uid://0i1bludgdjr8" path="res://assets/textures.png" id="1_yjx77"]
 
 [node name="Hole" type="Node2D" unique_id=162201140]

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cnc34nvqh8e3n"]
 
-[ext_resource type="Script" uid="uid://bdc4oewy1k0ey" path="res://scene/wall.gd" id="1_3h2xa"]
+[ext_resource type="Script" uid="uid://bdc4oewy1k0ey" path="res://scene/gd/wall.gd" id="1_3h2xa"]
 [ext_resource type="Texture2D" uid="uid://0i1bludgdjr8" path="res://assets/textures.png" id="2_n28be"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_3tsfx"]
