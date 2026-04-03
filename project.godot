@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Swollen Push"
-config/version="0.2.1"
+config/version="0.2.1.1"
 run/main_scene="res://scene/game_scene.tscn"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
@@ -77,6 +77,10 @@ interact_2={
 ]
 }
 
+[input_devices]
+
+pointing/android/enable_long_press_as_right_click=true
+
 [physics]
 
 3d/physics_engine="Jolt Physics"
@@ -86,3 +90,4 @@ interact_2={
 rendering_device/driver.windows="d3d12"
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+textures/vram_compression/import_etc2_astc=true

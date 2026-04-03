@@ -48,9 +48,9 @@ func _input(event: InputEvent) -> void:
 			@warning_ignore("integer_division")
 			var mouse_coord = Vector2i(int(grid_mouse_position.x) / 64, int(grid_mouse_position.y) / 64)
 		
-			if event.is_action_pressed("mouse_left"):
+			if event.is_action_released("mouse_left"):
 				GridManager.update_cube(mouse_coord, 1)
-			if event.is_action_pressed("mouse_right"):
+			if event.is_action_released("mouse_right"):
 				GridManager.update_cube(mouse_coord, -1)
 
 

@@ -1,13 +1,13 @@
 [gd_scene format=4 uid="uid://bdpn31pic2maq"]
 
-[ext_resource type="Script" uid="uid://bhu7awetlwlg2" path="res://scene/gd/game_scene.gd" id="1_0in77"]
-[ext_resource type="Script" uid="uid://cjvpmc55aycst" path="res://scene/gd/game_manager.gd" id="1_volm0"]
-[ext_resource type="Script" uid="uid://d0d7cu2gytslk" path="res://scene/gd/map_panel.gd" id="1_xt7w2"]
+[ext_resource type="Script" uid="uid://bhu7awetlwlg2" path="res://scene/game_scene.gd" id="1_0in77"]
+[ext_resource type="Script" uid="uid://cjvpmc55aycst" path="res://scene/game_manager.gd" id="1_volm0"]
+[ext_resource type="Script" uid="uid://d0d7cu2gytslk" path="res://scene/map_panel.gd" id="1_xt7w2"]
 [ext_resource type="TileSet" uid="uid://d3pd2pncqrgq3" path="res://assets/textures.tres" id="2_sl1kl"]
 [ext_resource type="ButtonGroup" uid="uid://ca7sum6ni0by2" path="res://assets/set_content.tres" id="3_f3g3v"]
 [ext_resource type="Script" uid="uid://cmvphyd8qyd0k" path="res://scene/gd/save_and_load.gd" id="3_juocg"]
-[ext_resource type="Script" uid="uid://ch5jbwb6lk6ix" path="res://scene/gd/grid_manager.gd" id="4_juocg"]
-[ext_resource type="Script" uid="uid://deolo8ggam6u0" path="res://scene/gd/map_editor.gd" id="5_f3g3v"]
+[ext_resource type="Script" uid="uid://ch5jbwb6lk6ix" path="res://scene/grid_manager.gd" id="4_juocg"]
+[ext_resource type="Script" uid="uid://deolo8ggam6u0" path="res://scene/map_editor.gd" id="5_f3g3v"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_f3g3v"]
 font_size = 48
@@ -51,7 +51,7 @@ offset_left = 256.0
 offset_top = 101.0
 offset_right = 448.0
 offset_bottom = 133.0
-text = "V0.2.1 - develop"
+text = "V0.2.1.1 - develop"
 label_settings = SubResource("LabelSettings_juocg")
 horizontal_alignment = 1
 vertical_alignment = 1
