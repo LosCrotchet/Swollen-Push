@@ -11,11 +11,12 @@ font_color = Color(0, 0, 0, 1)
 script = ExtResource("1_pw53m")
 
 [node name="Outlook" type="Sprite2D" parent="." unique_id=413986272]
+texture_filter = 1
+texture_repeat = 1
 position = Vector2(-3.8146973e-06, -3.8146973e-06)
 texture = ExtResource("2_leuu7")
-offset = Vector2(0, 20)
 region_enabled = true
-region_rect = Rect2(256, 0, 448, 448)
+region_rect = Rect2(256, 192, 64, 64)
 
 [node name="Label" type="Label" parent="." unique_id=1130938711]
 visible = false

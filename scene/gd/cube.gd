@@ -10,15 +10,19 @@ var cube_scale_tween
 var pos_tween
 
 func _ready() -> void:
-	$Outlook.scale = Vector2(0.143+0.286*(radius-1), 0.143+0.286*(radius-1)) * 1.42
+	$Outlook.scale = Vector2.ONE * ((radius - 1) * 2 + 1)
 	
 	match type:
 		GameManager.CONTENT.CUBE_SIMPLE:
-			$Outlook.region_rect = Rect2(258, 0, 448, 488)
+			$Outlook.region_rect = Rect2(0, 192 if GameManager.is_dark_mode else 64, 64, 64)
 		GameManager.CONTENT.CUBE_STICKY:
-			$Outlook.region_rect = Rect2(704, 0, 448, 488)
+			$Outlook.region_rect = Rect2(64, 192 if GameManager.is_dark_mode else 64, 64, 64)
 		GameManager.CONTENT.CUBE_STATIC:
-			$Outlook.region_rect = Rect2(1152, 0, 448, 488)
+			$Outlook.region_rect = Rect2(128, 192 if GameManager.is_dark_mode else 64, 64, 64)
+		GameManager.CONTENT.CUBE_V:
+			$Outlook.region_rect = Rect2(256, 192 if GameManager.is_dark_mode else 64, 64, 64)
+		GameManager.CONTENT.CUBE_H:
+			$Outlook.region_rect = Rect2(192, 192 if GameManager.is_dark_mode else 64, 64, 64)
 
 func has_point(pos: Vector2, set_radius: float = radius):
 	return Rect2(coordinate-Vector2(set_radius-1, set_radius-1), Vector2(2*set_radius-1, 2*set_radius-1)).has_point(pos)
@@ -34,7 +38,7 @@ func _physics_process(delta: float) -> void:
 
 func set_radius(to_radius: float):
 	radius = to_radius
-	var to_scale = Vector2(0.143+0.286*(radius-1), 0.143+0.286*(radius-1)) * 1.42
+	var to_scale = Vector2.ONE * ((radius - 1) * 2 + 1)
 	if cube_scale_tween:
 		cube_scale_tween.kill()
 	cube_scale_tween = get_tree().create_tween()

@@ -9,8 +9,8 @@ func _on_button_toggled(toggled_on: bool, type: int) -> void:
 		4: GameManager.now_setting = GameManager.CONTENT.HOLE
 		5: GameManager.now_setting = GameManager.CONTENT.CUBE_STICKY
 		6: GameManager.now_setting = GameManager.CONTENT.CUBE_STATIC
-
-
+		7: GameManager.now_setting = GameManager.CONTENT.CUBE_V
+		8: GameManager.now_setting = GameManager.CONTENT.CUBE_H
 
 func _on_edit_mode_enable_toggled(toggled_on: bool) -> void:
 	$DebugPanel/EditModeEnable.text = "编辑模式：" + ("开" if toggled_on else "关")

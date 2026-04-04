@@ -7,7 +7,7 @@ extends Node2D
 var pos_tween
 
 func _ready() -> void:
-	$Outlook.region_rect = Rect2(0+64*randi_range(0, 1), 128+64*randi_range(0, 1), 64, 64)
+	$Outlook.region_rect = Rect2(64, 128 if GameManager.is_dark_mode else 0, 64, 64)
 
 func move_to(to_coordinate: Vector2):
 	coordinate = to_coordinate

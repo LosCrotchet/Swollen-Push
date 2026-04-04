@@ -2,6 +2,7 @@ extends Node
 
 var is_editing: bool = true
 var now_setting: CONTENT = CONTENT.CUBE_SIMPLE
+var is_dark_mode: bool = true
 
 const TWEEN_TIME := 0.1
 const HEIGHT: int = 12
@@ -17,6 +18,8 @@ enum CONTENT{
 	CUBE_SIMPLE,
 	CUBE_STICKY,
 	CUBE_STATIC,
+	CUBE_V,
+	CUBE_H,
 	WALL,
 	BOX,
 	HOLE

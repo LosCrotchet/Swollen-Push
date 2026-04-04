@@ -12,7 +12,7 @@ script = ExtResource("1_3h2xa")
 [node name="Outlook" type="Sprite2D" parent="." unique_id=405598546]
 texture = ExtResource("2_n28be")
 region_enabled = true
-region_rect = Rect2(0, 128, 64, 64)
+region_rect = Rect2(64, 128, 64, 64)
 
 [node name="Label" type="Label" parent="." unique_id=1592980495]
 visible = false

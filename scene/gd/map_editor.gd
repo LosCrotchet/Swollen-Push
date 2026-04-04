@@ -69,7 +69,9 @@ func create(what: GameManager.CONTENT, coord: Vector2i):
 	match what:
 		GameManager.CONTENT.CUBE_SIMPLE,\
 		GameManager.CONTENT.CUBE_STICKY,\
-		GameManager.CONTENT.CUBE_STATIC:
+		GameManager.CONTENT.CUBE_STATIC,\
+		GameManager.CONTENT.CUBE_V,\
+		GameManager.CONTENT.CUBE_H:
 			#GridManager.update_map(coord, _create_cube(coord, what))
 			_create_cube(coord, what)
 		GameManager.CONTENT.BOX:

@@ -9,4 +9,4 @@ script = ExtResource("1_ooe4y")
 [node name="Outlook" type="Sprite2D" parent="." unique_id=868362200]
 texture = ExtResource("1_yjx77")
 region_enabled = true
-region_rect = Rect2(128, 0, 64, 64)
+region_rect = Rect2(192, 128, 64, 64)

@@ -1,13 +1,15 @@
 [gd_scene format=4 uid="uid://bdpn31pic2maq"]
 
-[ext_resource type="Script" uid="uid://bhu7awetlwlg2" path="res://scene/game_scene.gd" id="1_0in77"]
-[ext_resource type="Script" uid="uid://cjvpmc55aycst" path="res://scene/game_manager.gd" id="1_volm0"]
-[ext_resource type="Script" uid="uid://d0d7cu2gytslk" path="res://scene/map_panel.gd" id="1_xt7w2"]
+[ext_resource type="Script" uid="uid://bhu7awetlwlg2" path="res://scene/gd/game_scene.gd" id="1_c8mr4"]
+[ext_resource type="Texture2D" uid="uid://cj6r7xea2svdh" path="res://assets/bg_D.jpg" id="2_c8mr4"]
 [ext_resource type="TileSet" uid="uid://d3pd2pncqrgq3" path="res://assets/textures.tres" id="2_sl1kl"]
 [ext_resource type="ButtonGroup" uid="uid://ca7sum6ni0by2" path="res://assets/set_content.tres" id="3_f3g3v"]
 [ext_resource type="Script" uid="uid://cmvphyd8qyd0k" path="res://scene/gd/save_and_load.gd" id="3_juocg"]
-[ext_resource type="Script" uid="uid://ch5jbwb6lk6ix" path="res://scene/grid_manager.gd" id="4_juocg"]
-[ext_resource type="Script" uid="uid://deolo8ggam6u0" path="res://scene/map_editor.gd" id="5_f3g3v"]
+[ext_resource type="Script" uid="uid://cjvpmc55aycst" path="res://scene/gd/game_manager.gd" id="3_w3nls"]
+[ext_resource type="Theme" uid="uid://0aif3jm84300" path="res://assets/set_content_button.tres" id="5_w3nls"]
+[ext_resource type="Script" uid="uid://d0d7cu2gytslk" path="res://scene/gd/map_panel.gd" id="6_x8u7y"]
+[ext_resource type="Script" uid="uid://ch5jbwb6lk6ix" path="res://scene/gd/grid_manager.gd" id="7_lonp8"]
+[ext_resource type="Script" uid="uid://deolo8ggam6u0" path="res://scene/gd/map_editor.gd" id="9_81ico"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_f3g3v"]
 font_size = 48
@@ -24,6 +26,8 @@ font_size = 24
 
 [sub_resource type="LabelSettings" id="LabelSettings_c8mr4"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c8mr4"]
+
 [node name="GameScene" type="Control" unique_id=532454969]
 layout_mode = 3
 anchors_preset = 15
@@ -31,7 +35,22 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_0in77")
+script = ExtResource("1_c8mr4")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1747879771]
+z_index = -999
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -160.0
+offset_top = -90.0
+offset_right = 160.0
+offset_bottom = 90.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_c8mr4")
+metadata/_edit_lock_ = true
 
 [node name="Title" type="Label" parent="." unique_id=704162460]
 layout_mode = 0
@@ -58,7 +77,7 @@ vertical_alignment = 1
 autowrap_mode = 1
 
 [node name="GameManager" type="Node" parent="." unique_id=894234069]
-script = ExtResource("1_volm0")
+script = ExtResource("3_w3nls")
 
 [node name="SaveAndLoad" type="Node" parent="." unique_id=117226459 node_paths=PackedStringArray("map_editor", "log")]
 script = ExtResource("3_juocg")
@@ -70,7 +89,7 @@ layout_mode = 0
 offset_left = 32.0
 offset_top = 128.0
 offset_right = 448.0
-offset_bottom = 864.0
+offset_bottom = 832.0
 
 [node name="Hint" type="Label" parent="DebugPanel" unique_id=1118971398]
 layout_mode = 0
@@ -114,6 +133,7 @@ offset_left = 224.0
 offset_top = 64.0
 offset_right = 384.0
 offset_bottom = 128.0
+theme = ExtResource("5_w3nls")
 text = "清空并重置"
 
 [node name="SaveButton" type="Button" parent="DebugPanel" unique_id=131303753]
@@ -122,6 +142,7 @@ offset_left = 32.0
 offset_top = 384.0
 offset_right = 128.0
 offset_bottom = 448.0
+theme = ExtResource("5_w3nls")
 text = "保存"
 
 [node name="LoadButton" type="Button" parent="DebugPanel" unique_id=2134538258]
@@ -130,6 +151,7 @@ offset_left = 160.0
 offset_top = 384.0
 offset_right = 256.0
 offset_bottom = 448.0
+theme = ExtResource("5_w3nls")
 text = "加载"
 
 [node name="EditModeEnable" type="Button" parent="DebugPanel" unique_id=1900910796]
@@ -138,6 +160,7 @@ offset_left = 32.0
 offset_top = 64.0
 offset_right = 192.0
 offset_bottom = 128.0
+theme = ExtResource("5_w3nls")
 toggle_mode = true
 button_pressed = true
 text = "编辑模式：开"
@@ -160,6 +183,7 @@ offset_left = 32.0
 offset_top = 192.0
 offset_right = 96.0
 offset_bottom = 256.0
+theme = ExtResource("5_w3nls")
 toggle_mode = true
 button_pressed = true
 button_group = ExtResource("3_f3g3v")
@@ -172,6 +196,7 @@ offset_left = 32.0
 offset_top = 288.0
 offset_right = 96.0
 offset_bottom = 352.0
+theme = ExtResource("5_w3nls")
 toggle_mode = true
 button_group = ExtResource("3_f3g3v")
 text = "黏性
@@ -183,9 +208,34 @@ offset_left = 128.0
 offset_top = 288.0
 offset_right = 192.0
 offset_bottom = 352.0
+theme = ExtResource("5_w3nls")
 toggle_mode = true
 button_group = ExtResource("3_f3g3v")
 text = "固定
+方块"
+
+[node name="SetVerticalCube" type="Button" parent="DebugPanel" unique_id=1345877080]
+layout_mode = 0
+offset_left = 224.0
+offset_top = 288.0
+offset_right = 288.0
+offset_bottom = 352.0
+theme = ExtResource("5_w3nls")
+toggle_mode = true
+button_group = ExtResource("3_f3g3v")
+text = "竖向
+方块"
+
+[node name="SetHorizontalCube" type="Button" parent="DebugPanel" unique_id=1501950519]
+layout_mode = 0
+offset_left = 320.0
+offset_top = 288.0
+offset_right = 384.0
+offset_bottom = 352.0
+theme = ExtResource("5_w3nls")
+toggle_mode = true
+button_group = ExtResource("3_f3g3v")
+text = "横向
 方块"
 
 [node name="SetWall" type="Button" parent="DebugPanel" unique_id=1026061011]
@@ -194,6 +244,7 @@ offset_left = 128.0
 offset_top = 192.0
 offset_right = 192.0
 offset_bottom = 256.0
+theme = ExtResource("5_w3nls")
 toggle_mode = true
 button_group = ExtResource("3_f3g3v")
 text = "墙壁"
@@ -204,6 +255,7 @@ offset_left = 224.0
 offset_top = 192.0
 offset_right = 288.0
 offset_bottom = 256.0
+theme = ExtResource("5_w3nls")
 toggle_mode = true
 button_group = ExtResource("3_f3g3v")
 text = "箱子"
@@ -214,6 +266,7 @@ offset_left = 320.0
 offset_top = 192.0
 offset_right = 384.0
 offset_bottom = 256.0
+theme = ExtResource("5_w3nls")
 toggle_mode = true
 button_group = ExtResource("3_f3g3v")
 text = "标记"
@@ -225,22 +278,23 @@ offset_left = 480.0
 offset_top = 32.0
 offset_right = 1568.0
 offset_bottom = 864.0
-script = ExtResource("1_xt7w2")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_c8mr4")
+script = ExtResource("6_x8u7y")
 
 [node name="GridManager" type="Node" parent="MapPanel" unique_id=1663439066]
-script = ExtResource("4_juocg")
+script = ExtResource("7_lonp8")
 
 [node name="Base" type="TileMapLayer" parent="MapPanel" unique_id=1294220556]
 z_index = -99
 z_as_relative = false
 position = Vector2(32, 32)
-tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAAAAAEAAAAAAAEAAAAAAAIAAAABAAAAAAAAAAMAAAABAAEAAAAAAAQAAAABAAEAAAAAAAUAAAAAAAAAAAAAAAYAAAABAAEAAAAAAAcAAAAAAAEAAAAAAAgAAAABAAAAAAAAAAkAAAAAAAAAAAAAAAoAAAABAAAAAAAAAAsAAAABAAEAAAABAAAAAAABAAEAAAABAAEAAAABAAEAAAABAAIAAAAAAAAAAAABAAMAAAABAAAAAAABAAQAAAABAAEAAAABAAUAAAABAAAAAAABAAYAAAABAAAAAAABAAcAAAAAAAAAAAABAAgAAAABAAEAAAABAAkAAAAAAAAAAAABAAoAAAAAAAEAAAABAAsAAAABAAEAAAACAAAAAAABAAAAAAACAAEAAAABAAEAAAACAAIAAAABAAEAAAACAAMAAAABAAEAAAACAAQAAAAAAAEAAAACAAUAAAAAAAAAAAACAAYAAAABAAAAAAACAAcAAAABAAEAAAACAAgAAAAAAAEAAAACAAkAAAAAAAEAAAACAAoAAAABAAEAAAACAAsAAAABAAEAAAADAAAAAAAAAAEAAAADAAEAAAABAAAAAAADAAIAAAABAAEAAAADAAMAAAAAAAAAAAADAAQAAAAAAAAAAAADAAUAAAABAAAAAAADAAYAAAAAAAAAAAADAAcAAAABAAEAAAADAAgAAAABAAAAAAADAAkAAAAAAAAAAAADAAoAAAABAAEAAAADAAsAAAAAAAAAAAAEAAAAAAAAAAEAAAAEAAEAAAAAAAEAAAAEAAIAAAAAAAEAAAAEAAMAAAAAAAEAAAAEAAQAAAAAAAEAAAAEAAUAAAABAAEAAAAEAAYAAAAAAAAAAAAEAAcAAAABAAEAAAAEAAgAAAABAAEAAAAEAAkAAAABAAEAAAAEAAoAAAAAAAAAAAAEAAsAAAAAAAAAAAAFAAAAAAAAAAEAAAAFAAEAAAAAAAEAAAAFAAIAAAABAAAAAAAFAAMAAAAAAAEAAAAFAAQAAAABAAEAAAAFAAUAAAAAAAAAAAAFAAYAAAAAAAEAAAAFAAcAAAAAAAEAAAAFAAgAAAAAAAAAAAAFAAkAAAAAAAEAAAAFAAoAAAABAAAAAAAFAAsAAAABAAAAAAAGAAAAAAAAAAAAAAAGAAEAAAABAAAAAAAGAAIAAAAAAAEAAAAGAAMAAAABAAAAAAAGAAQAAAAAAAEAAAAGAAUAAAABAAAAAAAGAAYAAAAAAAAAAAAGAAcAAAAAAAEAAAAGAAgAAAABAAAAAAAGAAkAAAABAAAAAAAGAAoAAAAAAAAAAAAGAAsAAAABAAEAAAAHAAAAAAAAAAEAAAAHAAEAAAABAAEAAAAHAAIAAAAAAAEAAAAHAAMAAAABAAAAAAAHAAQAAAABAAEAAAAHAAUAAAAAAAEAAAAHAAYAAAABAAAAAAAHAAcAAAABAAEAAAAHAAgAAAABAAAAAAAHAAkAAAABAAEAAAAHAAoAAAABAAEAAAAHAAsAAAAAAAEAAAAIAAAAAAABAAAAAAAIAAEAAAAAAAEAAAAIAAIAAAABAAAAAAAIAAMAAAABAAAAAAAIAAQAAAAAAAAAAAAIAAUAAAAAAAAAAAAIAAYAAAABAAAAAAAIAAcAAAAAAAEAAAAIAAgAAAABAAEAAAAIAAkAAAABAAAAAAAIAAoAAAAAAAEAAAAIAAsAAAAAAAAAAAAJAAAAAAABAAEAAAAJAAEAAAABAAAAAAAJAAIAAAABAAAAAAAJAAMAAAAAAAAAAAAJAAQAAAABAAEAAAAJAAUAAAAAAAEAAAAJAAYAAAABAAEAAAAJAAcAAAAAAAAAAAAJAAgAAAAAAAEAAAAJAAkAAAABAAEAAAAJAAoAAAAAAAAAAAAJAAsAAAABAAEAAAAKAAAAAAAAAAEAAAAKAAEAAAABAAAAAAAKAAIAAAABAAEAAAAKAAMAAAAAAAEAAAAKAAQAAAAAAAAAAAAKAAUAAAAAAAEAAAAKAAYAAAABAAEAAAAKAAcAAAAAAAAAAAAKAAgAAAAAAAEAAAAKAAkAAAABAAAAAAAKAAoAAAAAAAAAAAAKAAsAAAAAAAEAAAALAAAAAAABAAEAAAALAAEAAAABAAEAAAALAAIAAAAAAAEAAAALAAMAAAAAAAEAAAALAAQAAAABAAAAAAALAAUAAAAAAAEAAAALAAYAAAABAAEAAAALAAcAAAAAAAEAAAALAAgAAAABAAAAAAALAAkAAAAAAAAAAAALAAoAAAAAAAAAAAALAAsAAAAAAAEAAAAMAAAAAAABAAEAAAAMAAEAAAAAAAEAAAAMAAIAAAABAAEAAAAMAAMAAAAAAAAAAAAMAAQAAAAAAAEAAAAMAAUAAAABAAEAAAAMAAYAAAABAAAAAAAMAAcAAAABAAEAAAAMAAgAAAAAAAEAAAAMAAkAAAAAAAAAAAAMAAoAAAABAAEAAAAMAAsAAAABAAEAAAANAAAAAAAAAAAAAAANAAEAAAABAAAAAAANAAIAAAAAAAEAAAANAAMAAAAAAAEAAAANAAQAAAABAAEAAAANAAUAAAAAAAEAAAANAAYAAAAAAAAAAAANAAcAAAABAAEAAAANAAgAAAABAAAAAAANAAkAAAAAAAEAAAANAAoAAAABAAAAAAANAAsAAAABAAAAAAAOAAAAAAAAAAEAAAAOAAEAAAABAAAAAAAOAAIAAAABAAAAAAAOAAMAAAAAAAAAAAAOAAQAAAABAAEAAAAOAAUAAAAAAAAAAAAOAAYAAAAAAAAAAAAOAAcAAAABAAEAAAAOAAgAAAAAAAAAAAAOAAkAAAAAAAEAAAAOAAoAAAABAAAAAAAOAAsAAAAAAAEAAAAPAAAAAAAAAAEAAAAPAAEAAAAAAAAAAAAPAAIAAAAAAAAAAAAPAAMAAAAAAAAAAAAPAAQAAAABAAEAAAAPAAUAAAABAAEAAAAPAAYAAAABAAAAAAAPAAcAAAABAAAAAAAPAAgAAAAAAAAAAAAPAAkAAAABAAEAAAAPAAoAAAAAAAAAAAAPAAsAAAAAAAEAAAA=")
+tile_map_data = PackedByteArray("AAAAAAAAAAAAAAIAAAAAAAEAAAAAAAIAAAAAAAIAAAAAAAIAAAAAAAMAAAAAAAIAAAAAAAQAAAAAAAIAAAAAAAUAAAAAAAIAAAAAAAYAAAAAAAIAAAAAAAcAAAAAAAIAAAAAAAgAAAAAAAIAAAAAAAkAAAAAAAIAAAAAAAoAAAAAAAIAAAAAAAsAAAAAAAIAAAABAAAAAAAAAAIAAAABAAEAAAAAAAIAAAABAAIAAAAAAAIAAAABAAMAAAAAAAIAAAABAAQAAAAAAAIAAAABAAUAAAAAAAIAAAABAAYAAAAAAAIAAAABAAcAAAAAAAIAAAABAAgAAAAAAAIAAAABAAkAAAAAAAIAAAABAAoAAAAAAAIAAAABAAsAAAAAAAIAAAACAAAAAAAAAAIAAAACAAEAAAAAAAIAAAACAAIAAAAAAAIAAAACAAMAAAAAAAIAAAACAAQAAAAAAAIAAAACAAUAAAAAAAIAAAACAAYAAAAAAAIAAAACAAcAAAAAAAIAAAACAAgAAAAAAAIAAAACAAkAAAAAAAIAAAACAAoAAAAAAAIAAAACAAsAAAAAAAIAAAADAAAAAAAAAAIAAAADAAEAAAAAAAIAAAADAAIAAAAAAAIAAAADAAMAAAAAAAIAAAADAAQAAAAAAAIAAAADAAUAAAAAAAIAAAADAAYAAAAAAAIAAAADAAcAAAAAAAIAAAADAAgAAAAAAAIAAAADAAkAAAAAAAIAAAADAAoAAAAAAAIAAAADAAsAAAAAAAIAAAAEAAAAAAAAAAIAAAAEAAEAAAAAAAIAAAAEAAIAAAAAAAIAAAAEAAMAAAAAAAIAAAAEAAQAAAAAAAIAAAAEAAUAAAAAAAIAAAAEAAYAAAAAAAIAAAAEAAcAAAAAAAIAAAAEAAgAAAAAAAIAAAAEAAkAAAAAAAIAAAAEAAoAAAAAAAIAAAAEAAsAAAAAAAIAAAAFAAAAAAAAAAIAAAAFAAEAAAAAAAIAAAAFAAIAAAAAAAIAAAAFAAMAAAAAAAIAAAAFAAQAAAAAAAIAAAAFAAUAAAAAAAIAAAAFAAYAAAAAAAIAAAAFAAcAAAAAAAIAAAAFAAgAAAAAAAIAAAAFAAkAAAAAAAIAAAAFAAoAAAAAAAIAAAAFAAsAAAAAAAIAAAAGAAAAAAAAAAIAAAAGAAEAAAAAAAIAAAAGAAIAAAAAAAIAAAAGAAMAAAAAAAIAAAAGAAQAAAAAAAIAAAAGAAUAAAAAAAIAAAAGAAYAAAAAAAIAAAAGAAcAAAAAAAIAAAAGAAgAAAAAAAIAAAAGAAkAAAAAAAIAAAAGAAoAAAAAAAIAAAAGAAsAAAAAAAIAAAAHAAAAAAAAAAIAAAAHAAEAAAAAAAIAAAAHAAIAAAAAAAIAAAAHAAMAAAAAAAIAAAAHAAQAAAAAAAIAAAAHAAUAAAAAAAIAAAAHAAYAAAAAAAIAAAAHAAcAAAAAAAIAAAAHAAgAAAAAAAIAAAAHAAkAAAAAAAIAAAAHAAoAAAAAAAIAAAAHAAsAAAAAAAIAAAAIAAAAAAAAAAIAAAAIAAEAAAAAAAIAAAAIAAIAAAAAAAIAAAAIAAMAAAAAAAIAAAAIAAQAAAAAAAIAAAAIAAUAAAAAAAIAAAAIAAYAAAAAAAIAAAAIAAcAAAAAAAIAAAAIAAgAAAAAAAIAAAAIAAkAAAAAAAIAAAAIAAoAAAAAAAIAAAAIAAsAAAAAAAIAAAAJAAAAAAAAAAIAAAAJAAEAAAAAAAIAAAAJAAIAAAAAAAIAAAAJAAMAAAAAAAIAAAAJAAQAAAAAAAIAAAAJAAUAAAAAAAIAAAAJAAYAAAAAAAIAAAAJAAcAAAAAAAIAAAAJAAgAAAAAAAIAAAAJAAkAAAAAAAIAAAAJAAoAAAAAAAIAAAAJAAsAAAAAAAIAAAAKAAAAAAAAAAIAAAAKAAEAAAAAAAIAAAAKAAIAAAAAAAIAAAAKAAMAAAAAAAIAAAAKAAQAAAAAAAIAAAAKAAUAAAAAAAIAAAAKAAYAAAAAAAIAAAAKAAcAAAAAAAIAAAAKAAgAAAAAAAIAAAAKAAkAAAAAAAIAAAAKAAoAAAAAAAIAAAAKAAsAAAAAAAIAAAALAAAAAAAAAAIAAAALAAEAAAAAAAIAAAALAAIAAAAAAAIAAAALAAMAAAAAAAIAAAALAAQAAAAAAAIAAAALAAUAAAAAAAIAAAALAAYAAAAAAAIAAAALAAcAAAAAAAIAAAALAAgAAAAAAAIAAAALAAkAAAAAAAIAAAALAAoAAAAAAAIAAAALAAsAAAAAAAIAAAAMAAAAAAAAAAIAAAAMAAEAAAAAAAIAAAAMAAIAAAAAAAIAAAAMAAMAAAAAAAIAAAAMAAQAAAAAAAIAAAAMAAUAAAAAAAIAAAAMAAYAAAAAAAIAAAAMAAcAAAAAAAIAAAAMAAgAAAAAAAIAAAAMAAkAAAAAAAIAAAAMAAoAAAAAAAIAAAAMAAsAAAAAAAIAAAANAAAAAAAAAAIAAAANAAEAAAAAAAIAAAANAAIAAAAAAAIAAAANAAMAAAAAAAIAAAANAAQAAAAAAAIAAAANAAUAAAAAAAIAAAANAAYAAAAAAAIAAAANAAcAAAAAAAIAAAANAAgAAAAAAAIAAAANAAkAAAAAAAIAAAANAAoAAAAAAAIAAAANAAsAAAAAAAIAAAAOAAAAAAAAAAIAAAAOAAEAAAAAAAIAAAAOAAIAAAAAAAIAAAAOAAMAAAAAAAIAAAAOAAQAAAAAAAIAAAAOAAUAAAAAAAIAAAAOAAYAAAAAAAIAAAAOAAcAAAAAAAIAAAAOAAgAAAAAAAIAAAAOAAkAAAAAAAIAAAAOAAoAAAAAAAIAAAAOAAsAAAAAAAIAAAAPAAAAAAAAAAIAAAAPAAEAAAAAAAIAAAAPAAIAAAAAAAIAAAAPAAMAAAAAAAIAAAAPAAQAAAAAAAIAAAAPAAUAAAAAAAIAAAAPAAYAAAAAAAIAAAAPAAcAAAAAAAIAAAAPAAgAAAAAAAIAAAAPAAkAAAAAAAIAAAAPAAoAAAAAAAIAAAAPAAsAAAAAAAIAAAA=")
 tile_set = ExtResource("2_sl1kl")
 
 [node name="MapEditor" type="Control" parent="MapPanel" unique_id=1319323995]
 z_as_relative = false
 anchors_preset = 0
-script = ExtResource("5_f3g3v")
+script = ExtResource("9_81ico")
 
 [node name="Cursor" type="TileMapLayer" parent="MapPanel" unique_id=238586555]
 z_index = 999
@@ -257,6 +311,8 @@ tile_set = ExtResource("2_sl1kl")
 [connection signal="toggled" from="DebugPanel/SetSimpleCube" to="." method="_on_button_toggled" binds= [1]]
 [connection signal="toggled" from="DebugPanel/SetStickyCube" to="." method="_on_button_toggled" binds= [5]]
 [connection signal="toggled" from="DebugPanel/SetStaticCube" to="." method="_on_button_toggled" binds= [6]]
+[connection signal="toggled" from="DebugPanel/SetVerticalCube" to="." method="_on_button_toggled" binds= [7]]
+[connection signal="toggled" from="DebugPanel/SetHorizontalCube" to="." method="_on_button_toggled" binds= [8]]
 [connection signal="toggled" from="DebugPanel/SetWall" to="." method="_on_button_toggled" binds= [2]]
 [connection signal="toggled" from="DebugPanel/SetBox" to="." method="_on_button_toggled" binds= [3]]
 [connection signal="toggled" from="DebugPanel/SetFlag" to="." method="_on_button_toggled" binds= [4]]
