@@ -1,5 +1,15 @@
 extends Control
 
+func _ready() -> void:
+	#OS.request_permission("android.permission.READ_EXTERNAL_STORAGE")
+	#OS.request_permission("android.permission.WRITE_EXTERNAL_STORAGE")
+	
+	#if OS.has_feature("android"):
+	#	$DebugPanel/LeftClickButton.visible = true
+	#	$DebugPanel/RightClickButton.visible = true
+	
+	pass
+
 
 func _on_button_toggled(toggled_on: bool, type: int) -> void:
 	match type:
@@ -11,6 +21,9 @@ func _on_button_toggled(toggled_on: bool, type: int) -> void:
 		6: GameManager.now_setting = GameManager.CONTENT.CUBE_STATIC
 		7: GameManager.now_setting = GameManager.CONTENT.CUBE_V
 		8: GameManager.now_setting = GameManager.CONTENT.CUBE_H
+
+func _on_mouse_click_button_toggled(toggled_on: bool, is_left_click: bool) -> void:
+	GameManager.now_mouse_click_mode = is_left_click
 
 func _on_edit_mode_enable_toggled(toggled_on: bool) -> void:
 	$DebugPanel/EditModeEnable.text = "编辑模式：" + ("开" if toggled_on else "关")

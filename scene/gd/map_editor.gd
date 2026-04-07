@@ -22,6 +22,13 @@ func _input(event: InputEvent) -> void:
 		if event.is_action_released("mouse_right"):
 			is_right_pressing = false
 		
+		#if OS.has_feature("android"):
+		#	if not GameManager.now_mouse_click_mode:
+		#		is_right_pressing = is_left_pressing
+		#		is_left_pressing = false
+		#	else:
+		#		is_right_pressing = false
+		
 		var mouse_position = get_local_mouse_position()
 		var grid_mouse_position = mouse_position - OFFSET
 		
@@ -50,9 +57,11 @@ func _input(event: InputEvent) -> void:
 		
 			if event.is_action_pressed("mouse_left"):
 				GridManager.update_cube(mouse_coord, 1)
+				#if OS.has_feature("android") and not GameManager.now_mouse_click_mode:
+				#	GridManager.update_cube(mouse_coord, -1)
 			if event.is_action_pressed("mouse_right"):
 				GridManager.update_cube(mouse_coord, -1)
-
+			
 
 func create(what: GameManager.CONTENT, coord: Vector2i):
 	if what == GameManager.CONTENT.HOLE:

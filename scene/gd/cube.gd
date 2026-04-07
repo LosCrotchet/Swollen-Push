@@ -25,7 +25,19 @@ func _ready() -> void:
 			$Outlook.region_rect = Rect2(192, 192 if GameManager.is_dark_mode else 64, 64, 64)
 
 func has_point(pos: Vector2, set_radius: float = radius):
+	if type == GameManager.CONTENT.CUBE_V:
+		return Rect2(coordinate-Vector2(0, set_radius-1), Vector2(1, 2*set_radius-1)).has_point(pos)
+	if type == GameManager.CONTENT.CUBE_H:
+		return Rect2(coordinate-Vector2(set_radius-1, 0), Vector2(2*set_radius-1, 1)).has_point(pos)
 	return Rect2(coordinate-Vector2(set_radius-1, set_radius-1), Vector2(2*set_radius-1, 2*set_radius-1)).has_point(pos)
+
+func get_rect(to_pos: Vector2 = coordinate, to_radius: float = radius):
+	if type == GameManager.CONTENT.CUBE_V:
+		return Rect2(to_pos-Vector2(0, to_radius-1), Vector2(1, 2*to_radius-1))
+	if type == GameManager.CONTENT.CUBE_H:
+		return Rect2(to_pos-Vector2(to_radius-1, 0), Vector2(2*to_radius-1, 1))
+	return Rect2(to_pos-Vector2(to_radius-1, to_radius-1), Vector2(2*to_radius-1, 2*to_radius-1))
+
 
 func _physics_process(delta: float) -> void:
 	match statue:
@@ -39,6 +51,10 @@ func _physics_process(delta: float) -> void:
 func set_radius(to_radius: float):
 	radius = to_radius
 	var to_scale = Vector2.ONE * ((radius - 1) * 2 + 1)
+	if type == GameManager.CONTENT.CUBE_V:
+		to_scale.x = 1
+	if type == GameManager.CONTENT.CUBE_H:
+		to_scale.y = 1
 	if cube_scale_tween:
 		cube_scale_tween.kill()
 	cube_scale_tween = get_tree().create_tween()

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Swollen Push"
-config/version="0.2.1.1"
+config/version="0.2.2"
 run/main_scene="res://scene/game_scene.tscn"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
@@ -76,10 +76,6 @@ interact_2={
 , Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":-1,"axis":4,"axis_value":1.0,"script":null)
 ]
 }
-
-[input_devices]
-
-pointing/android/enable_long_press_as_right_click=true
 
 [physics]
 

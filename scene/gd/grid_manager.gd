@@ -37,16 +37,16 @@ func calculate_movement(initial_moves: Dictionary, ignore_objects: Array = []) -
 	while queue.size() > 0:
 		var curr = queue.pop_front()
 		var dir = moving_objects[curr]
-		var curr_r = curr.radius if curr.is_in_group("cubes") else 1
-		var curr_rect = get_grid_rect(curr.coordinate, curr_r)
-		var next_rect = get_grid_rect(curr.coordinate + dir, curr_r)
+		#var curr_r = curr.radius if curr.is_in_group("cubes") else 1
+		var curr_rect = curr.get_rect()
+		var next_rect = curr.get_rect(curr.coordinate + dir)
 		
 		for other in get_tree().get_nodes_in_group("Objects"):
 			if other == curr or other in ignore_objects:
 				continue
 			
-			var other_r = other.radius if other.is_in_group("cubes") else 1
-			var other_rect = get_grid_rect(other.coordinate, other_r)
+			#var other_r = other.radius if other.is_in_group("cubes") else 1
+			var other_rect = other.get_rect()
 			
 			var is_pushed = next_rect.intersects(other_rect)
 			
@@ -89,8 +89,8 @@ func calculate_movement(initial_moves: Dictionary, ignore_objects: Array = []) -
 	# 2. 验证阶段：所有的终点是否合法
 	var target_rects = []
 	for obj in moving_objects:
-		var r = obj.radius if obj.is_in_group("cubes") else 1
-		var final_rect = get_grid_rect(obj.coordinate + moving_objects[obj], r)
+		#var r = obj.radius if obj.is_in_group("cubes") else 1
+		var final_rect = obj.get_rect(obj.coordinate + moving_objects[obj])
 		
 		# 越界验证
 		if final_rect.position.x < 0 or final_rect.position.y < 0 or final_rect.end.x > GameManager.WIDTH or final_rect.end.y > GameManager.HEIGHT:
@@ -106,8 +106,8 @@ func calculate_movement(initial_moves: Dictionary, ignore_objects: Array = []) -
 		for other in get_tree().get_nodes_in_group("Objects"):
 			if other in moving_objects or other in ignore_objects:
 				continue
-			var other_r = other.radius if other.is_in_group("cubes") else 1
-			var other_rect = get_grid_rect(other.coordinate, other_r)
+			#var other_r = other.radius if other.is_in_group("cubes") else 1
+			var other_rect = other.get_rect()
 			if target_rects[i]["rect"].intersects(other_rect):
 				return {} # 运动中的物体终点撞到了完全没有运动的物体
 				
@@ -133,7 +133,7 @@ func update_cube(coord: Vector2i, delta: int = 1):
 		return false
 	
 	# 1. 验证膨胀自身不越界
-	var new_rect = get_grid_rect(facing_cube.coordinate, to_radius)
+	var new_rect = facing_cube.get_rect(facing_cube.coordinate, to_radius)
 	if new_rect.position.x < 0 or new_rect.position.y < 0 or new_rect.end.x > GameManager.WIDTH or new_rect.end.y > GameManager.HEIGHT:
 		GameManager.shake(facing_cube)
 		return false
@@ -145,8 +145,8 @@ func update_cube(coord: Vector2i, delta: int = 1):
 		for target in get_tree().get_nodes_in_group("Objects"):
 			if target == facing_cube: continue
 			
-			var target_r = target.radius if target.is_in_group("cubes") else 1
-			var target_rect = get_grid_rect(target.coordinate, target_r)
+			#var target_r = target.radius if target.is_in_group("cubes") else 1
+			var target_rect = target.get_rect()
 			
 			if new_rect.intersects(target_rect):
 				# 质量或类型特判
@@ -161,12 +161,12 @@ func update_cube(coord: Vector2i, delta: int = 1):
 
 	# ================= 收缩产生的内拉力 (Delta < 0) =================
 	elif delta < 0:
-		var old_rect = get_grid_rect(facing_cube.coordinate, origin_radius)
+		var old_rect = facing_cube.get_rect(facing_cube.coordinate, origin_radius)
 		for target in get_tree().get_nodes_in_group("Objects"):
 			if target == facing_cube: continue
 			
-			var target_r = target.radius if target.is_in_group("cubes") else 1
-			var target_rect = get_grid_rect(target.coordinate, target_r)
+			#var target_r = target.radius if target.is_in_group("cubes") else 1
+			var target_rect = target.get_rect()
 			
 			if facing_cube.type != GameManager.CONTENT.CUBE_STICKY and target.type != GameManager.CONTENT.CUBE_STICKY:
 				continue
@@ -189,8 +189,8 @@ func update_cube(coord: Vector2i, delta: int = 1):
 			return false
 		# 额外检查：由于中心方块膨胀了，移动后的物体会不会撞到膨胀后新体积的中心方块
 		for m_obj in moves:
-			var r = m_obj.radius if m_obj.is_in_group("cubes") else 1
-			var final_rect = get_grid_rect(m_obj.coordinate + moves[m_obj], r)
+			#var r = m_obj.radius if m_obj.is_in_group("cubes") else 1
+			var final_rect = m_obj.get_rect(m_obj.coordinate + moves[m_obj])
 			if final_rect.intersects(new_rect):
 				GameManager.shake(facing_cube)
 				return false
@@ -199,8 +199,8 @@ func update_cube(coord: Vector2i, delta: int = 1):
 	for target in get_tree().get_nodes_in_group("Objects"):
 		if target == facing_cube: continue
 		if moves.has(target): continue
-		var target_r = target.radius if target.is_in_group("cubes") else 1
-		var target_rect = get_grid_rect(target.coordinate, target_r)
+		#var target_r = target.radius if target.is_in_group("cubes") else 1
+		var target_rect = target.get_rect()
 		if new_rect.intersects(target_rect):
 			GameManager.shake(facing_cube)
 			return false

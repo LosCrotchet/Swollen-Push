@@ -18,3 +18,6 @@ func move_to(to_coordinate: Vector2):
 	pos_tween.set_ease(Tween.EASE_OUT)
 	pos_tween.set_trans(Tween.TRANS_CUBIC)
 	pos_tween.tween_property(self, "position", to_position, GameManager.TWEEN_TIME)
+
+func get_rect():
+	return Rect2(coordinate, Vector2(1, 1))

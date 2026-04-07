@@ -41,18 +41,18 @@ func _update_cube_pattern():
 	
 	var center = null
 	for item in get_tree().get_nodes_in_group("cubes"):
-		var cube_rect = get_grid_rect(item.coordinate, item.radius)
+		var cube_rect = item.get_rect()
 		if cube_rect.has_point(mouse_coord):
 			center = item
 			item.statue = GameManager.STATUE.INTERACTING
 			break
 	
 	if center:
-		var cube_rect = get_grid_rect(center.coordinate, center.radius+1)
+		var cube_rect = center.get_rect(center.coordinate, center.radius+1)
 		for item in get_tree().get_nodes_in_group("cubes"):
 			if item == center:
 				continue
-			var item_rect = get_grid_rect(item.coordinate, item.radius)
+			var item_rect = item.get_rect()
 			if cube_rect.intersects(item_rect):
 				item.statue = GameManager.STATUE.PASSIVE
 
@@ -76,8 +76,3 @@ func _update_cursor():
 
 func _on_reset_button_pressed() -> void:
 	cursor.clear()
-
-# 新增辅助函数：获取物体在网格上占据的包围盒
-func get_grid_rect(coord: Vector2, radius: int = 1) -> Rect2:
-	# 根据你原有的 has_point 逻辑，恰好可以转换为标准的 Rect2
-	return Rect2(coord - Vector2(radius - 1, radius - 1), Vector2(2 * radius - 1, 2 * radius - 1))

@@ -3,6 +3,7 @@ extends Node
 var is_editing: bool = true
 var now_setting: CONTENT = CONTENT.CUBE_SIMPLE
 var is_dark_mode: bool = true
+var now_mouse_click_mode: bool = true
 
 const TWEEN_TIME := 0.1
 const HEIGHT: int = 12

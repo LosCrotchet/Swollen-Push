@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://cmvphyd8qyd0k" path="res://scene/gd/save_and_load.gd" id="3_juocg"]
 [ext_resource type="Script" uid="uid://cjvpmc55aycst" path="res://scene/gd/game_manager.gd" id="3_w3nls"]
 [ext_resource type="Theme" uid="uid://0aif3jm84300" path="res://assets/set_content_button.tres" id="5_w3nls"]
+[ext_resource type="ButtonGroup" uid="uid://b4ue528j4qrmc" path="res://assets/mouse_click_button_group.tres" id="6_lonp8"]
 [ext_resource type="Script" uid="uid://d0d7cu2gytslk" path="res://scene/gd/map_panel.gd" id="6_x8u7y"]
 [ext_resource type="Script" uid="uid://ch5jbwb6lk6ix" path="res://scene/gd/grid_manager.gd" id="7_lonp8"]
 [ext_resource type="Script" uid="uid://deolo8ggam6u0" path="res://scene/gd/map_editor.gd" id="9_81ico"]
@@ -70,7 +71,7 @@ offset_left = 256.0
 offset_top = 101.0
 offset_right = 448.0
 offset_bottom = 133.0
-text = "V0.2.1.1 - develop"
+text = "V0.2.2 - develop"
 label_settings = SubResource("LabelSettings_juocg")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -95,7 +96,7 @@ offset_bottom = 832.0
 layout_mode = 0
 offset_left = 32.0
 offset_top = 512.0
-offset_right = 384.0
+offset_right = 288.0
 offset_bottom = 704.0
 text = "鼠标左键：膨胀方块
 鼠标右键：收缩方块
@@ -153,6 +154,31 @@ offset_right = 256.0
 offset_bottom = 448.0
 theme = ExtResource("5_w3nls")
 text = "加载"
+
+[node name="LeftClickButton" type="Button" parent="DebugPanel" unique_id=725108494]
+visible = false
+layout_mode = 0
+offset_left = 288.0
+offset_top = 480.0
+offset_right = 384.0
+offset_bottom = 576.0
+theme = ExtResource("5_w3nls")
+toggle_mode = true
+button_pressed = true
+button_group = ExtResource("6_lonp8")
+text = "左键"
+
+[node name="RightClickButton" type="Button" parent="DebugPanel" unique_id=1261655201]
+visible = false
+layout_mode = 0
+offset_left = 288.0
+offset_top = 608.0
+offset_right = 384.0
+offset_bottom = 704.0
+theme = ExtResource("5_w3nls")
+toggle_mode = true
+button_group = ExtResource("6_lonp8")
+text = "右键"
 
 [node name="EditModeEnable" type="Button" parent="DebugPanel" unique_id=1900910796]
 layout_mode = 0
@@ -307,6 +333,8 @@ tile_set = ExtResource("2_sl1kl")
 [connection signal="pressed" from="DebugPanel/ResetButton" to="MapPanel/MapEditor" method="_on_reset_button_pressed"]
 [connection signal="pressed" from="DebugPanel/SaveButton" to="SaveAndLoad" method="_on_save_button_pressed"]
 [connection signal="pressed" from="DebugPanel/LoadButton" to="SaveAndLoad" method="_on_load_button_pressed"]
+[connection signal="toggled" from="DebugPanel/LeftClickButton" to="." method="_on_mouse_click_button_toggled" binds= [true]]
+[connection signal="toggled" from="DebugPanel/RightClickButton" to="." method="_on_mouse_click_button_toggled" binds= [false]]
 [connection signal="toggled" from="DebugPanel/EditModeEnable" to="." method="_on_edit_mode_enable_toggled"]
 [connection signal="toggled" from="DebugPanel/SetSimpleCube" to="." method="_on_button_toggled" binds= [1]]
 [connection signal="toggled" from="DebugPanel/SetStickyCube" to="." method="_on_button_toggled" binds= [5]]
