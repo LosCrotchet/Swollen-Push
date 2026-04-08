@@ -63,16 +63,14 @@ func _input(event: InputEvent) -> void:
 				GridManager.update_cube(mouse_coord, -1)
 			
 
-func create(what: GameManager.CONTENT, coord: Vector2i):
+func create(what: GameManager.CONTENT, coord: Vector2i, radius: int = 1):
 	if what == GameManager.CONTENT.HOLE:
 		for item in get_tree().get_nodes_in_group("props"):
-			if item.coordinate == Vector2(coord):
+			if item.coordinate == coord:
 				return
 	else:
 		for item in get_tree().get_nodes_in_group("Objects"):
-			if item.is_in_group("cubes") and item.has_point(coord):
-				return
-			if item.coordinate == Vector2(coord):
+			if item.get_rect().has_point(coord):
 				return
 	
 	match what:
@@ -81,32 +79,25 @@ func create(what: GameManager.CONTENT, coord: Vector2i):
 		GameManager.CONTENT.CUBE_STATIC,\
 		GameManager.CONTENT.CUBE_V,\
 		GameManager.CONTENT.CUBE_H:
-			#GridManager.update_map(coord, _create_cube(coord, what))
-			_create_cube(coord, what)
+			_create_cube(coord, radius, what)
 		GameManager.CONTENT.BOX:
-			#GridManager.update_map(coord, _create_box(coord))
 			_create_box(coord)
 		GameManager.CONTENT.WALL:
-			#GridManager.update_map(coord, _create_wall(coord))
 			_create_wall(coord)
 		GameManager.CONTENT.HOLE:
-			#GridManager.update_props(coord, _create_hole(coord))
 			_create_hole(coord)
 
-func _create_cube(cube_coord: Vector2i, cube_type: GameManager.CONTENT = GameManager.CONTENT.CUBE_SIMPLE):
-	
+func _create_cube(cube_coord: Vector2i, set_radius: int, cube_type: GameManager.CONTENT):
 	for item in get_tree().get_nodes_in_group("cubes"):
-		if item.has_point(cube_coord):
+		if item.get_rect().has_point(cube_coord):
 			item.remove_from_group("cubes")
 			item.remove_from_group("Objects")
 			item.queue_free()
 			return
 	
-	var tmp_cube = CUBE.instantiate()
-	tmp_cube.position = Vector2i(64, 64) + cube_coord * 64
-	tmp_cube.coordinate = cube_coord
-	tmp_cube.type = cube_type
 	
+	var tmp_cube = Cube.new(cube_coord, 100, cube_type, set_radius)
+	#var tmp_cube = CUBE.instantiate()
 	add_child(tmp_cube)
 	
 	tmp_cube.add_to_group("Objects")
@@ -115,22 +106,18 @@ func _create_cube(cube_coord: Vector2i, cube_type: GameManager.CONTENT = GameMan
 	return tmp_cube
 
 func _create_box(box_coord: Vector2i):
-	
 	for item in get_tree().get_nodes_in_group("cubes"):
-		if item.has_point(box_coord):
+		if item.get_rect().has_point(box_coord):
 			return
 
 	for item in get_tree().get_nodes_in_group("boxes"):
-		if item.coordinate == Vector2(box_coord):
+		if item.coordinate == box_coord:
 			item.remove_from_group("boxes")
 			item.remove_from_group("Objects")
 			item.queue_free()
 			return
 	
-	var tmp_box = BOX.instantiate()
-	tmp_box.position = Vector2i(64, 64) + box_coord * 64
-	tmp_box.coordinate = box_coord
-	
+	var tmp_box = Box.new(box_coord, 10, GameManager.CONTENT.BOX)
 	add_child(tmp_box)
 	
 	tmp_box.add_to_group("Objects")
@@ -139,22 +126,18 @@ func _create_box(box_coord: Vector2i):
 	return tmp_box
 
 func _create_wall(wall_coord: Vector2i):
-	
 	for item in get_tree().get_nodes_in_group("cubes"):
-		if item.has_point(wall_coord):
+		if item.get_rect().has_point(wall_coord):
 			return
 
 	for item in get_tree().get_nodes_in_group("walls"):
-		if item.coordinate == Vector2(wall_coord):
+		if item.coordinate == wall_coord:
 			item.remove_from_group("walls")
 			item.remove_from_group("Objects")
 			item.queue_free()
 			return
 	
-	var tmp_wall = WALL.instantiate()
-	tmp_wall.position = Vector2i(64, 64) + wall_coord * 64
-	tmp_wall.coordinate = wall_coord
-	
+	var tmp_wall = Wall.new(wall_coord, 0x7fffffff, GameManager.CONTENT.WALL)
 	add_child(tmp_wall)
 	
 	tmp_wall.add_to_group("Objects")
@@ -164,16 +147,13 @@ func _create_wall(wall_coord: Vector2i):
 
 func _create_hole(hole_coord: Vector2i):
 	for item in get_tree().get_nodes_in_group("props"):
-		if item.coordinate == Vector2(hole_coord):
+		if item.coordinate == hole_coord:
 			item.remove_from_group("props")
 			item.queue_free()
 			return
 	
-	var tmp_hole = HOLE.instantiate()
-	tmp_hole.position = Vector2i(64, 64) + hole_coord * 64
-	tmp_hole.coordinate = hole_coord
+	var tmp_hole = Hole.new(hole_coord, 0, GameManager.CONTENT.HOLE)
 	tmp_hole.z_index = -10
-	
 	add_child(tmp_hole)
 	
 	tmp_hole.add_to_group("props")
@@ -182,24 +162,17 @@ func _create_hole(hole_coord: Vector2i):
 
 func delete(coord: Vector2i):
 	for item in get_tree().get_nodes_in_group("Objects"):
-		if item.is_in_group("cubes") and item.has_point(coord):
+		if item.get_rect().has_point(coord):
 			item.remove_from_group("cubes")
-			item.remove_from_group("Objects")
-			item.queue_free()
-			#GridManager.update_map(coord)
-			return
-		if item.coordinate == Vector2(coord):
 			item.remove_from_group("boxes")
 			item.remove_from_group("walls")
 			item.remove_from_group("Objects")
 			item.queue_free()
-			#GridManager.update_map(coord)
 			return
 	for item in get_tree().get_nodes_in_group("props"):
-		if item.coordinate == Vector2(coord):
+		if item.coordinate == coord:
 			item.remove_from_group("props")
 			item.queue_free()
-			#GridManager.update_props(coord)
 			return
 
 func _on_reset_button_pressed() -> void:

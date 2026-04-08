@@ -19,11 +19,11 @@ enum CONTENT{
 	CUBE_SIMPLE,
 	CUBE_STICKY,
 	CUBE_STATIC,
-	CUBE_V,
-	CUBE_H,
 	WALL,
 	BOX,
-	HOLE
+	HOLE,
+	CUBE_V,
+	CUBE_H
 }
 
 enum DIRECTION{
@@ -36,12 +36,11 @@ enum DIRECTION{
 func shake(obj):
 	if obj:
 		var shake_tween = get_tree().create_tween()
-		var origin = obj.position
 		
-		shake_tween.tween_method(_random_offset.bind(obj, origin), 10, 0, 0.6)
+		shake_tween.tween_method(_random_offset.bind(obj, obj.position), 10, 0, 0.6)
 		shake_tween.tween_callback(func ():
 			if obj:
-				obj.position = (obj.coordinate + Vector2(1, 1)) * 64)
+				obj.position = (Vector2(obj.coordinate) + Vector2(1, 1)) * 64)
 
 func _random_offset(radius: float, obj: Object, origin: Vector2):
 	if obj:

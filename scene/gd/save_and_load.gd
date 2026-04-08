@@ -45,12 +45,9 @@ func save_level():
 			"type": item.type,
 			"x": item.coordinate.x,
 			"y": item.coordinate.y,
-			"mass": item.mass
+			"mass": item.mass,
+			"radius": item.radius
 		}
-		
-		# 如果是方块，还需要额外保存半径
-		if item.is_in_group("cubes"):
-			obj_data["radius"] = item.radius
 			
 		save_dict["objects"].append(obj_data)
 		
@@ -59,7 +56,9 @@ func save_level():
 		save_dict["props"].append({
 			"type": item.type,
 			"x": item.coordinate.x,
-			"y": item.coordinate.y
+			"y": item.coordinate.y,
+			"mass": item.mass,
+			"radius": item.radius
 		})
 		
 	# 3. 写入 JSON 文件
@@ -93,7 +92,7 @@ func load_level():
 		
 	var data = json.data
 	
-	# 1. 清理当前场上除了老鼠以外的所有物体
+	# 1. 清理当前场上所有物体
 	for item in get_tree().get_nodes_in_group("props"):
 		item.remove_from_group("props")
 		item.queue_free()
@@ -108,8 +107,9 @@ func load_level():
 	for obj_data in data.get("objects", []):
 		var coord = Vector2(obj_data["x"], obj_data["y"])
 		var type = obj_data["type"]
+		var radius = obj_data.get("radius", 1)
 		
-		map_editor.create(type, coord)
+		map_editor.create(type, coord, radius)
 
 	# 4. 还原 Props (洞/标记)
 	for prop_data in data.get("props", []):

@@ -326,7 +326,7 @@ script = ExtResource("9_81ico")
 z_index = 999
 z_as_relative = false
 position = Vector2(32, 32)
-tile_map_data = PackedByteArray("AAAEAAIAAAABAAQAAAA=")
+tile_map_data = PackedByteArray("AAAEAAIAAAAEAAAAAAA=")
 tile_set = ExtResource("2_sl1kl")
 
 [connection signal="pressed" from="DebugPanel/ResetButton" to="MapPanel" method="_on_reset_button_pressed"]

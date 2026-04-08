@@ -71,7 +71,7 @@ func _update_cursor():
 	var grid_y = int(grid_mouse_position.y) / 64
 	
 	cursor.clear()
-	cursor.set_cell(Vector2i(grid_x, grid_y), 0, Vector2i(1, 4))
+	cursor.set_cell(Vector2i(grid_x, grid_y), 0, Vector2i(4, 0))
 
 
 func _on_reset_button_pressed() -> void:

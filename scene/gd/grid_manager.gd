@@ -1,28 +1,9 @@
 extends Node
 
-# 辅助函数：获取物体在网格上占据的包围盒
-func get_grid_rect(coord: Vector2, radius: int = 1) -> Rect2:
-	return Rect2(coord - Vector2(radius - 1, radius - 1), Vector2(2 * radius - 1, 2 * radius - 1))
-
-# 辅助函数：防止数组越界
-func is_in_bounds(coord: Vector2i) -> bool:
-	return coord.x >= 0 and coord.y >= 0 and coord.x < GameManager.WIDTH and coord.y < GameManager.HEIGHT
-
-# 辅助函数：计算推/拉方向
-func get_push_dir(from_coord: Vector2, to_coord: Vector2) -> Vector2:
-	var dx = to_coord.x - from_coord.x
-	var dy = to_coord.y - from_coord.y
-	if abs(dx) > abs(dy):
-		return Vector2(sign(dx), 0)
-	elif abs(dy) > abs(dx):
-		return Vector2(0, sign(dy))
-	else:
-		return Vector2(sign(dx), sign(dy))
-
 # ==========================================
 # 核心引擎：计算所有连带运动并验证 (BFS 算法)
 # 能够正确处理黏性方块的无限连带
-# 返回字典 { object: Vector2(dir) }，如果失败则返回空字典 {}
+# 返回字典 { object: Vector2i(dir) }，如果失败则返回空字典 {}
 # ==========================================
 func calculate_movement(initial_moves: Dictionary, ignore_objects: Array = []) -> Dictionary:
 	var moving_objects = {}
@@ -35,7 +16,7 @@ func calculate_movement(initial_moves: Dictionary, ignore_objects: Array = []) -
 
 	# 1. 广度优先遍历所有受波及的物体
 	while queue.size() > 0:
-		var curr = queue.pop_front()
+		var curr: CubeUnit = queue.pop_front()
 		var dir = moving_objects[curr]
 		#var curr_r = curr.radius if curr.is_in_group("cubes") else 1
 		var curr_rect = curr.get_rect()
@@ -59,16 +40,13 @@ func calculate_movement(initial_moves: Dictionary, ignore_objects: Array = []) -
 			
 			if not is_pushed:
 				# 判断当前是否贴在一起（将包围盒上下左右各扩张一格来模拟相邻检测）
-				var expanded_curr = Rect2(curr_rect.position - Vector2(1, 1), curr_rect.size + Vector2(2, 2))
+				var expanded_curr = Rect2i(curr_rect.position - Vector2i(1, 1), curr_rect.size + Vector2i(2, 2))
 				if expanded_curr.intersects(other_rect) and not curr_rect.intersects(other_rect):
-					var curr_sticky = (curr.is_in_group("cubes") and curr.type == GameManager.CONTENT.CUBE_STICKY)
-					var other_sticky = (other.is_in_group("cubes") and other.type == GameManager.CONTENT.CUBE_STICKY)
-					if curr_sticky or other_sticky:
+					if curr.type == GameManager.CONTENT.CUBE_STICKY or other.type == GameManager.CONTENT.CUBE_STICKY:
 						is_stuck = true
 						
 			if is_pushed or is_stuck:
-				var is_immovable = (other.type == GameManager.CONTENT.WALL or other.type == GameManager.CONTENT.CUBE_STATIC)
-				if is_immovable:
+				if (other.type == GameManager.CONTENT.WALL or other.type == GameManager.CONTENT.CUBE_STATIC):
 					if is_pushed:
 						return {} # 推不动死物，整个运动崩溃并失败
 					else:
@@ -114,12 +92,12 @@ func calculate_movement(initial_moves: Dictionary, ignore_objects: Array = []) -
 	return moving_objects
 
 # ==========================================
-# 核心互动：更新球体与膨胀检测
+# 核心互动：更新方块与膨胀检测
 # ==========================================
 func update_cube(coord: Vector2i, delta: int = 1):
 	var facing_cube = null
 	for item in get_tree().get_nodes_in_group("cubes"):
-		if item.has_point(coord):
+		if item.get_rect().has_point(coord):
 			facing_cube = item
 			break
 	if not facing_cube:
@@ -157,7 +135,7 @@ func update_cube(coord: Vector2i, delta: int = 1):
 					GameManager.shake(facing_cube)
 					return false
 				# 计算被推开的方向
-				initial_moves[target] = get_push_dir(facing_cube.coordinate, target.coordinate)
+				initial_moves[target] = target.get_push_dir(facing_cube.coordinate)
 
 	# ================= 收缩产生的内拉力 (Delta < 0) =================
 	elif delta < 0:
@@ -171,14 +149,14 @@ func update_cube(coord: Vector2i, delta: int = 1):
 			if facing_cube.type != GameManager.CONTENT.CUBE_STICKY and target.type != GameManager.CONTENT.CUBE_STICKY:
 				continue
 				
-			var expanded_old = Rect2(old_rect.position - Vector2(1,1), old_rect.size + Vector2(2,2))
+			var expanded_old = Rect2(old_rect.position - Vector2i(1,1), old_rect.size + Vector2i(2,2))
 			if expanded_old.intersects(target_rect) and not old_rect.intersects(target_rect):
 				if target.type == GameManager.CONTENT.CUBE_STATIC or target.type == GameManager.CONTENT.WALL:
 					continue
 				if facing_cube.mass < target.mass:
 					continue
 				# 拉扯方向是从目标指向中心方块
-				initial_moves[target] = get_push_dir(target.coordinate, facing_cube.coordinate)
+				initial_moves[target] = -target.get_push_dir(facing_cube.coordinate)
 
 	# 计算所有的后续连锁反应
 	var moves = {}
@@ -217,7 +195,7 @@ func update_cube(coord: Vector2i, delta: int = 1):
 # 替换原 attemp_move：外部调用推箱子接口
 # 包含验证并直接执行除 obj 本身外的所有附带运动
 # ==========================================
-func attemp_move(obj, dir: Vector2) -> bool:
+func attemp_move(obj, dir: Vector2i) -> bool:
 	var moves = calculate_movement({obj: dir})
 	if moves.is_empty():
 		return false
