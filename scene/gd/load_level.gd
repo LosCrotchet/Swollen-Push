@@ -18,12 +18,7 @@ func log_print(s: String):
 # 存档路径获取逻辑 (兼容编辑器与导出的 exe)
 # ==========================================
 func get_save_path(level_name: String) -> String:
-	if OS.has_feature("editor"):
-		# 在编辑器中运行，保存在项目根目录的真实物理路径下
-		return ProjectSettings.globalize_path("res://levels/%s" % level_name)
-	else:
-		# 导出为 exe 后，保存在 exe 所在的同级目录下
-		return OS.get_executable_path().get_base_dir().path_join("levels/%s" % level_name)
+	return "res://levels/%s" % level_name
 
 func dir_contents(path):
 	var dir = DirAccess.open(path)

@@ -3,7 +3,6 @@ class_name Cube
 
 @export var statue: GameManager.STATUE = GameManager.STATUE.NORMAL	# 用来提示当前状态，仅做外观变化
 
-var is_exploding: bool = false
 var cube_scale_tween: Tween
 
 func _ready() -> void:

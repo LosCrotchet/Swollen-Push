@@ -6,6 +6,8 @@ class_name CubeUnit extends Node2D
 @export var type: GameManager.CONTENT
 @export var radius: int
 
+var is_exploding: bool = false
+
 var facing: Vector2i = Vector2i.DOWN
 var _pos_tween: Tween
 var _offset := Vector2i(32, 32)

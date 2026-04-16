@@ -70,7 +70,7 @@ offset_left = 256.0
 offset_top = 101.0
 offset_right = 448.0
 offset_bottom = 133.0
-text = "V0.2.2 - alpha"
+text = "V0.3.0 - alpha"
 label_settings = SubResource("LabelSettings_juocg")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -86,14 +86,24 @@ log = NodePath("../DebugPanel/Log")
 base_tilemap = NodePath("../MapPanel/Base")
 cursor_tilemap = NodePath("../MapPanel/Cursor")
 
+[node name="GameButton" type="Button" parent="." unique_id=592987473]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 800.0
+offset_right = 192.0
+offset_bottom = 864.0
+theme = ExtResource("5_2a6jk")
+text = "回到游戏界面"
+
 [node name="DebugPanel" type="Panel" parent="." unique_id=2111042467]
 layout_mode = 0
 offset_left = 32.0
 offset_top = 128.0
 offset_right = 448.0
-offset_bottom = 832.0
+offset_bottom = 672.0
 
 [node name="Hint" type="Label" parent="DebugPanel" unique_id=1118971398]
+visible = false
 layout_mode = 0
 offset_left = 32.0
 offset_top = 512.0
@@ -155,16 +165,6 @@ offset_right = 256.0
 offset_bottom = 448.0
 theme = ExtResource("5_2a6jk")
 text = "加载"
-
-[node name="GameButton" type="Button" parent="DebugPanel" unique_id=592987473]
-layout_mode = 0
-offset_left = 288.0
-offset_top = 384.0
-offset_right = 416.0
-offset_bottom = 448.0
-theme = ExtResource("5_2a6jk")
-text = "切换至
-游戏界面"
 
 [node name="LeftClickButton" type="Button" parent="DebugPanel" unique_id=725108494]
 visible = false
@@ -319,11 +319,11 @@ z_index = 999
 tile_map_data = PackedByteArray("AAAEAAIAAAAEAAAAAAA=")
 tile_set = ExtResource("10_wf6om")
 
+[connection signal="pressed" from="GameButton" to="." method="_on_game_button_pressed"]
 [connection signal="pressed" from="DebugPanel/ResetButton" to="MapPanel" method="_on_reset_button_pressed"]
 [connection signal="pressed" from="DebugPanel/ResetButton" to="MapPanel/MapEditor" method="_on_reset_button_pressed"]
 [connection signal="pressed" from="DebugPanel/SaveButton" to="SaveAndLoad" method="_on_save_button_pressed"]
 [connection signal="pressed" from="DebugPanel/LoadButton" to="SaveAndLoad" method="_on_load_button_pressed"]
-[connection signal="pressed" from="DebugPanel/GameButton" to="." method="_on_game_button_pressed"]
 [connection signal="toggled" from="DebugPanel/LeftClickButton" to="." method="_on_mouse_click_button_toggled" binds= [true]]
 [connection signal="toggled" from="DebugPanel/RightClickButton" to="." method="_on_mouse_click_button_toggled" binds= [false]]
 [connection signal="toggled" from="DebugPanel/EditModeEnable" to="." method="_on_edit_mode_enable_toggled"]

@@ -215,4 +215,4 @@ func load_level():
 		var coord = Vector2(prop_data["x"], prop_data["y"])
 		map_editor.create(GameManager.CONTENT.HOLE, coord)
 		
-	log_print("地图读取完成！(不规则地图已生成并居中)")
+	log_print("地图读取完成！")
