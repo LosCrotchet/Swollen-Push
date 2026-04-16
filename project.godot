@@ -11,8 +11,8 @@ config_version=5
 [application]
 
 config/name="Swollen Push"
-config/version="0.2.2"
-run/main_scene="res://scene/game_scene.tscn"
+config/version="0.3.0"
+run/main_scene="uid://bdpn31pic2maq"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 

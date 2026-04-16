@@ -1,12 +1,6 @@
 extends Control
 
-const TEXTURES = preload("res://assets/textures.tres")
-const CUBE = preload("res://scene/cube.tscn")
-const BOX = preload("res://scene/box.tscn")
-const WALL = preload("res://scene/wall.tscn")
-const HOLE = preload("res://scene/hole.tscn")
-
-const OFFSET = Vector2(32, 32)
+const OFFSET = Vector2.ZERO
 
 var is_left_pressing: bool = false
 var is_right_pressing: bool = false
@@ -67,25 +61,26 @@ func create(what: GameManager.CONTENT, coord: Vector2i, radius: int = 1):
 	if what == GameManager.CONTENT.HOLE:
 		for item in get_tree().get_nodes_in_group("props"):
 			if item.coordinate == coord:
-				return
+				return null
 	else:
 		for item in get_tree().get_nodes_in_group("Objects"):
 			if item.get_rect().has_point(coord):
-				return
+				return null
 	
 	match what:
 		GameManager.CONTENT.CUBE_SIMPLE,\
 		GameManager.CONTENT.CUBE_STICKY,\
 		GameManager.CONTENT.CUBE_STATIC,\
-		GameManager.CONTENT.CUBE_V,\
-		GameManager.CONTENT.CUBE_H:
-			_create_cube(coord, radius, what)
+		GameManager.CONTENT.CUBE_BOOM:
+			return _create_cube(coord, radius, what)
 		GameManager.CONTENT.BOX:
-			_create_box(coord)
+			return _create_box(coord)
 		GameManager.CONTENT.WALL:
-			_create_wall(coord)
+			return _create_wall(coord)
 		GameManager.CONTENT.HOLE:
-			_create_hole(coord)
+			return _create_hole(coord)
+	
+	return null
 
 func _create_cube(cube_coord: Vector2i, set_radius: int, cube_type: GameManager.CONTENT):
 	for item in get_tree().get_nodes_in_group("cubes"):
@@ -93,7 +88,7 @@ func _create_cube(cube_coord: Vector2i, set_radius: int, cube_type: GameManager.
 			item.remove_from_group("cubes")
 			item.remove_from_group("Objects")
 			item.queue_free()
-			return
+			return null
 	
 	
 	var tmp_cube = Cube.new(cube_coord, 100, cube_type, set_radius)
@@ -108,14 +103,14 @@ func _create_cube(cube_coord: Vector2i, set_radius: int, cube_type: GameManager.
 func _create_box(box_coord: Vector2i):
 	for item in get_tree().get_nodes_in_group("cubes"):
 		if item.get_rect().has_point(box_coord):
-			return
+			return null
 
 	for item in get_tree().get_nodes_in_group("boxes"):
 		if item.coordinate == box_coord:
 			item.remove_from_group("boxes")
 			item.remove_from_group("Objects")
 			item.queue_free()
-			return
+			return null
 	
 	var tmp_box = Box.new(box_coord, 10, GameManager.CONTENT.BOX)
 	add_child(tmp_box)
@@ -128,14 +123,14 @@ func _create_box(box_coord: Vector2i):
 func _create_wall(wall_coord: Vector2i):
 	for item in get_tree().get_nodes_in_group("cubes"):
 		if item.get_rect().has_point(wall_coord):
-			return
+			return null
 
 	for item in get_tree().get_nodes_in_group("walls"):
 		if item.coordinate == wall_coord:
 			item.remove_from_group("walls")
 			item.remove_from_group("Objects")
 			item.queue_free()
-			return
+			return null
 	
 	var tmp_wall = Wall.new(wall_coord, 0x7fffffff, GameManager.CONTENT.WALL)
 	add_child(tmp_wall)
@@ -150,17 +145,17 @@ func _create_hole(hole_coord: Vector2i):
 		if item.coordinate == hole_coord:
 			item.remove_from_group("props")
 			item.queue_free()
-			return
+			return null
 	
 	var tmp_hole = Hole.new(hole_coord, 0, GameManager.CONTENT.HOLE)
-	tmp_hole.z_index = -10
+	#tmp_hole.z_index = -10
 	add_child(tmp_hole)
 	
 	tmp_hole.add_to_group("props")
 	
 	return tmp_hole
 
-func delete(coord: Vector2i):
+func delete(coord: Vector2i) -> bool:
 	for item in get_tree().get_nodes_in_group("Objects"):
 		if item.get_rect().has_point(coord):
 			item.remove_from_group("cubes")
@@ -168,12 +163,13 @@ func delete(coord: Vector2i):
 			item.remove_from_group("walls")
 			item.remove_from_group("Objects")
 			item.queue_free()
-			return
+			return true
 	for item in get_tree().get_nodes_in_group("props"):
 		if item.coordinate == coord:
 			item.remove_from_group("props")
 			item.queue_free()
-			return
+			return true
+	return false
 
 func _on_reset_button_pressed() -> void:
 	is_left_pressing = false

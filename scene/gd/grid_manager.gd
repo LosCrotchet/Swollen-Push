@@ -1,5 +1,7 @@
 extends Node
 
+signal LevelFinished
+
 # ==========================================
 # 核心引擎：计算所有连带运动并验证 (BFS 算法)
 # 能够正确处理黏性方块的无限连带
@@ -48,12 +50,16 @@ func calculate_movement(initial_moves: Dictionary, ignore_objects: Array = []) -
 			if is_pushed or is_stuck:
 				if (other.type == GameManager.CONTENT.WALL or other.type == GameManager.CONTENT.CUBE_STATIC):
 					if is_pushed:
+						if curr.is_exploding:
+							moving_objects[other] = Vector2i.ZERO
+							continue
 						return {} # 推不动死物，整个运动崩溃并失败
 					else:
 						continue  # 黏性方块拉不动死物，但死物也不会阻止方块移动，跳过即可
 						
 				if is_pushed and curr.mass < other.mass:
-					return {} # 质量不足，推不动
+					if not curr.is_exploding:
+						return {} # 质量不足，推不动
 				elif is_stuck and curr.mass < other.mass:
 					continue # 被粘带的物体太重，拉不动，直接断开粘连但不算失败
 					
@@ -105,17 +111,21 @@ func update_cube(coord: Vector2i, delta: int = 1):
 	
 	var origin_radius = facing_cube.radius
 	var to_radius = origin_radius + delta
+	
+	if to_radius == 4 and facing_cube.type == GameManager.CONTENT.CUBE_BOOM:
+		facing_cube.is_exploding = true
 
-	if to_radius < 1 or to_radius > 3:
+	if not facing_cube.is_exploding and (to_radius < 1 or to_radius > 3):
 		GameManager.shake(facing_cube)
 		return false
 	
 	# 1. 验证膨胀自身不越界
 	var new_rect = facing_cube.get_rect(facing_cube.coordinate, to_radius)
-	if new_rect.position.x < 0 or new_rect.position.y < 0 or new_rect.end.x > GameManager.WIDTH or new_rect.end.y > GameManager.HEIGHT:
-		GameManager.shake(facing_cube)
-		return false
-		
+	if not facing_cube.is_exploding:
+		if new_rect.position.x < 0 or new_rect.position.y < 0 or new_rect.end.x > GameManager.WIDTH or new_rect.end.y > GameManager.HEIGHT:
+				GameManager.shake(facing_cube)
+				return false
+
 	var initial_moves = {}
 	
 	# ================= 膨胀产生的外推力 (Delta > 0) =================
@@ -128,14 +138,17 @@ func update_cube(coord: Vector2i, delta: int = 1):
 			
 			if new_rect.intersects(target_rect):
 				# 质量或类型特判
-				if target.type == GameManager.CONTENT.CUBE_STATIC or target.type == GameManager.CONTENT.WALL:
+				if not facing_cube.is_exploding and (target.type == GameManager.CONTENT.CUBE_STATIC or target.type == GameManager.CONTENT.WALL):
 					GameManager.shake(facing_cube)
 					return false
-				if facing_cube.mass < target.mass:
+				if not facing_cube.is_exploding and facing_cube.mass < target.mass:
 					GameManager.shake(facing_cube)
 					return false
 				# 计算被推开的方向
-				initial_moves[target] = target.get_push_dir(facing_cube.coordinate)
+				if facing_cube.is_exploding and target.type == GameManager.CONTENT.WALL:
+					pass
+				else:
+					initial_moves[target] = target.get_push_dir(facing_cube.coordinate)
 
 	# ================= 收缩产生的内拉力 (Delta < 0) =================
 	elif delta < 0:
@@ -164,31 +177,51 @@ func update_cube(coord: Vector2i, delta: int = 1):
 		moves = calculate_movement(initial_moves, [facing_cube])
 		if moves.is_empty():
 			GameManager.shake(facing_cube)
+			facing_cube.is_exploding = false
 			return false
 		# 额外检查：由于中心方块膨胀了，移动后的物体会不会撞到膨胀后新体积的中心方块
-		for m_obj in moves:
-			#var r = m_obj.radius if m_obj.is_in_group("cubes") else 1
-			var final_rect = m_obj.get_rect(m_obj.coordinate + moves[m_obj])
-			if final_rect.intersects(new_rect):
-				GameManager.shake(facing_cube)
-				return false
+		if not facing_cube.is_exploding:
+			for m_obj in moves:
+				#var r = m_obj.radius if m_obj.is_in_group("cubes") else 1
+				var final_rect = m_obj.get_rect(m_obj.coordinate + moves[m_obj])
+				if final_rect.intersects(new_rect):
+					GameManager.shake(facing_cube)
+					return false
 				
 	# 最后兜底检查：膨胀的新体积本身会不会压到未被推动的物体
-	for target in get_tree().get_nodes_in_group("Objects"):
-		if target == facing_cube: continue
-		if moves.has(target): continue
-		#var target_r = target.radius if target.is_in_group("cubes") else 1
-		var target_rect = target.get_rect()
-		if new_rect.intersects(target_rect):
-			GameManager.shake(facing_cube)
-			return false
+	if not facing_cube.is_exploding:
+		for target in get_tree().get_nodes_in_group("Objects"):
+			if target == facing_cube: continue
+			if moves.has(target): continue
+			#var target_r = target.radius if target.is_in_group("cubes") else 1
+			var target_rect = target.get_rect()
+			if new_rect.intersects(target_rect):
+				GameManager.shake(facing_cube)
+				return false
 
 	# 3. 落实表现与移动
 	facing_cube.set_radius(to_radius)
 	for obj in moves:
 		if obj.has_method("move_to"):
 			obj.move_to(obj.coordinate + moves[obj])
-			
+	
+	# 爆炸方块消失
+	if to_radius == 4 and facing_cube.type == GameManager.CONTENT.CUBE_BOOM:
+		facing_cube.remove_from_group("cubes")
+		facing_cube.remove_from_group("Objects")
+		facing_cube.queue_free()
+	
+	# 判断火球是否进洞
+	for item in get_tree().get_nodes_in_group("boxes"):
+		var is_finished = false
+		for hole in get_tree().get_nodes_in_group("props"):
+			if item.coordinate == hole.coordinate:
+				is_finished = true
+				break
+		if not is_finished:
+			return true
+	
+	LevelFinished.emit()
 	return true
 
 # ==========================================

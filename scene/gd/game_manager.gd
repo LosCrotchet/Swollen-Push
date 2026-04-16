@@ -5,6 +5,7 @@ var now_setting: CONTENT = CONTENT.CUBE_SIMPLE
 var is_dark_mode: bool = true
 var now_mouse_click_mode: bool = true
 
+const ANIMATION_SPEED := 1.0
 const TWEEN_TIME := 0.1
 const HEIGHT: int = 12
 const WIDTH: int = 16
@@ -22,8 +23,7 @@ enum CONTENT{
 	WALL,
 	BOX,
 	HOLE,
-	CUBE_V,
-	CUBE_H
+	CUBE_BOOM
 }
 
 enum DIRECTION{
@@ -40,7 +40,7 @@ func shake(obj):
 		shake_tween.tween_method(_random_offset.bind(obj, obj.position), 10, 0, 0.6)
 		shake_tween.tween_callback(func ():
 			if obj:
-				obj.position = (Vector2(obj.coordinate) + Vector2(1, 1)) * 64)
+				obj.position = (Vector2(obj.coordinate)) * 64 + Vector2(32, 32))
 
 func _random_offset(radius: float, obj: Object, origin: Vector2):
 	if obj:

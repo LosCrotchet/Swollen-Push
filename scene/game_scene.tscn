@@ -1,33 +1,20 @@
-[gd_scene format=4 uid="uid://bdpn31pic2maq"]
+[gd_scene format=3 uid="uid://bdpn31pic2maq"]
 
-[ext_resource type="Script" uid="uid://bhu7awetlwlg2" path="res://scene/gd/game_scene.gd" id="1_c8mr4"]
+[ext_resource type="Script" uid="uid://bhu7awetlwlg2" path="res://scene/gd/game_scene.gd" id="1_volm0"]
+[ext_resource type="Script" uid="uid://dcklpslflfytw" path="res://scene/gd/load_level.gd" id="2_8rpq6"]
 [ext_resource type="Texture2D" uid="uid://cj6r7xea2svdh" path="res://assets/bg_D.jpg" id="2_c8mr4"]
-[ext_resource type="TileSet" uid="uid://d3pd2pncqrgq3" path="res://assets/textures.tres" id="2_sl1kl"]
-[ext_resource type="ButtonGroup" uid="uid://ca7sum6ni0by2" path="res://assets/set_content.tres" id="3_f3g3v"]
-[ext_resource type="Script" uid="uid://cmvphyd8qyd0k" path="res://scene/gd/save_and_load.gd" id="3_juocg"]
-[ext_resource type="Script" uid="uid://cjvpmc55aycst" path="res://scene/gd/game_manager.gd" id="3_w3nls"]
-[ext_resource type="Theme" uid="uid://0aif3jm84300" path="res://assets/set_content_button.tres" id="5_w3nls"]
-[ext_resource type="ButtonGroup" uid="uid://b4ue528j4qrmc" path="res://assets/mouse_click_button_group.tres" id="6_lonp8"]
-[ext_resource type="Script" uid="uid://d0d7cu2gytslk" path="res://scene/gd/map_panel.gd" id="6_x8u7y"]
-[ext_resource type="Script" uid="uid://ch5jbwb6lk6ix" path="res://scene/gd/grid_manager.gd" id="7_lonp8"]
-[ext_resource type="Script" uid="uid://deolo8ggam6u0" path="res://scene/gd/map_editor.gd" id="9_81ico"]
+[ext_resource type="TileSet" uid="uid://d3pd2pncqrgq3" path="res://assets/tres/textures.tres" id="2_sl1kl"]
+[ext_resource type="Texture2D" uid="uid://4fxwea31m6g8" path="res://assets/corner.png" id="3_f3g3v"]
+[ext_resource type="Script" uid="uid://deolo8ggam6u0" path="res://scene/gd/map_editor.gd" id="3_xt7w2"]
+[ext_resource type="Theme" uid="uid://0aif3jm84300" path="res://assets/tres/set_content_button.tres" id="6_0in77"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_f3g3v"]
-font_size = 48
-shadow_size = 8
-shadow_color = Color(0, 0, 0, 0.3764706)
-shadow_offset = Vector2(6, 6)
-
-[sub_resource type="LabelSettings" id="LabelSettings_juocg"]
-font_size = 18
-font_color = Color(0.8740001, 0.92, 0, 1)
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c8mr4"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_0in77"]
 font_size = 24
 
-[sub_resource type="LabelSettings" id="LabelSettings_c8mr4"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c8mr4"]
+[sub_resource type="LabelSettings" id="LabelSettings_f3g3v"]
+font_size = 18
 
 [node name="GameScene" type="Control" unique_id=532454969]
 layout_mode = 3
@@ -36,10 +23,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_c8mr4")
+script = ExtResource("1_volm0")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1747879771]
-z_index = -999
+z_index = -1000
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -53,294 +40,115 @@ grow_vertical = 2
 texture = ExtResource("2_c8mr4")
 metadata/_edit_lock_ = true
 
-[node name="Title" type="Label" parent="." unique_id=704162460]
+[node name="TextureRect2" type="TextureRect" parent="." unique_id=250853118]
+visible = false
+z_index = 999
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -192.0
+offset_top = -192.0
+offset_right = 128.0
+offset_bottom = 220.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_f3g3v")
+
+[node name="MapPanel" type="Panel" parent="." unique_id=532152570]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -288.0
+offset_top = -386.0
+offset_right = 736.0
+offset_bottom = 382.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_c8mr4")
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="MapEditor" type="Control" parent="MapPanel" unique_id=272402046]
+anchors_preset = 0
+script = ExtResource("3_xt7w2")
+
+[node name="Base" type="TileMapLayer" parent="MapPanel" unique_id=1294220556]
+tile_set = ExtResource("2_sl1kl")
+
+[node name="DebugButton" type="Button" parent="." unique_id=557885032]
 layout_mode = 0
-offset_left = 64.0
+offset_left = 32.0
+offset_top = 800.0
+offset_right = 192.0
+offset_bottom = 864.0
+theme = ExtResource("6_0in77")
+text = "进入编辑页面"
+
+[node name="Panel" type="Panel" parent="." unique_id=477024173]
+layout_mode = 0
+offset_left = 32.0
 offset_top = 32.0
-offset_right = 416.0
-offset_bottom = 128.0
-text = "Swollen Push"
+offset_right = 320.0
+offset_bottom = 576.0
+
+[node name="LoadLevel" type="Node" parent="Panel" unique_id=422341343 node_paths=PackedStringArray("map_editor", "level_list", "base_tilemap", "hint_label")]
+script = ExtResource("2_8rpq6")
+map_editor = NodePath("../../MapPanel/MapEditor")
+level_list = NodePath("../LevelList")
+base_tilemap = NodePath("../../MapPanel/Base")
+hint_label = NodePath("../LevelHint")
+
+[node name="LevelList" type="ItemList" parent="Panel" unique_id=2069964197]
+layout_mode = 0
+offset_top = 64.0
+offset_right = 288.0
+offset_bottom = 416.0
+theme_override_constants/v_separation = 10
+theme_override_font_sizes/font_size = 24
+
+[node name="Title" type="Label" parent="Panel" unique_id=71056016]
+layout_mode = 0
+offset_right = 288.0
+offset_bottom = 64.0
+text = "关卡列表"
+label_settings = SubResource("LabelSettings_0in77")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 1
+
+[node name="LevelHint" type="Label" parent="Panel" unique_id=1808956158]
+layout_mode = 0
+offset_top = 480.0
+offset_right = 288.0
+offset_bottom = 544.0
+text = "当前关卡："
 label_settings = SubResource("LabelSettings_f3g3v")
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 1
 
-[node name="Version" type="Label" parent="." unique_id=1708376371]
-layout_mode = 0
-offset_left = 256.0
-offset_top = 101.0
-offset_right = 448.0
-offset_bottom = 133.0
-text = "V0.2.2 - develop"
-label_settings = SubResource("LabelSettings_juocg")
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 1
-
-[node name="GameManager" type="Node" parent="." unique_id=894234069]
-script = ExtResource("3_w3nls")
-
-[node name="SaveAndLoad" type="Node" parent="." unique_id=117226459 node_paths=PackedStringArray("map_editor", "log")]
-script = ExtResource("3_juocg")
-map_editor = NodePath("../MapPanel/MapEditor")
-log = NodePath("../DebugPanel/Log")
-
-[node name="DebugPanel" type="Panel" parent="." unique_id=2111042467]
+[node name="RefreshButton" type="Button" parent="Panel" unique_id=1414248394]
 layout_mode = 0
 offset_left = 32.0
-offset_top = 128.0
-offset_right = 448.0
-offset_bottom = 832.0
-
-[node name="Hint" type="Label" parent="DebugPanel" unique_id=1118971398]
-layout_mode = 0
-offset_left = 32.0
-offset_top = 512.0
-offset_right = 288.0
-offset_bottom = 704.0
-text = "鼠标左键：膨胀方块
-鼠标右键：收缩方块
-[编辑模式]
-鼠标左键：放置内容
-鼠标右键：清除内容"
-label_settings = SubResource("LabelSettings_0in77")
-autowrap_mode = 1
-
-[node name="Log" type="Label" parent="DebugPanel" unique_id=409218178]
-layout_mode = 0
-offset_left = 32.0
-offset_top = 448.0
-offset_right = 384.0
-offset_bottom = 512.0
-text = "..."
-label_settings = SubResource("LabelSettings_c8mr4")
-vertical_alignment = 1
-autowrap_mode = 1
-
-[node name="Title" type="Label" parent="DebugPanel" unique_id=263632860]
-layout_mode = 0
-offset_left = 32.0
-offset_right = 384.0
-offset_bottom = 64.0
-text = "调试面板"
-label_settings = SubResource("LabelSettings_0in77")
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 1
-
-[node name="ResetButton" type="Button" parent="DebugPanel" unique_id=2130809510]
-layout_mode = 0
-offset_left = 224.0
-offset_top = 64.0
-offset_right = 384.0
-offset_bottom = 128.0
-theme = ExtResource("5_w3nls")
-text = "清空并重置"
-
-[node name="SaveButton" type="Button" parent="DebugPanel" unique_id=131303753]
-layout_mode = 0
-offset_left = 32.0
-offset_top = 384.0
+offset_top = 416.0
 offset_right = 128.0
-offset_bottom = 448.0
-theme = ExtResource("5_w3nls")
-text = "保存"
+offset_bottom = 480.0
+theme = ExtResource("6_0in77")
+text = "刷新"
 
-[node name="LoadButton" type="Button" parent="DebugPanel" unique_id=2134538258]
+[node name="LoadButton" type="Button" parent="Panel" unique_id=1809549661]
 layout_mode = 0
 offset_left = 160.0
-offset_top = 384.0
+offset_top = 416.0
 offset_right = 256.0
-offset_bottom = 448.0
-theme = ExtResource("5_w3nls")
-text = "加载"
+offset_bottom = 480.0
+theme = ExtResource("6_0in77")
+text = "加载关卡"
 
-[node name="LeftClickButton" type="Button" parent="DebugPanel" unique_id=725108494]
-visible = false
-layout_mode = 0
-offset_left = 288.0
-offset_top = 480.0
-offset_right = 384.0
-offset_bottom = 576.0
-theme = ExtResource("5_w3nls")
-toggle_mode = true
-button_pressed = true
-button_group = ExtResource("6_lonp8")
-text = "左键"
-
-[node name="RightClickButton" type="Button" parent="DebugPanel" unique_id=1261655201]
-visible = false
-layout_mode = 0
-offset_left = 288.0
-offset_top = 608.0
-offset_right = 384.0
-offset_bottom = 704.0
-theme = ExtResource("5_w3nls")
-toggle_mode = true
-button_group = ExtResource("6_lonp8")
-text = "右键"
-
-[node name="EditModeEnable" type="Button" parent="DebugPanel" unique_id=1900910796]
-layout_mode = 0
-offset_left = 32.0
-offset_top = 64.0
-offset_right = 192.0
-offset_bottom = 128.0
-theme = ExtResource("5_w3nls")
-toggle_mode = true
-button_pressed = true
-text = "编辑模式：开"
-
-[node name="Title2" type="Label" parent="DebugPanel" unique_id=1164788202]
-layout_mode = 0
-offset_left = 32.0
-offset_top = 128.0
-offset_right = 384.0
-offset_bottom = 192.0
-text = "鼠标放置内容"
-label_settings = SubResource("LabelSettings_0in77")
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 1
-
-[node name="SetSimpleCube" type="Button" parent="DebugPanel" unique_id=461442647]
-layout_mode = 0
-offset_left = 32.0
-offset_top = 192.0
-offset_right = 96.0
-offset_bottom = 256.0
-theme = ExtResource("5_w3nls")
-toggle_mode = true
-button_pressed = true
-button_group = ExtResource("3_f3g3v")
-text = "普通
-方块"
-
-[node name="SetStickyCube" type="Button" parent="DebugPanel" unique_id=1402513339]
-layout_mode = 0
-offset_left = 32.0
-offset_top = 288.0
-offset_right = 96.0
-offset_bottom = 352.0
-theme = ExtResource("5_w3nls")
-toggle_mode = true
-button_group = ExtResource("3_f3g3v")
-text = "黏性
-方块"
-
-[node name="SetStaticCube" type="Button" parent="DebugPanel" unique_id=399372846]
-layout_mode = 0
-offset_left = 128.0
-offset_top = 288.0
-offset_right = 192.0
-offset_bottom = 352.0
-theme = ExtResource("5_w3nls")
-toggle_mode = true
-button_group = ExtResource("3_f3g3v")
-text = "固定
-方块"
-
-[node name="SetVerticalCube" type="Button" parent="DebugPanel" unique_id=1345877080]
-layout_mode = 0
-offset_left = 224.0
-offset_top = 288.0
-offset_right = 288.0
-offset_bottom = 352.0
-theme = ExtResource("5_w3nls")
-toggle_mode = true
-button_group = ExtResource("3_f3g3v")
-text = "竖向
-方块"
-
-[node name="SetHorizontalCube" type="Button" parent="DebugPanel" unique_id=1501950519]
-layout_mode = 0
-offset_left = 320.0
-offset_top = 288.0
-offset_right = 384.0
-offset_bottom = 352.0
-theme = ExtResource("5_w3nls")
-toggle_mode = true
-button_group = ExtResource("3_f3g3v")
-text = "横向
-方块"
-
-[node name="SetWall" type="Button" parent="DebugPanel" unique_id=1026061011]
-layout_mode = 0
-offset_left = 128.0
-offset_top = 192.0
-offset_right = 192.0
-offset_bottom = 256.0
-theme = ExtResource("5_w3nls")
-toggle_mode = true
-button_group = ExtResource("3_f3g3v")
-text = "墙壁"
-
-[node name="SetBox" type="Button" parent="DebugPanel" unique_id=1588803112]
-layout_mode = 0
-offset_left = 224.0
-offset_top = 192.0
-offset_right = 288.0
-offset_bottom = 256.0
-theme = ExtResource("5_w3nls")
-toggle_mode = true
-button_group = ExtResource("3_f3g3v")
-text = "箱子"
-
-[node name="SetFlag" type="Button" parent="DebugPanel" unique_id=878309048]
-layout_mode = 0
-offset_left = 320.0
-offset_top = 192.0
-offset_right = 384.0
-offset_bottom = 256.0
-theme = ExtResource("5_w3nls")
-toggle_mode = true
-button_group = ExtResource("3_f3g3v")
-text = "标记"
-
-[node name="MapPanel" type="Panel" parent="." unique_id=532152570]
-z_index = -999
-layout_mode = 0
-offset_left = 480.0
-offset_top = 32.0
-offset_right = 1568.0
-offset_bottom = 864.0
-theme_override_styles/panel = SubResource("StyleBoxEmpty_c8mr4")
-script = ExtResource("6_x8u7y")
-
-[node name="GridManager" type="Node" parent="MapPanel" unique_id=1663439066]
-script = ExtResource("7_lonp8")
-
-[node name="Base" type="TileMapLayer" parent="MapPanel" unique_id=1294220556]
-z_index = -99
-z_as_relative = false
-position = Vector2(32, 32)
-tile_map_data = PackedByteArray("AAAAAAAAAAAAAAIAAAAAAAEAAAAAAAIAAAAAAAIAAAAAAAIAAAAAAAMAAAAAAAIAAAAAAAQAAAAAAAIAAAAAAAUAAAAAAAIAAAAAAAYAAAAAAAIAAAAAAAcAAAAAAAIAAAAAAAgAAAAAAAIAAAAAAAkAAAAAAAIAAAAAAAoAAAAAAAIAAAAAAAsAAAAAAAIAAAABAAAAAAAAAAIAAAABAAEAAAAAAAIAAAABAAIAAAAAAAIAAAABAAMAAAAAAAIAAAABAAQAAAAAAAIAAAABAAUAAAAAAAIAAAABAAYAAAAAAAIAAAABAAcAAAAAAAIAAAABAAgAAAAAAAIAAAABAAkAAAAAAAIAAAABAAoAAAAAAAIAAAABAAsAAAAAAAIAAAACAAAAAAAAAAIAAAACAAEAAAAAAAIAAAACAAIAAAAAAAIAAAACAAMAAAAAAAIAAAACAAQAAAAAAAIAAAACAAUAAAAAAAIAAAACAAYAAAAAAAIAAAACAAcAAAAAAAIAAAACAAgAAAAAAAIAAAACAAkAAAAAAAIAAAACAAoAAAAAAAIAAAACAAsAAAAAAAIAAAADAAAAAAAAAAIAAAADAAEAAAAAAAIAAAADAAIAAAAAAAIAAAADAAMAAAAAAAIAAAADAAQAAAAAAAIAAAADAAUAAAAAAAIAAAADAAYAAAAAAAIAAAADAAcAAAAAAAIAAAADAAgAAAAAAAIAAAADAAkAAAAAAAIAAAADAAoAAAAAAAIAAAADAAsAAAAAAAIAAAAEAAAAAAAAAAIAAAAEAAEAAAAAAAIAAAAEAAIAAAAAAAIAAAAEAAMAAAAAAAIAAAAEAAQAAAAAAAIAAAAEAAUAAAAAAAIAAAAEAAYAAAAAAAIAAAAEAAcAAAAAAAIAAAAEAAgAAAAAAAIAAAAEAAkAAAAAAAIAAAAEAAoAAAAAAAIAAAAEAAsAAAAAAAIAAAAFAAAAAAAAAAIAAAAFAAEAAAAAAAIAAAAFAAIAAAAAAAIAAAAFAAMAAAAAAAIAAAAFAAQAAAAAAAIAAAAFAAUAAAAAAAIAAAAFAAYAAAAAAAIAAAAFAAcAAAAAAAIAAAAFAAgAAAAAAAIAAAAFAAkAAAAAAAIAAAAFAAoAAAAAAAIAAAAFAAsAAAAAAAIAAAAGAAAAAAAAAAIAAAAGAAEAAAAAAAIAAAAGAAIAAAAAAAIAAAAGAAMAAAAAAAIAAAAGAAQAAAAAAAIAAAAGAAUAAAAAAAIAAAAGAAYAAAAAAAIAAAAGAAcAAAAAAAIAAAAGAAgAAAAAAAIAAAAGAAkAAAAAAAIAAAAGAAoAAAAAAAIAAAAGAAsAAAAAAAIAAAAHAAAAAAAAAAIAAAAHAAEAAAAAAAIAAAAHAAIAAAAAAAIAAAAHAAMAAAAAAAIAAAAHAAQAAAAAAAIAAAAHAAUAAAAAAAIAAAAHAAYAAAAAAAIAAAAHAAcAAAAAAAIAAAAHAAgAAAAAAAIAAAAHAAkAAAAAAAIAAAAHAAoAAAAAAAIAAAAHAAsAAAAAAAIAAAAIAAAAAAAAAAIAAAAIAAEAAAAAAAIAAAAIAAIAAAAAAAIAAAAIAAMAAAAAAAIAAAAIAAQAAAAAAAIAAAAIAAUAAAAAAAIAAAAIAAYAAAAAAAIAAAAIAAcAAAAAAAIAAAAIAAgAAAAAAAIAAAAIAAkAAAAAAAIAAAAIAAoAAAAAAAIAAAAIAAsAAAAAAAIAAAAJAAAAAAAAAAIAAAAJAAEAAAAAAAIAAAAJAAIAAAAAAAIAAAAJAAMAAAAAAAIAAAAJAAQAAAAAAAIAAAAJAAUAAAAAAAIAAAAJAAYAAAAAAAIAAAAJAAcAAAAAAAIAAAAJAAgAAAAAAAIAAAAJAAkAAAAAAAIAAAAJAAoAAAAAAAIAAAAJAAsAAAAAAAIAAAAKAAAAAAAAAAIAAAAKAAEAAAAAAAIAAAAKAAIAAAAAAAIAAAAKAAMAAAAAAAIAAAAKAAQAAAAAAAIAAAAKAAUAAAAAAAIAAAAKAAYAAAAAAAIAAAAKAAcAAAAAAAIAAAAKAAgAAAAAAAIAAAAKAAkAAAAAAAIAAAAKAAoAAAAAAAIAAAAKAAsAAAAAAAIAAAALAAAAAAAAAAIAAAALAAEAAAAAAAIAAAALAAIAAAAAAAIAAAALAAMAAAAAAAIAAAALAAQAAAAAAAIAAAALAAUAAAAAAAIAAAALAAYAAAAAAAIAAAALAAcAAAAAAAIAAAALAAgAAAAAAAIAAAALAAkAAAAAAAIAAAALAAoAAAAAAAIAAAALAAsAAAAAAAIAAAAMAAAAAAAAAAIAAAAMAAEAAAAAAAIAAAAMAAIAAAAAAAIAAAAMAAMAAAAAAAIAAAAMAAQAAAAAAAIAAAAMAAUAAAAAAAIAAAAMAAYAAAAAAAIAAAAMAAcAAAAAAAIAAAAMAAgAAAAAAAIAAAAMAAkAAAAAAAIAAAAMAAoAAAAAAAIAAAAMAAsAAAAAAAIAAAANAAAAAAAAAAIAAAANAAEAAAAAAAIAAAANAAIAAAAAAAIAAAANAAMAAAAAAAIAAAANAAQAAAAAAAIAAAANAAUAAAAAAAIAAAANAAYAAAAAAAIAAAANAAcAAAAAAAIAAAANAAgAAAAAAAIAAAANAAkAAAAAAAIAAAANAAoAAAAAAAIAAAANAAsAAAAAAAIAAAAOAAAAAAAAAAIAAAAOAAEAAAAAAAIAAAAOAAIAAAAAAAIAAAAOAAMAAAAAAAIAAAAOAAQAAAAAAAIAAAAOAAUAAAAAAAIAAAAOAAYAAAAAAAIAAAAOAAcAAAAAAAIAAAAOAAgAAAAAAAIAAAAOAAkAAAAAAAIAAAAOAAoAAAAAAAIAAAAOAAsAAAAAAAIAAAAPAAAAAAAAAAIAAAAPAAEAAAAAAAIAAAAPAAIAAAAAAAIAAAAPAAMAAAAAAAIAAAAPAAQAAAAAAAIAAAAPAAUAAAAAAAIAAAAPAAYAAAAAAAIAAAAPAAcAAAAAAAIAAAAPAAgAAAAAAAIAAAAPAAkAAAAAAAIAAAAPAAoAAAAAAAIAAAAPAAsAAAAAAAIAAAA=")
-tile_set = ExtResource("2_sl1kl")
-
-[node name="MapEditor" type="Control" parent="MapPanel" unique_id=1319323995]
-z_as_relative = false
-anchors_preset = 0
-script = ExtResource("9_81ico")
-
-[node name="Cursor" type="TileMapLayer" parent="MapPanel" unique_id=238586555]
-z_index = 999
-z_as_relative = false
-position = Vector2(32, 32)
-tile_map_data = PackedByteArray("AAAEAAIAAAAEAAAAAAA=")
-tile_set = ExtResource("2_sl1kl")
-
-[connection signal="pressed" from="DebugPanel/ResetButton" to="MapPanel" method="_on_reset_button_pressed"]
-[connection signal="pressed" from="DebugPanel/ResetButton" to="MapPanel/MapEditor" method="_on_reset_button_pressed"]
-[connection signal="pressed" from="DebugPanel/SaveButton" to="SaveAndLoad" method="_on_save_button_pressed"]
-[connection signal="pressed" from="DebugPanel/LoadButton" to="SaveAndLoad" method="_on_load_button_pressed"]
-[connection signal="toggled" from="DebugPanel/LeftClickButton" to="." method="_on_mouse_click_button_toggled" binds= [true]]
-[connection signal="toggled" from="DebugPanel/RightClickButton" to="." method="_on_mouse_click_button_toggled" binds= [false]]
-[connection signal="toggled" from="DebugPanel/EditModeEnable" to="." method="_on_edit_mode_enable_toggled"]
-[connection signal="toggled" from="DebugPanel/SetSimpleCube" to="." method="_on_button_toggled" binds= [1]]
-[connection signal="toggled" from="DebugPanel/SetStickyCube" to="." method="_on_button_toggled" binds= [5]]
-[connection signal="toggled" from="DebugPanel/SetStaticCube" to="." method="_on_button_toggled" binds= [6]]
-[connection signal="toggled" from="DebugPanel/SetVerticalCube" to="." method="_on_button_toggled" binds= [7]]
-[connection signal="toggled" from="DebugPanel/SetHorizontalCube" to="." method="_on_button_toggled" binds= [8]]
-[connection signal="toggled" from="DebugPanel/SetWall" to="." method="_on_button_toggled" binds= [2]]
-[connection signal="toggled" from="DebugPanel/SetBox" to="." method="_on_button_toggled" binds= [3]]
-[connection signal="toggled" from="DebugPanel/SetFlag" to="." method="_on_button_toggled" binds= [4]]
+[connection signal="pressed" from="DebugButton" to="." method="_on_debug_button_pressed"]
+[connection signal="pressed" from="Panel/RefreshButton" to="Panel/LoadLevel" method="_on_refresh_button_pressed"]
+[connection signal="pressed" from="Panel/LoadButton" to="Panel/LoadLevel" method="_on_load_button_pressed"]

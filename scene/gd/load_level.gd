@@ -1,79 +1,82 @@
 extends Node
 
 @export var map_editor: Control
-@export var log: Control
+@export var level_list: ItemList
 @export var base_tilemap: TileMapLayer # 请在属性面板中将 MapPanel 下的 Base 拖入此变量
-@export var cursor_tilemap: TileMapLayer
+@export var hint_label: Label
 
-func _on_save_button_pressed() -> void:
-	save_level()
+var _now_level = -1
 
-func _on_load_button_pressed() -> void:
-	load_level()
+func _ready() -> void:
+	GridManager.LevelFinished.connect(_on_load_next_level)
+	_on_refresh_button_pressed()
 
 func log_print(s: String):
-	log.text = "[%s] %s" % [Time.get_time_string_from_system(), s]
+	print("[%s] %s" % [Time.get_time_string_from_system(), s])
 
 # ==========================================
 # 存档路径获取逻辑 (兼容编辑器与导出的 exe)
 # ==========================================
-func get_save_path() -> String:
+func get_save_path(level_name: String) -> String:
 	if OS.has_feature("editor"):
 		# 在编辑器中运行，保存在项目根目录的真实物理路径下
-		return ProjectSettings.globalize_path("res://level.json")
+		return ProjectSettings.globalize_path("res://levels/%s" % level_name)
 	else:
 		# 导出为 exe 后，保存在 exe 所在的同级目录下
-		return OS.get_executable_path().get_base_dir().path_join("level.json")
+		return OS.get_executable_path().get_base_dir().path_join("levels/%s" % level_name)
 
-# ==========================================
-# 保存地图
-# ==========================================
-func save_level():
-	var save_dict = {
-		"width": GameManager.WIDTH,
-		"height": GameManager.HEIGHT,
-		"objects": [],
-		"props": []
-	}
-	
-	# 1. 保存所有 Objects
-	for item in get_tree().get_nodes_in_group("Objects"):
-		var obj_data = {
-			"type": item.type,
-			"x": item.coordinate.x,
-			"y": item.coordinate.y,
-			"mass": item.mass,
-			"radius": item.radius
-		}
-			
-		save_dict["objects"].append(obj_data)
-		
-	# 2. 保存所有的 props (标记/洞)
-	for item in get_tree().get_nodes_in_group("props"):
-		save_dict["props"].append({
-			"type": item.type,
-			"x": item.coordinate.x,
-			"y": item.coordinate.y,
-			"mass": item.mass,
-			"radius": item.radius
-		})
-		
-	# 3. 写入 JSON 文件
-	var path = get_save_path()
-	var file = FileAccess.open(path, FileAccess.WRITE)
-	if file:
-		# 使用 "\t" 缩进让生成的 json 文件可读性更好（方便手动改图）
-		file.store_string(JSON.stringify(save_dict, "\t"))
-		file.close()
-		log_print("地图已保存至: " + path)
+func dir_contents(path):
+	var dir = DirAccess.open(path)
+	var files = []
+	if dir:
+		dir.list_dir_begin()
+		var file_name = dir.get_next()
+		while file_name != "":
+			if dir.current_is_dir():
+				break
+			else:
+				files.append(file_name)
+			file_name = dir.get_next()
 	else:
-		log_print("保存失败，无法写入文件: " + path)
+		print("Error。")
+	return files
+
+func _on_refresh_button_pressed() -> void:
+	var files = dir_contents("res://levels")
+	
+	level_list.clear()
+	for item in files:
+		level_list.add_item(item)
+	if level_list.item_count:
+		load_level(level_list.get_item_text(0))
+		_now_level = 0
+		hint_label.text = "当前关卡：%s" % level_list.get_item_text(_now_level)
+	else:
+		hint_label.text = "ERROR"
+
+func _on_load_button_pressed() -> void:
+	var select_item = level_list.get_selected_items()
+	if select_item:
+		load_level(level_list.get_item_text(select_item[0]))
+		_now_level = select_item[0]
+		hint_label.text = "当前关卡：%s" % level_list.get_item_text(_now_level)
+	else:
+		hint_label.text = "ERROR"
+
+func _on_load_next_level():
+	if _now_level >= 0:
+		_now_level += 1
+		if _now_level < level_list.item_count:
+			load_level(level_list.get_item_text(_now_level))
+			hint_label.text = "当前关卡：%s" % level_list.get_item_text(_now_level)
+		else:
+			hint_label.text = "没有关卡了！"
 
 # ==========================================
 # 读取地图 (高级版：不规则内腔提取与自适应边框)
 # ==========================================
-func load_level():
-	var path = get_save_path()
+func load_level(level_name: String):
+	var path = get_save_path(level_name)
 	if not FileAccess.file_exists(path):
 		log_print("找不到存档文件: " + path)
 		return
@@ -160,7 +163,6 @@ func load_level():
 	if base_tilemap:
 		base_tilemap.position = visual_offset
 		base_tilemap.clear()
-		cursor_tilemap.position = visual_offset
 	map_editor.position = visual_offset
 
 	# --- 优化步骤 3：自适应绘制不规则 9-Slice 地板 ---

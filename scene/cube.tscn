@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cqdamn22rqi64" path="res://scene/gd/cube.gd" id="1_pw53m"]
 [ext_resource type="Texture2D" uid="uid://0i1bludgdjr8" path="res://assets/textures.png" id="2_leuu7"]
+[ext_resource type="SpriteFrames" uid="uid://b8so1l35hcudh" path="res://assets/tres/cube_frames.tres" id="3_leuu7"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_h6iok"]
 font_size = 32
@@ -28,3 +29,9 @@ text = "100"
 label_settings = SubResource("LabelSettings_h6iok")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="AnimatedOutlook" type="AnimatedSprite2D" parent="." unique_id=1687675799]
+sprite_frames = ExtResource("3_leuu7")
+animation = &"fireball"
+frame = 3
+frame_progress = 0.8750133
