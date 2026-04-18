@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://dayqy17dkna82"]
+
+[ext_resource type="Script" uid="uid://buqyesgqag578" path="res://scenes/gd/bird.gd" id="1_3po83"]
+[ext_resource type="SpriteFrames" uid="uid://bk22vwxxswhqe" path="res://assets/tres/bird_frames.tres" id="1_kqhkv"]
+[ext_resource type="Shader" uid="uid://dekaludi68g5c" path="res://assets/tres/shadow.gdshader" id="1_twsrt"]
+[ext_resource type="Shader" uid="uid://fx4mej4d55x6" path="res://assets/tres/outline.gdshader" id="2_hq4t0"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b7mtg"]
+shader = ExtResource("1_twsrt")
+shader_parameter/shadow_color = Color(0, 0, 0, 0.4)
+shader_parameter/shadow_angle = 45.0
+shader_parameter/shadow_length = 2.8690000887775
+shader_parameter/shadow_height = 200.0
+shader_parameter/skew_factor = 0.5090001191775002
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_twsrt"]
+shader = ExtResource("2_hq4t0")
+shader_parameter/enable = false
+shader_parameter/outline_color = Color(1, 1, 0, 1)
+shader_parameter/width = 10.0
+shader_parameter/pattern = 1
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_twsrt"]
+radius = 50.0
+
+[node name="Bird" type="Node2D" unique_id=2113065109]
+script = ExtResource("1_3po83")
+
+[node name="AnimatedOutlookShadow" type="AnimatedSprite2D" parent="." unique_id=652445945]
+material = SubResource("ShaderMaterial_b7mtg")
+scale = Vector2(0.5, 0.5)
+sprite_frames = ExtResource("1_kqhkv")
+animation = &"walk"
+
+[node name="AnimatedOutlook" type="AnimatedSprite2D" parent="." unique_id=1489001230]
+material = SubResource("ShaderMaterial_twsrt")
+scale = Vector2(0.5, 0.5)
+sprite_frames = ExtResource("1_kqhkv")
+animation = &"walk"
+
+[node name="Area2D" type="Area2D" parent="." unique_id=388157875]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=516558471]
+shape = SubResource("CircleShape2D_twsrt")
+
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]

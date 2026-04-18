@@ -24,8 +24,6 @@ font_color = Color(0.8740001, 0.92, 0, 1)
 [sub_resource type="LabelSettings" id="LabelSettings_0in77"]
 font_size = 24
 
-[sub_resource type="LabelSettings" id="LabelSettings_c8mr4"]
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c8mr4"]
 
 [node name="DebugScene" type="Control" unique_id=532454969]
@@ -71,7 +69,7 @@ offset_left = 256.0
 offset_top = 101.0
 offset_right = 448.0
 offset_bottom = 133.0
-text = "V0.3.1 - alpha"
+text = "V0.3.2 - alpha"
 label_settings = SubResource("LabelSettings_juocg")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -101,7 +99,7 @@ layout_mode = 0
 offset_left = 32.0
 offset_top = 128.0
 offset_right = 448.0
-offset_bottom = 672.0
+offset_bottom = 768.0
 mouse_filter = 1
 
 [node name="Hint" type="Label" parent="DebugPanel" unique_id=1118971398]
@@ -119,15 +117,15 @@ text = "鼠标左键：膨胀方块
 label_settings = SubResource("LabelSettings_0in77")
 autowrap_mode = 1
 
-[node name="Log" type="Label" parent="DebugPanel" unique_id=409218178]
+[node name="Log" type="TextEdit" parent="DebugPanel" unique_id=1552871904]
 layout_mode = 0
 offset_left = 32.0
-offset_top = 448.0
+offset_top = 480.0
 offset_right = 384.0
-offset_bottom = 512.0
-text = "..."
-label_settings = SubResource("LabelSettings_c8mr4")
-vertical_alignment = 1
+offset_bottom = 640.0
+theme_override_constants/line_spacing = 2
+placeholder_text = "在这里粘贴地图数据"
+wrap_mode = 1
 autowrap_mode = 1
 
 [node name="Title" type="Label" parent="DebugPanel" unique_id=263632860]

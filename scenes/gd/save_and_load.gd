@@ -12,7 +12,7 @@ func _on_load_button_pressed() -> void:
 	load_level()
 
 func log_print(s: String):
-	log.text = "[%s] %s" % [Time.get_time_string_from_system(), s]
+	log.text = s
 
 # ==========================================
 # 存档路径获取逻辑 (兼容编辑器与导出的 exe)
@@ -29,55 +29,62 @@ func get_save_path() -> String:
 # 保存地图
 # ==========================================
 func save_level():
-	var save_dict = {
-		"width": GameManager.WIDTH,
-		"height": GameManager.HEIGHT,
-		"objects": []
-	}
+	var map_data = []
+	for i in range(GameManager.WIDTH*GameManager.HEIGHT):
+		map_data.append("0")
 	
-	# 1. 保存所有 Objects
 	for item in get_tree().get_nodes_in_group("OBJECT"):
-		var obj_data = {
-			"type": item.type,
-			"x": item.coordinate.x,
-			"y": item.coordinate.y,
-			"mass": item.mass,
-			"radius": item.radius
-		}
-			
-		save_dict["objects"].append(obj_data)
-		
-		
-	# 3. 写入 JSON 文件
-	var path = get_save_path()
-	var file = FileAccess.open(path, FileAccess.WRITE)
-	if file:
-		# 使用 "\t" 缩进让生成的 json 文件可读性更好（方便手动改图）
-		file.store_string(JSON.stringify(save_dict, "\t"))
-		file.close()
-		log_print("地图已保存至: " + path)
-	else:
-		log_print("保存失败，无法写入文件: " + path)
+		var x = item.coordinate.x
+		var y = item.coordinate.y
+		var index = y * GameManager.WIDTH + x
+		map_data[index] = str(item.type+1)
+	
+	log_print(Marshalls.utf8_to_base64("".join(map_data)))
+
+func _is_valid_base64(s: String) -> bool:
+	if not s or len(s) % 4 != 0:
+		return false
+	var valid_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/="
+	for c in s:
+		if c not in valid_chars:
+			return false
+	return true
+
+func _is_valid_map_data(s: String) -> bool:
+	if not s or len(s) != GameManager.WIDTH*GameManager.HEIGHT:
+		return false
+	var valid_chars = "0123456789"
+	for c in s:
+		if c not in valid_chars:
+			return false
+	return true
 
 # ==========================================
 # 读取地图 (高级版：不规则内腔提取与自适应边框)
 # ==========================================
 func load_level():
-	var path = get_save_path()
-	if not FileAccess.file_exists(path):
-		log_print("找不到存档文件: " + path)
-		return
-		
-	var file = FileAccess.open(path, FileAccess.READ)
-	var json = JSON.new()
-	var parse_result = json.parse(file.get_as_text())
-	file.close()
 	
-	if parse_result != OK:
-		log_print("JSON 解析失败，错误行: " + str(json.get_error_line()))
+	if not _is_valid_base64(log.text):
+		log_print("地图字符串的格式错误，不符合Base64编码规范！")
 		return
-		
-	var data = json.data
+	
+	var map_data = Marshalls.base64_to_utf8(log.text)
+	var all_data = []
+	
+	if not _is_valid_map_data(map_data):
+		log_print("解析后的地图数据错误！")
+		return
+	
+	for i in range(len(map_data)):
+		if int(map_data[i]) != 0:
+			@warning_ignore("integer_division")
+			var obj_data = {
+				"x": i%GameManager.WIDTH,
+				"y": i/GameManager.WIDTH,
+				"type": int(map_data[i])-1,
+				"radius": 1
+			}
+			all_data.append(obj_data)
 	
 	# 1. 清理当前场上所有物体
 	for item in get_tree().get_nodes_in_group("OBJECT"):
@@ -92,7 +99,7 @@ func load_level():
 	var wall_coords = {}      # 记录所有墙壁的坐标
 	var interior_coords = {}  # 记录所有非墙壁（内腔）的坐标
 	
-	var all_data = data.get("objects", [])
+	#var all_data = data.get("objects", [])
 	
 	# 提取 json 中的墙壁坐标
 	for obj in all_data:
@@ -112,21 +119,6 @@ func load_level():
 	# 将所有内腔加入有效地图
 	for c in interior_coords.keys():
 		valid_map_coords[c] = true
-		
-	# 找出边界墙：只要一面墙的 8 个邻居中有任何一个是内腔，它就是边界
-	#for wall_c in wall_coords.keys():
-		#var is_boundary = false
-		#for dx in [-1, 0, 1]:
-			#for dy in [-1, 0, 1]:
-				#if dx == 0 and dy == 0: continue
-				#var neighbor = wall_c + Vector2i(dx, dy)
-				#if interior_coords.has(neighbor):
-					#is_boundary = true
-					#break
-			#if is_boundary: break
-			
-		#if is_boundary:
-		#	valid_map_coords[wall_c] = true
 
 	# --- 优化步骤 2：重新计算视觉居中偏移 ---
 	var min_x = 9999; var max_x = -9999
@@ -186,7 +178,7 @@ func load_level():
 			base_tilemap.set_cell(c, 1, atlas_coords)
 
 	# --- 优化步骤 4：还原物体并剔除多余墙壁 ---
-	for obj_data in data.get("objects", []):
+	for obj_data in all_data:
 		var type = obj_data["type"]
 		var c = Vector2i(obj_data["x"], obj_data["y"])
 		
@@ -199,4 +191,4 @@ func load_level():
 		#if type == GameManager.CONTENT.WALL and not valid_map_coords.has(c):
 		#	obj.visible = false
 		
-	log_print("地图读取完成！")
+	#log_print("地图读取完成！")

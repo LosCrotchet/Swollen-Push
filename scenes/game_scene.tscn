@@ -8,13 +8,16 @@
 [ext_resource type="Script" uid="uid://deolo8ggam6u0" path="res://scenes/gd/map_editor.gd" id="3_xt7w2"]
 [ext_resource type="Theme" uid="uid://0aif3jm84300" path="res://assets/tres/set_content_button.tres" id="6_0in77"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c8mr4"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kk2rg"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_kk2rg"]
+font_size = 30
+
+[sub_resource type="LabelSettings" id="LabelSettings_b5spy"]
+font_size = 22
 
 [sub_resource type="LabelSettings" id="LabelSettings_0in77"]
 font_size = 24
-
-[sub_resource type="LabelSettings" id="LabelSettings_f3g3v"]
-font_size = 18
 
 [node name="GameScene" type="Control" unique_id=532454969]
 layout_mode = 3
@@ -56,6 +59,13 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_f3g3v")
 
+[node name="Birds" type="Panel" parent="." unique_id=1285499836]
+layout_mode = 0
+offset_right = 1600.0
+offset_bottom = 896.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxEmpty_kk2rg")
+
 [node name="MapPanel" type="Panel" parent="." unique_id=532152570]
 layout_mode = 1
 anchors_preset = 8
@@ -64,21 +74,21 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -288.0
-offset_top = -386.0
+offset_top = -322.0
 offset_right = 736.0
-offset_bottom = 382.0
+offset_bottom = 446.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
-theme_override_styles/panel = SubResource("StyleBoxEmpty_c8mr4")
 metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
 
 [node name="MapEditor" type="Control" parent="MapPanel" unique_id=272402046]
+z_index = 100
 anchors_preset = 0
 script = ExtResource("3_xt7w2")
 
 [node name="Base" type="TileMapLayer" parent="MapPanel" unique_id=1294220556]
+z_index = 90
 tile_set = ExtResource("2_sl1kl")
 
 [node name="DebugButton" type="Button" parent="." unique_id=557885032]
@@ -90,26 +100,51 @@ offset_bottom = 864.0
 theme = ExtResource("6_0in77")
 text = "进入编辑页面"
 
+[node name="LoadLevel" type="Node" parent="." unique_id=422341343 node_paths=PackedStringArray("map_editor", "level_list", "base_tilemap", "level_title", "level_hint", "map_panel")]
+script = ExtResource("2_8rpq6")
+map_editor = NodePath("../MapPanel/MapEditor")
+level_list = NodePath("../Panel/LevelList")
+base_tilemap = NodePath("../MapPanel/Base")
+level_title = NodePath("../LevelTitle")
+level_hint = NodePath("../LevelHint")
+map_panel = NodePath("../MapPanel")
+
+[node name="LevelTitle" type="Label" parent="." unique_id=143480006]
+layout_mode = 0
+offset_left = 512.0
+offset_right = 1536.0
+offset_bottom = 64.0
+text = "[关卡标题]"
+label_settings = SubResource("LabelSettings_kk2rg")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 1
+
+[node name="LevelHint" type="Label" parent="." unique_id=2144594623]
+layout_mode = 0
+offset_left = 512.0
+offset_top = 64.0
+offset_right = 1536.0
+offset_bottom = 128.0
+text = "如果你看到这句话，说明出现了bug！"
+label_settings = SubResource("LabelSettings_b5spy")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 1
+
 [node name="Panel" type="Panel" parent="." unique_id=477024173]
 layout_mode = 0
 offset_left = 32.0
-offset_top = 32.0
+offset_top = 64.0
 offset_right = 320.0
-offset_bottom = 576.0
+offset_bottom = 640.0
 mouse_filter = 1
-
-[node name="LoadLevel" type="Node" parent="Panel" unique_id=422341343 node_paths=PackedStringArray("map_editor", "level_list", "base_tilemap", "hint_label")]
-script = ExtResource("2_8rpq6")
-map_editor = NodePath("../../MapPanel/MapEditor")
-level_list = NodePath("../LevelList")
-base_tilemap = NodePath("../../MapPanel/Base")
-hint_label = NodePath("../LevelHint")
 
 [node name="LevelList" type="ItemList" parent="Panel" unique_id=2069964197]
 layout_mode = 0
 offset_top = 64.0
 offset_right = 288.0
-offset_bottom = 416.0
+offset_bottom = 512.0
 theme_override_constants/v_separation = 10
 theme_override_font_sizes/font_size = 24
 
@@ -117,19 +152,8 @@ theme_override_font_sizes/font_size = 24
 layout_mode = 0
 offset_right = 288.0
 offset_bottom = 64.0
-text = "关卡列表"
+text = "[DEBUG]关卡列表"
 label_settings = SubResource("LabelSettings_0in77")
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 1
-
-[node name="LevelHint" type="Label" parent="Panel" unique_id=1808956158]
-layout_mode = 0
-offset_top = 480.0
-offset_right = 288.0
-offset_bottom = 544.0
-text = "当前关卡："
-label_settings = SubResource("LabelSettings_f3g3v")
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 1
@@ -137,21 +161,21 @@ autowrap_mode = 1
 [node name="RefreshButton" type="Button" parent="Panel" unique_id=1414248394]
 layout_mode = 0
 offset_left = 32.0
-offset_top = 416.0
+offset_top = 512.0
 offset_right = 128.0
-offset_bottom = 480.0
+offset_bottom = 576.0
 theme = ExtResource("6_0in77")
 text = "刷新"
 
 [node name="LoadButton" type="Button" parent="Panel" unique_id=1809549661]
 layout_mode = 0
 offset_left = 160.0
-offset_top = 416.0
+offset_top = 512.0
 offset_right = 256.0
-offset_bottom = 480.0
+offset_bottom = 576.0
 theme = ExtResource("6_0in77")
 text = "加载关卡"
 
 [connection signal="pressed" from="DebugButton" to="." method="_on_debug_button_pressed"]
-[connection signal="pressed" from="Panel/RefreshButton" to="Panel/LoadLevel" method="_on_refresh_button_pressed"]
-[connection signal="pressed" from="Panel/LoadButton" to="Panel/LoadLevel" method="_on_load_button_pressed"]
+[connection signal="pressed" from="Panel/RefreshButton" to="LoadLevel" method="_on_refresh_button_pressed"]
+[connection signal="pressed" from="Panel/LoadButton" to="LoadLevel" method="_on_load_button_pressed"]

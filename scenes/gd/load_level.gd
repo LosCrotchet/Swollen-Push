@@ -2,10 +2,15 @@ extends Node
 
 @export var map_editor: Control
 @export var level_list: ItemList
-@export var base_tilemap: TileMapLayer # 请在属性面板中将 MapPanel 下的 Base 拖入此变量
-@export var hint_label: Label
+@export var base_tilemap: TileMapLayer
+@export var level_title: Label
+@export var level_hint: Label
+@export var map_panel: Panel
 
 var _now_level = -1
+const BASE_POSITION = Vector2(512, 128)
+
+var all_levels
 
 func _ready() -> void:
 	GridManager.level_finished.connect(_on_load_next_level)
@@ -14,78 +19,108 @@ func _ready() -> void:
 func log_print(s: String):
 	print("[%s] %s" % [Time.get_time_string_from_system(), s])
 
-# ==========================================
-# 存档路径获取逻辑 (兼容编辑器与导出的 exe)
-# ==========================================
-func get_save_path(level_name: String) -> String:
-	return "res://levels/%s" % level_name
-
-func dir_contents(path):
-	var dir = DirAccess.open(path)
-	var files = []
-	if dir:
-		dir.list_dir_begin()
-		var file_name = dir.get_next()
-		while file_name != "":
-			if dir.current_is_dir():
-				break
-			else:
-				files.append(file_name)
-			file_name = dir.get_next()
-	else:
-		print("Error。")
-	return files
-
-func _on_refresh_button_pressed() -> void:
-	var files = dir_contents("res://levels")
-	
-	level_list.clear()
-	for item in files:
-		level_list.add_item(item)
-	if level_list.item_count:
-		load_level(level_list.get_item_text(0))
-		_now_level = 0
-		hint_label.text = "当前关卡：%s" % level_list.get_item_text(_now_level)
-	else:
-		hint_label.text = "ERROR"
-
-func _on_load_button_pressed() -> void:
-	var select_item = level_list.get_selected_items()
-	if select_item:
-		load_level(level_list.get_item_text(select_item[0]))
-		_now_level = select_item[0]
-		hint_label.text = "当前关卡：%s" % level_list.get_item_text(_now_level)
-	else:
-		hint_label.text = "ERROR"
-
-func _on_load_next_level():
-	if _now_level >= 0:
-		_now_level += 1
-		if _now_level < level_list.item_count:
-			load_level(level_list.get_item_text(_now_level))
-			hint_label.text = "当前关卡：%s" % level_list.get_item_text(_now_level)
-		else:
-			hint_label.text = "没有关卡了！"
-
-# ==========================================
-# 读取地图 (高级版：不规则内腔提取与自适应边框)
-# ==========================================
-func load_level(level_name: String):
-	var path = get_save_path(level_name)
-	if not FileAccess.file_exists(path):
-		log_print("找不到存档文件: " + path)
-		return
-		
-	var file = FileAccess.open(path, FileAccess.READ)
+func _get_levels():
+	var file = FileAccess.open("res://levels.json", FileAccess.READ)
 	var json = JSON.new()
 	var parse_result = json.parse(file.get_as_text())
 	file.close()
 	
 	if parse_result != OK:
 		log_print("JSON 解析失败，错误行: " + str(json.get_error_line()))
-		return
-		
+		return {}
+	
 	var data = json.data
+	return data
+
+func _on_refresh_button_pressed() -> void:
+	all_levels = _get_levels()
+	
+	level_list.clear()
+	for item in all_levels:
+		level_list.add_item(item)
+	if level_list.item_count:
+		_now_level = 0
+		load_level(level_list.get_item_text(_now_level))
+		level_title.text = level_list.get_item_text(_now_level)
+		level_hint.text = all_levels[level_list.get_item_text(_now_level)]["hint"]
+	else:
+		level_title.text = ""
+		level_hint.text = ""
+
+func _on_load_button_pressed() -> void:
+	var select_item = level_list.get_selected_items()
+	if select_item:
+		load_level(level_list.get_item_text(select_item[0]))
+		_now_level = select_item[0]
+		level_title.text = level_list.get_item_text(_now_level)
+		level_hint.text = all_levels[level_list.get_item_text(_now_level)]["hint"]
+	else:
+		level_title.text = ""
+		level_hint.text = ""
+
+func _on_load_next_level():
+	if _now_level >= 0:
+		_now_level += 1
+		if _now_level < level_list.item_count:
+			load_level(level_list.get_item_text(_now_level))
+			level_title.text = level_list.get_item_text(_now_level)
+			level_hint.text = all_levels[level_list.get_item_text(_now_level)]["hint"]
+		else:
+			level_title.text = "CONGRATULATIONS"
+			level_hint.text = "你已完成所有关卡！"
+
+
+func _is_valid_base64(s: String) -> bool:
+	if not s or len(s) % 4 != 0:
+		return false
+	var valid_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/="
+	for c in s:
+		if c not in valid_chars:
+			return false
+	return true
+
+func _is_valid_map_data(s: String) -> bool:
+	if not s or len(s) != GameManager.WIDTH*GameManager.HEIGHT:
+		return false
+	var valid_chars = "0123456789"
+	for c in s:
+		if c not in valid_chars:
+			return false
+	return true
+
+# ==========================================
+# 读取地图 (高级版：不规则内腔提取与自适应边框)
+# ==========================================
+func load_level(level_name: String):
+	var map_data = all_levels.get(level_name, {})
+	if map_data == {}:
+		log_print("找不到关卡：" + level_name)
+		return
+	
+	log_print("加载关卡：" + level_name)
+	
+	map_data = map_data["data"]
+	if not _is_valid_base64(map_data):
+		log_print("地图字符串的格式错误，不符合Base64编码规范！")
+		return
+	
+	var all_data = []
+	map_data = Marshalls.base64_to_utf8(map_data)
+	
+	if not _is_valid_map_data(map_data):
+		log_print("解析后的地图数据错误！")
+		return
+	
+	for i in range(len(map_data)):
+		if int(map_data[i]) != 0:
+			@warning_ignore("integer_division")
+			var obj_data = {
+				"x": i%GameManager.WIDTH,
+				"y": i/GameManager.WIDTH,
+				"type": int(map_data[i])-1,
+				"radius": 1
+			}
+			all_data.append(obj_data)
 	
 	# 1. 清理当前场上所有物体
 	for item in get_tree().get_nodes_in_group("OBJECT"):
@@ -96,11 +131,11 @@ func load_level(level_name: String):
 		item.remove_from_group("FIREPIT")
 		item.queue_free()
 
+	log_print("地图清空完成！")
 	# --- 优化步骤 1：解析不规则地图形态 ---
 	var wall_coords = {}      # 记录所有墙壁的坐标
 	var interior_coords = {}  # 记录所有非墙壁（内腔）的坐标
 	
-	var all_data = data.get("objects", [])
 	
 	# 提取 json 中的墙壁坐标
 	for obj in all_data:
@@ -120,21 +155,6 @@ func load_level(level_name: String):
 	# 将所有内腔加入有效地图
 	for c in interior_coords.keys():
 		valid_map_coords[c] = true
-		
-	# 找出边界墙：只要一面墙的 8 个邻居中有任何一个是内腔，它就是边界
-	#for wall_c in wall_coords.keys():
-		#var is_boundary = false
-		#for dx in [-1, 0, 1]:
-			#for dy in [-1, 0, 1]:
-				#if dx == 0 and dy == 0: continue
-				#var neighbor = wall_c + Vector2i(dx, dy)
-				#if interior_coords.has(neighbor):
-					#is_boundary = true
-					#break
-			#if is_boundary: break
-			
-		#if is_boundary:
-		#	valid_map_coords[wall_c] = true
 
 	# --- 优化步骤 2：重新计算视觉居中偏移 ---
 	var min_x = 9999; var max_x = -9999
@@ -153,10 +173,15 @@ func load_level(level_name: String):
 	# 偏移至 MapPanel 的中心点 (512, 384)
 	var visual_offset = Vector2(512.0 - map_center_x, 384.0 - map_center_y)
 	
+	if map_panel:
+		map_panel.position = visual_offset + BASE_POSITION
+		map_panel.size = Vector2(max_x - min_x + 1, max_y - min_y + 1) * 64
+		
+	log_print("使MapPanel居中")
+	
 	if base_tilemap:
-		base_tilemap.position = visual_offset
 		base_tilemap.clear()
-	map_editor.position = visual_offset
+	#map_editor.position = visual_offset
 
 	# --- 优化步骤 3：自适应绘制不规则 9-Slice 地板 ---
 	if base_tilemap:
@@ -192,8 +217,9 @@ func load_level(level_name: String):
 			# 假设 TileSet 的 source_id 是 1
 			base_tilemap.set_cell(c, 1, atlas_coords)
 
+	log_print("地图地板绘制完成！")
 	# --- 优化步骤 4：还原物体并剔除多余墙壁 ---
-	for obj_data in data.get("objects", []):
+	for obj_data in all_data:
 		var type = obj_data["type"]
 		var c = Vector2i(obj_data["x"], obj_data["y"])
 		

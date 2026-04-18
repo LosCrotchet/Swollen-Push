@@ -60,10 +60,12 @@ func get_push_dir(from_coord: Vector2i):
 func _on_mouse_entered():
 	if is_hint_enable:
 		play_hint(Vector2.ONE * 1.1)
+		z_index += 999
 
 func _on_mouse_exited():
 	if is_hint_enable:
 		play_hint(Vector2.ONE)
+		z_index -= 999
 
 func play_hint(to_scale: Vector2):
 	if _hint_tween:
