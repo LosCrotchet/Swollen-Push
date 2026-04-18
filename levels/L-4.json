@@ -2,174 +2,151 @@
 	"height": 12,
 	"objects": [
 		{
-			"mass": 100,
-			"radius": 1,
-			"type": 0,
-			"x": 2,
-			"y": 5
-		},
-		{
-			"mass": 100,
-			"radius": 1,
-			"type": 0,
-			"x": 2,
-			"y": 4
-		},
-		{
-			"mass": 100,
-			"radius": 1,
-			"type": 0,
-			"x": 3,
-			"y": 7
-		},
-		{
-			"mass": 100,
-			"radius": 1,
-			"type": 0,
-			"x": 3,
-			"y": 8
-		},
-		{
-			"mass": 100,
-			"radius": 1,
-			"type": 0,
-			"x": 4,
-			"y": 5
-		},
-		{
-			"mass": 100,
-			"radius": 1,
-			"type": 0,
-			"x": 4,
-			"y": 4
-		},
-		{
-			"mass": 10,
-			"radius": 1,
-			"type": 4,
-			"x": 14,
-			"y": 6
-		},
-		{
 			"mass": 2147483647,
 			"radius": 1,
-			"type": 3,
+			"type": 6,
 			"x": 0,
-			"y": 0
+			"y": 11
 		},
 		{
 			"mass": 2147483647,
 			"radius": 1,
-			"type": 3,
+			"type": 6,
 			"x": 1,
-			"y": 0
+			"y": 11
 		},
 		{
 			"mass": 2147483647,
 			"radius": 1,
-			"type": 3,
+			"type": 6,
 			"x": 2,
-			"y": 0
+			"y": 11
 		},
 		{
 			"mass": 2147483647,
 			"radius": 1,
-			"type": 3,
+			"type": 6,
 			"x": 3,
-			"y": 0
+			"y": 11
 		},
 		{
 			"mass": 2147483647,
 			"radius": 1,
-			"type": 3,
+			"type": 6,
 			"x": 4,
-			"y": 0
+			"y": 11
 		},
 		{
 			"mass": 2147483647,
 			"radius": 1,
-			"type": 3,
+			"type": 6,
 			"x": 5,
-			"y": 0
+			"y": 11
 		},
 		{
 			"mass": 2147483647,
 			"radius": 1,
-			"type": 3,
+			"type": 6,
 			"x": 6,
-			"y": 0
+			"y": 11
 		},
 		{
 			"mass": 2147483647,
 			"radius": 1,
-			"type": 3,
+			"type": 6,
 			"x": 7,
-			"y": 0
+			"y": 11
 		},
 		{
 			"mass": 2147483647,
 			"radius": 1,
-			"type": 3,
+			"type": 6,
 			"x": 8,
-			"y": 0
+			"y": 11
 		},
 		{
 			"mass": 2147483647,
 			"radius": 1,
-			"type": 3,
+			"type": 6,
 			"x": 9,
-			"y": 0
+			"y": 11
 		},
 		{
 			"mass": 2147483647,
 			"radius": 1,
-			"type": 3,
+			"type": 6,
 			"x": 10,
-			"y": 0
+			"y": 11
 		},
 		{
 			"mass": 2147483647,
 			"radius": 1,
-			"type": 3,
+			"type": 6,
 			"x": 11,
-			"y": 0
+			"y": 11
 		},
 		{
 			"mass": 2147483647,
 			"radius": 1,
-			"type": 3,
+			"type": 6,
 			"x": 12,
-			"y": 0
+			"y": 11
 		},
 		{
 			"mass": 2147483647,
 			"radius": 1,
-			"type": 3,
+			"type": 6,
 			"x": 13,
-			"y": 0
+			"y": 11
 		},
 		{
 			"mass": 2147483647,
 			"radius": 1,
-			"type": 3,
+			"type": 6,
 			"x": 14,
-			"y": 0
+			"y": 11
 		},
 		{
 			"mass": 2147483647,
 			"radius": 1,
-			"type": 3,
+			"type": 6,
 			"x": 15,
-			"y": 0
-		}
-	],
-	"props": [
+			"y": 11
+		},
 		{
-			"mass": 0,
+			"mass": 1,
 			"radius": 1,
 			"type": 5,
 			"x": 15,
-			"y": 6
+			"y": 5
+		},
+		{
+			"mass": 1,
+			"radius": 1,
+			"type": 4,
+			"x": 14,
+			"y": 5
+		},
+		{
+			"mass": 100,
+			"radius": 1,
+			"type": 0,
+			"x": 2,
+			"y": 5
+		},
+		{
+			"mass": 100,
+			"radius": 1,
+			"type": 0,
+			"x": 3,
+			"y": 5
+		},
+		{
+			"mass": 100,
+			"radius": 1,
+			"type": 0,
+			"x": 4,
+			"y": 5
 		}
 	],
 	"width": 16

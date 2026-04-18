@@ -1,7 +1,7 @@
 extends Node
 
 var is_editing: bool = true
-var now_setting: CONTENT = CONTENT.CUBE_SIMPLE
+var now_setting: CONTENT = CONTENT.CUBE_NORMAL
 var is_dark_mode: bool = true
 var now_mouse_click_mode: bool = true
 
@@ -10,20 +10,14 @@ const TWEEN_TIME := 0.1
 const HEIGHT: int = 12
 const WIDTH: int = 16
 
-enum STATUE{
-	NORMAL,
-	INTERACTING,
-	PASSIVE
-}
-
 enum CONTENT{
-	CUBE_SIMPLE,
+	CUBE_NORMAL,
 	CUBE_STICKY,
-	CUBE_STATIC,
-	WALL,
-	BOX,
-	HOLE,
-	CUBE_BOOM
+	CUBE_FIXED,
+	CUBE_BOOM,
+	FIREBALL,
+	FIREPIT,
+	WALL
 }
 
 enum DIRECTION{

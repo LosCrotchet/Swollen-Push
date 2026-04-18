@@ -6,30 +6,30 @@ class_name CubeUnit extends Node2D
 @export var type: GameManager.CONTENT
 @export var radius: int
 
+@export var is_hint_enable := false
+@export var is_fixed := false
 var is_exploding: bool = false
 
 var facing: Vector2i = Vector2i.DOWN
 var _pos_tween: Tween
+var _hint_tween: Tween
 var _offset := Vector2i(32, 32)
 
-func _init(_coordinate: Vector2i, _mass: int, _type: GameManager.CONTENT, _radius: int = 1):
-	coordinate = _coordinate
-	mass = _mass
-	type = _type
-	radius = _radius
-	
-	position =  _coordinate * 64 + _offset
-	
-	var Outlook = Sprite2D.new()
-	Outlook.name = "Outlook"
-	Outlook.set_texture(load("res://assets/textures.png"))
-	Outlook.region_enabled = true
-	Outlook.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-	add_child(Outlook)
-	
-	var AnimatedOutlook = AnimatedSprite2D.new()
-	AnimatedOutlook.name = "AnimatedOutlook"
-	add_child(AnimatedOutlook)
+@onready var Outlook = $HoverWrapper/Outlook
+@onready var AnimatedOutlook = $HoverWrapper/AnimatedOutlook
+@onready var HoverWrapper = $HoverWrapper
+@onready var Area = $Area2D
+
+#func _init(_coordinate: Vector2i, _mass: int, _type: GameManager.CONTENT, _radius: int = 1):
+	#coordinate = _coordinate
+	#mass = _mass
+	#type = _type
+	#radius = _radius
+	#
+	#position =  _coordinate * 64 + _offset
+
+func _ready() -> void:
+	position =  coordinate * 64 + _offset
 
 func move_to(to_coordinate: Vector2i) -> bool:
 	facing = sign(to_coordinate - coordinate)
@@ -56,3 +56,18 @@ func get_push_dir(from_coord: Vector2i):
 		return Vector2i(0, sign(dy))
 	else:
 		return Vector2i(sign(dx), sign(dy))
+
+func _on_mouse_entered():
+	if is_hint_enable:
+		play_hint(Vector2.ONE * 1.1)
+
+func _on_mouse_exited():
+	if is_hint_enable:
+		play_hint(Vector2.ONE)
+
+func play_hint(to_scale: Vector2):
+	if _hint_tween:
+		_hint_tween.kill()
+	_hint_tween = get_tree().create_tween()
+	_hint_tween.set_trans(Tween.TRANS_CUBIC)
+	_hint_tween.tween_property(HoverWrapper, "scale", to_scale, GameManager.TWEEN_TIME)

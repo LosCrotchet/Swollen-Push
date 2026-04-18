@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://b241ryq5pa54c"]
+
+[ext_resource type="PackedScene" uid="uid://dn37r1weaa6ae" path="res://scenes/cube_unit.tscn" id="1_pefvj"]
+[ext_resource type="Script" uid="uid://d3o2rll1npwcf" path="res://scenes/gd/firepit.gd" id="2_05n8o"]
+
+[node name="Firepit" unique_id=970972792 instance=ExtResource("1_pefvj")]
+script = ExtResource("2_05n8o")

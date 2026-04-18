@@ -1,15 +1,15 @@
 [gd_scene format=4 uid="uid://ctwlac8206iq8"]
 
-[ext_resource type="Script" uid="uid://52yg8a3xfae2" path="res://scene/gd/debug_scene.gd" id="1_otnhf"]
+[ext_resource type="Script" uid="uid://52yg8a3xfae2" path="res://scenes/gd/debug_scene.gd" id="1_otnhf"]
 [ext_resource type="Texture2D" uid="uid://cj6r7xea2svdh" path="res://assets/bg_D.jpg" id="2_epvik"]
-[ext_resource type="Script" uid="uid://cjvpmc55aycst" path="res://scene/gd/game_manager.gd" id="3_fkvrv"]
-[ext_resource type="Script" uid="uid://cmvphyd8qyd0k" path="res://scene/gd/save_and_load.gd" id="4_76x5q"]
+[ext_resource type="Script" uid="uid://cjvpmc55aycst" path="res://scenes/gd/game_manager.gd" id="3_fkvrv"]
+[ext_resource type="Script" uid="uid://cmvphyd8qyd0k" path="res://scenes/gd/save_and_load.gd" id="4_76x5q"]
 [ext_resource type="Theme" uid="uid://0aif3jm84300" path="res://assets/tres/set_content_button.tres" id="5_2a6jk"]
 [ext_resource type="ButtonGroup" uid="uid://b4ue528j4qrmc" path="res://assets/tres/mouse_click_button_group.tres" id="6_y5h6t"]
 [ext_resource type="ButtonGroup" uid="uid://ca7sum6ni0by2" path="res://assets/tres/set_content.tres" id="7_tmisn"]
-[ext_resource type="Script" uid="uid://d0d7cu2gytslk" path="res://scene/gd/map_panel.gd" id="8_gdxb7"]
+[ext_resource type="Script" uid="uid://d0d7cu2gytslk" path="res://scenes/gd/map_panel.gd" id="8_gdxb7"]
 [ext_resource type="TileSet" uid="uid://d3pd2pncqrgq3" path="res://assets/tres/textures.tres" id="10_wf6om"]
-[ext_resource type="Script" uid="uid://deolo8ggam6u0" path="res://scene/gd/map_editor.gd" id="11_fma7q"]
+[ext_resource type="Script" uid="uid://deolo8ggam6u0" path="res://scenes/gd/map_editor.gd" id="11_fma7q"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_f3g3v"]
 font_size = 48
@@ -35,6 +35,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 script = ExtResource("1_otnhf")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1747879771]
@@ -70,7 +71,7 @@ offset_left = 256.0
 offset_top = 101.0
 offset_right = 448.0
 offset_bottom = 133.0
-text = "V0.3.0 - alpha"
+text = "V0.3.1 - alpha"
 label_settings = SubResource("LabelSettings_juocg")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -101,6 +102,7 @@ offset_left = 32.0
 offset_top = 128.0
 offset_right = 448.0
 offset_bottom = 672.0
+mouse_filter = 1
 
 [node name="Hint" type="Label" parent="DebugPanel" unique_id=1118971398]
 visible = false
@@ -229,10 +231,10 @@ text = "普通
 
 [node name="SetStickyCube" type="Button" parent="DebugPanel" unique_id=1402513339]
 layout_mode = 0
-offset_left = 32.0
-offset_top = 288.0
-offset_right = 96.0
-offset_bottom = 352.0
+offset_left = 128.0
+offset_top = 192.0
+offset_right = 192.0
+offset_bottom = 256.0
 theme = ExtResource("5_2a6jk")
 toggle_mode = true
 button_group = ExtResource("7_tmisn")
@@ -241,10 +243,10 @@ text = "黏性
 
 [node name="SetStaticCube" type="Button" parent="DebugPanel" unique_id=399372846]
 layout_mode = 0
-offset_left = 128.0
-offset_top = 288.0
-offset_right = 192.0
-offset_bottom = 352.0
+offset_left = 224.0
+offset_top = 192.0
+offset_right = 288.0
+offset_bottom = 256.0
 theme = ExtResource("5_2a6jk")
 toggle_mode = true
 button_group = ExtResource("7_tmisn")
@@ -253,10 +255,10 @@ text = "固定
 
 [node name="SetBoomCube" type="Button" parent="DebugPanel" unique_id=1625006729]
 layout_mode = 0
-offset_left = 224.0
-offset_top = 288.0
-offset_right = 288.0
-offset_bottom = 352.0
+offset_left = 320.0
+offset_top = 192.0
+offset_right = 384.0
+offset_bottom = 256.0
 theme = ExtResource("5_2a6jk")
 toggle_mode = true
 button_group = ExtResource("7_tmisn")
@@ -265,36 +267,36 @@ text = "爆炸
 
 [node name="SetWall" type="Button" parent="DebugPanel" unique_id=1026061011]
 layout_mode = 0
-offset_left = 128.0
-offset_top = 192.0
-offset_right = 192.0
-offset_bottom = 256.0
+offset_left = 32.0
+offset_top = 288.0
+offset_right = 96.0
+offset_bottom = 352.0
 theme = ExtResource("5_2a6jk")
 toggle_mode = true
 button_group = ExtResource("7_tmisn")
 text = "墙壁"
 
-[node name="SetBox" type="Button" parent="DebugPanel" unique_id=1588803112]
+[node name="SetFireBall" type="Button" parent="DebugPanel" unique_id=1588803112]
 layout_mode = 0
-offset_left = 224.0
-offset_top = 192.0
-offset_right = 288.0
-offset_bottom = 256.0
+offset_left = 128.0
+offset_top = 288.0
+offset_right = 192.0
+offset_bottom = 352.0
 theme = ExtResource("5_2a6jk")
 toggle_mode = true
 button_group = ExtResource("7_tmisn")
 text = "火球"
 
-[node name="SetFlag" type="Button" parent="DebugPanel" unique_id=878309048]
+[node name="SetFirePit" type="Button" parent="DebugPanel" unique_id=878309048]
 layout_mode = 0
-offset_left = 320.0
-offset_top = 192.0
-offset_right = 384.0
-offset_bottom = 256.0
+offset_left = 224.0
+offset_top = 288.0
+offset_right = 288.0
+offset_bottom = 352.0
 theme = ExtResource("5_2a6jk")
 toggle_mode = true
 button_group = ExtResource("7_tmisn")
-text = "标记"
+text = "火盆"
 
 [node name="MapPanel" type="Panel" parent="." unique_id=532152570]
 z_index = 100
@@ -303,6 +305,7 @@ offset_left = 512.0
 offset_top = 64.0
 offset_right = 1536.0
 offset_bottom = 832.0
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_c8mr4")
 script = ExtResource("8_gdxb7")
 
@@ -312,6 +315,7 @@ tile_set = ExtResource("10_wf6om")
 
 [node name="MapEditor" type="Control" parent="MapPanel" unique_id=1319323995]
 anchors_preset = 0
+mouse_filter = 2
 script = ExtResource("11_fma7q")
 
 [node name="Cursor" type="TileMapLayer" parent="MapPanel" unique_id=238586555]
@@ -332,5 +336,5 @@ tile_set = ExtResource("10_wf6om")
 [connection signal="toggled" from="DebugPanel/SetStaticCube" to="." method="_on_button_toggled" binds= [6]]
 [connection signal="toggled" from="DebugPanel/SetBoomCube" to="." method="_on_button_toggled" binds= [7]]
 [connection signal="toggled" from="DebugPanel/SetWall" to="." method="_on_button_toggled" binds= [2]]
-[connection signal="toggled" from="DebugPanel/SetBox" to="." method="_on_button_toggled" binds= [3]]
-[connection signal="toggled" from="DebugPanel/SetFlag" to="." method="_on_button_toggled" binds= [4]]
+[connection signal="toggled" from="DebugPanel/SetFireBall" to="." method="_on_button_toggled" binds= [3]]
+[connection signal="toggled" from="DebugPanel/SetFirePit" to="." method="_on_button_toggled" binds= [4]]

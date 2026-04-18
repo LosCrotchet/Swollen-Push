@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://bdpn31pic2maq"]
 
-[ext_resource type="Script" uid="uid://bhu7awetlwlg2" path="res://scene/gd/game_scene.gd" id="1_volm0"]
-[ext_resource type="Script" uid="uid://dcklpslflfytw" path="res://scene/gd/load_level.gd" id="2_8rpq6"]
+[ext_resource type="Script" uid="uid://bhu7awetlwlg2" path="res://scenes/gd/game_scene.gd" id="1_volm0"]
+[ext_resource type="Script" uid="uid://dcklpslflfytw" path="res://scenes/gd/load_level.gd" id="2_8rpq6"]
 [ext_resource type="Texture2D" uid="uid://cj6r7xea2svdh" path="res://assets/bg_D.jpg" id="2_c8mr4"]
 [ext_resource type="TileSet" uid="uid://d3pd2pncqrgq3" path="res://assets/tres/textures.tres" id="2_sl1kl"]
 [ext_resource type="Texture2D" uid="uid://4fxwea31m6g8" path="res://assets/corner.png" id="3_f3g3v"]
-[ext_resource type="Script" uid="uid://deolo8ggam6u0" path="res://scene/gd/map_editor.gd" id="3_xt7w2"]
+[ext_resource type="Script" uid="uid://deolo8ggam6u0" path="res://scenes/gd/map_editor.gd" id="3_xt7w2"]
 [ext_resource type="Theme" uid="uid://0aif3jm84300" path="res://assets/tres/set_content_button.tres" id="6_0in77"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c8mr4"]
@@ -23,6 +23,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 script = ExtResource("1_volm0")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1747879771]
@@ -68,6 +69,7 @@ offset_right = 736.0
 offset_bottom = 382.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxEmpty_c8mr4")
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
@@ -94,6 +96,7 @@ offset_left = 32.0
 offset_top = 32.0
 offset_right = 320.0
 offset_bottom = 576.0
+mouse_filter = 1
 
 [node name="LoadLevel" type="Node" parent="Panel" unique_id=422341343 node_paths=PackedStringArray("map_editor", "level_list", "base_tilemap", "hint_label")]
 script = ExtResource("2_8rpq6")

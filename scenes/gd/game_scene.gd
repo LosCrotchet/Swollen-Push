@@ -6,4 +6,4 @@ func _ready() -> void:
 
 
 func _on_debug_button_pressed() -> void:
-	get_tree().change_scene_to_file("res://scene/debug_scene.tscn")
+	get_tree().change_scene_to_file("res://scenes/debug_scene.tscn")
