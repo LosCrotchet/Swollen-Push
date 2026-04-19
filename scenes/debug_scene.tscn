@@ -57,7 +57,7 @@ offset_left = 64.0
 offset_top = 32.0
 offset_right = 416.0
 offset_bottom = 128.0
-text = "Swollen Push"
+text = "编辑模式"
 label_settings = SubResource("LabelSettings_f3g3v")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -69,7 +69,7 @@ offset_left = 256.0
 offset_top = 101.0
 offset_right = 448.0
 offset_bottom = 133.0
-text = "V0.3.2 - alpha"
+text = "Swollen Push"
 label_settings = SubResource("LabelSettings_juocg")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -120,7 +120,7 @@ autowrap_mode = 1
 [node name="Log" type="TextEdit" parent="DebugPanel" unique_id=1552871904]
 layout_mode = 0
 offset_left = 32.0
-offset_top = 480.0
+offset_top = 448.0
 offset_right = 384.0
 offset_bottom = 640.0
 theme_override_constants/line_spacing = 2
@@ -128,40 +128,29 @@ placeholder_text = "在这里粘贴地图数据"
 wrap_mode = 1
 autowrap_mode = 1
 
-[node name="Title" type="Label" parent="DebugPanel" unique_id=263632860]
-layout_mode = 0
-offset_left = 32.0
-offset_right = 384.0
-offset_bottom = 64.0
-text = "调试面板"
-label_settings = SubResource("LabelSettings_0in77")
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 1
-
 [node name="ResetButton" type="Button" parent="DebugPanel" unique_id=2130809510]
 layout_mode = 0
-offset_left = 224.0
-offset_top = 64.0
-offset_right = 384.0
-offset_bottom = 128.0
+offset_left = 32.0
+offset_top = 32.0
+offset_right = 192.0
+offset_bottom = 96.0
 theme = ExtResource("5_2a6jk")
 text = "清空并重置"
 
 [node name="SaveButton" type="Button" parent="DebugPanel" unique_id=131303753]
 layout_mode = 0
-offset_left = 32.0
+offset_left = 64.0
 offset_top = 384.0
-offset_right = 128.0
+offset_right = 160.0
 offset_bottom = 448.0
 theme = ExtResource("5_2a6jk")
 text = "保存"
 
 [node name="LoadButton" type="Button" parent="DebugPanel" unique_id=2134538258]
 layout_mode = 0
-offset_left = 160.0
+offset_left = 256.0
 offset_top = 384.0
-offset_right = 256.0
+offset_right = 352.0
 offset_bottom = 448.0
 theme = ExtResource("5_2a6jk")
 text = "加载"
@@ -193,10 +182,10 @@ text = "右键"
 
 [node name="EditModeEnable" type="Button" parent="DebugPanel" unique_id=1900910796]
 layout_mode = 0
-offset_left = 32.0
-offset_top = 64.0
-offset_right = 192.0
-offset_bottom = 128.0
+offset_left = 224.0
+offset_top = 32.0
+offset_right = 384.0
+offset_bottom = 96.0
 theme = ExtResource("5_2a6jk")
 toggle_mode = true
 button_pressed = true
@@ -205,9 +194,9 @@ text = "编辑模式：开"
 [node name="Title2" type="Label" parent="DebugPanel" unique_id=1164788202]
 layout_mode = 0
 offset_left = 32.0
-offset_top = 128.0
+offset_top = 96.0
 offset_right = 384.0
-offset_bottom = 192.0
+offset_bottom = 160.0
 text = "鼠标放置内容"
 label_settings = SubResource("LabelSettings_0in77")
 horizontal_alignment = 1
@@ -217,9 +206,9 @@ autowrap_mode = 1
 [node name="SetSimpleCube" type="Button" parent="DebugPanel" unique_id=461442647]
 layout_mode = 0
 offset_left = 32.0
-offset_top = 192.0
+offset_top = 160.0
 offset_right = 96.0
-offset_bottom = 256.0
+offset_bottom = 224.0
 theme = ExtResource("5_2a6jk")
 toggle_mode = true
 button_pressed = true
@@ -230,9 +219,9 @@ text = "普通
 [node name="SetStickyCube" type="Button" parent="DebugPanel" unique_id=1402513339]
 layout_mode = 0
 offset_left = 128.0
-offset_top = 192.0
+offset_top = 160.0
 offset_right = 192.0
-offset_bottom = 256.0
+offset_bottom = 224.0
 theme = ExtResource("5_2a6jk")
 toggle_mode = true
 button_group = ExtResource("7_tmisn")
@@ -242,9 +231,9 @@ text = "黏性
 [node name="SetStaticCube" type="Button" parent="DebugPanel" unique_id=399372846]
 layout_mode = 0
 offset_left = 224.0
-offset_top = 192.0
+offset_top = 160.0
 offset_right = 288.0
-offset_bottom = 256.0
+offset_bottom = 224.0
 theme = ExtResource("5_2a6jk")
 toggle_mode = true
 button_group = ExtResource("7_tmisn")
@@ -254,9 +243,9 @@ text = "固定
 [node name="SetBoomCube" type="Button" parent="DebugPanel" unique_id=1625006729]
 layout_mode = 0
 offset_left = 320.0
-offset_top = 192.0
+offset_top = 160.0
 offset_right = 384.0
-offset_bottom = 256.0
+offset_bottom = 224.0
 theme = ExtResource("5_2a6jk")
 toggle_mode = true
 button_group = ExtResource("7_tmisn")

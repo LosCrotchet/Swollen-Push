@@ -10,6 +10,12 @@ const TWEEN_TIME := 0.1
 const HEIGHT: int = 12
 const WIDTH: int = 16
 
+const RIGHT_POSITION = Vector2(512, 0)
+const MIDDLE_POSITION = Vector2(288, 0)
+
+var map_panel_size := Vector2.ZERO
+var map_panel_position := Vector2.ZERO
+
 enum CONTENT{
 	CUBE_NORMAL,
 	CUBE_STICKY,

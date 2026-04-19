@@ -1,4 +1,14 @@
 {
+	"TEST-1": {
+		"data": "MDAwMDAwMDAwMDAwMDc3NzAwMDAwMDAwMDAwMDA3NzcwMDAwMDAwMDAwMDAwNzc3MDAwMTAwNTAwNjAwMDc3NzAwMDAwMDAwMDAwMDA3NzcwMDAwMDAwMDAwMDAwNzc3MDAwMDAwMDAwMDAwMDc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3",
+		"hint": "[测试关卡]本关卡可以自由放置一些方块......",
+		"quota": {
+			"normal": 1,
+			"sticky": 1,
+			"fixed": 1,
+			"boom": 1
+		}
+	},
 	"A-T-1": {
 		"data": "MDAwMDAwMDA3Nzc3Nzc3NzAwMDAwMDAwNzc3Nzc3NzcwMTE1MDA2MDc3Nzc3Nzc3MDAwMDAwMDA3Nzc3Nzc3NzAwMDAwMDAwNzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3",
 		"hint": "方块可以推动物体；鼠标左键让方块膨胀，最多两次，鼠标右键让方块缩小。"

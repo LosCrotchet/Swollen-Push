@@ -2,6 +2,7 @@ extends Control
 
 func _ready() -> void:
 	GameManager.is_editing = false
+	$GameRegion.position = GameManager.MIDDLE_POSITION
 	pass
 
 func _input(event: InputEvent) -> void:

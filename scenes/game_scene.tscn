@@ -6,6 +6,7 @@
 [ext_resource type="TileSet" uid="uid://d3pd2pncqrgq3" path="res://assets/tres/textures.tres" id="2_sl1kl"]
 [ext_resource type="Shader" uid="uid://byj4khap1876n" path="res://assets/tres/fire.gdshader" id="3_b5spy"]
 [ext_resource type="Script" uid="uid://deolo8ggam6u0" path="res://scenes/gd/map_editor.gd" id="3_xt7w2"]
+[ext_resource type="Script" uid="uid://clbeiaka6uimy" path="res://scenes/gd/birds_controller.gd" id="4_mw25s"]
 [ext_resource type="Theme" uid="uid://0aif3jm84300" path="res://assets/tres/set_content_button.tres" id="6_0in77"]
 [ext_resource type="Shader" uid="uid://nyg2vs71h4hk" path="res://assets/tres/firework.gdshader" id="6_b5spy"]
 
@@ -94,40 +95,49 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("CanvasTexture_utbpp")
 
-[node name="Birds" type="Panel" parent="." unique_id=1285499836]
+[node name="BirdsController" type="Panel" parent="." unique_id=1285499836 node_paths=PackedStringArray("map_editor")]
 layout_mode = 0
 offset_right = 1600.0
 offset_bottom = 896.0
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxEmpty_kk2rg")
+script = ExtResource("4_mw25s")
+map_editor = NodePath("../GameRegion/MapPanel/MapEditor")
 
-[node name="MapPanel" type="Panel" parent="." unique_id=532152570]
+[node name="GameRegion" type="Panel" parent="." unique_id=532152570]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -480.0
-offset_top = -322.0
-offset_right = 544.0
-offset_bottom = 446.0
+offset_left = -512.0
+offset_top = -450.0
+offset_right = 512.0
+offset_bottom = 450.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxEmpty_b5spy")
 metadata/_edit_group_ = true
 
-[node name="MapEditor" type="Control" parent="MapPanel" unique_id=272402046]
+[node name="MapPanel" type="Panel" parent="GameRegion" unique_id=2134317619]
+layout_mode = 1
+offset_top = 128.0
+offset_right = 1024.0
+offset_bottom = 896.0
+mouse_filter = 1
+
+[node name="MapEditor" type="Control" parent="GameRegion/MapPanel" unique_id=272402046]
 z_index = 100
 anchors_preset = 0
 script = ExtResource("3_xt7w2")
 
-[node name="Base" type="TileMapLayer" parent="MapPanel" unique_id=1294220556]
+[node name="Base" type="TileMapLayer" parent="GameRegion/MapPanel" unique_id=1294220556]
 z_index = 90
 tile_set = ExtResource("2_sl1kl")
 
-[node name="Fireworks" type="TextureRect" parent="MapPanel" unique_id=387166463]
+[node name="Fireworks" type="TextureRect" parent="GameRegion/MapPanel" unique_id=387166463]
 visible = false
 z_index = 666
 material = SubResource("ShaderMaterial_utbpp")
@@ -139,43 +149,44 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("CanvasTexture_b5spy")
 
-[node name="LevelTitle" type="Label" parent="MapPanel" unique_id=143480006]
+[node name="LevelTitle" type="Label" parent="GameRegion" unique_id=143480006]
 layout_mode = 0
-offset_top = -128.0
 offset_right = 1024.0
-offset_bottom = -64.0
+offset_bottom = 64.0
 text = "[关卡标题]"
 label_settings = SubResource("LabelSettings_kk2rg")
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 1
 
-[node name="LevelHint" type="Label" parent="MapPanel" unique_id=2144594623]
+[node name="LevelHint" type="Label" parent="GameRegion" unique_id=2144594623]
 layout_mode = 0
-offset_top = -64.0
+offset_top = 64.0
 offset_right = 1024.0
+offset_bottom = 128.0
 text = "如果你看到这句话，说明出现了bug！"
 label_settings = SubResource("LabelSettings_b5spy")
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 1
 
-[node name="LoadLevel" type="Node" parent="." unique_id=422341343 node_paths=PackedStringArray("map_editor", "level_list", "base_tilemap", "level_title", "level_hint", "map_panel", "fireworks", "fire")]
+[node name="LoadLevel" type="Node" parent="." unique_id=422341343 node_paths=PackedStringArray("map_editor", "level_list", "base_tilemap", "level_title", "level_hint", "map_panel", "fireworks", "fire", "birds_controller")]
 script = ExtResource("2_8rpq6")
-map_editor = NodePath("../MapPanel/MapEditor")
+map_editor = NodePath("../GameRegion/MapPanel/MapEditor")
 level_list = NodePath("../Panel/LevelList")
-base_tilemap = NodePath("../MapPanel/Base")
-level_title = NodePath("../MapPanel/LevelTitle")
-level_hint = NodePath("../MapPanel/LevelHint")
-map_panel = NodePath("../MapPanel")
-fireworks = NodePath("../MapPanel/Fireworks")
+base_tilemap = NodePath("../GameRegion/MapPanel/Base")
+level_title = NodePath("../GameRegion/LevelTitle")
+level_hint = NodePath("../GameRegion/LevelHint")
+map_panel = NodePath("../GameRegion/MapPanel")
+fireworks = NodePath("../GameRegion/MapPanel/Fireworks")
 fire = NodePath("../Fire")
+birds_controller = NodePath("../BirdsController")
 
 [node name="Hint" type="Label" parent="." unique_id=1596412942]
 layout_mode = 0
-offset_left = 416.0
+offset_left = 288.0
 offset_top = 832.0
-offset_right = 1248.0
+offset_right = 1312.0
 offset_bottom = 896.0
 text = "[左键]放大方块  |  [右键]缩小方块  |  [R] 重新开始关卡"
 label_settings = SubResource("LabelSettings_mw25s")
@@ -241,7 +252,7 @@ layout_mode = 0
 offset_top = 864.0
 offset_right = 256.0
 offset_bottom = 896.0
-text = "Swollen Push - v0.3.2 alpha"
+text = "Swollen Push - v0.3.3 alpha"
 label_settings = SubResource("LabelSettings_utbpp")
 horizontal_alignment = 1
 vertical_alignment = 1

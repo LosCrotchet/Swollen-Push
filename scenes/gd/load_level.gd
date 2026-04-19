@@ -8,15 +8,14 @@ extends Node
 @export var map_panel: Panel
 @export var fireworks: Control
 @export var fire: Control
+@export var birds_controller: Control
 
 var _now_level = -1
-#const BASE_POSITION = Vector2(512, 128)
-const BASE_POSITION = Vector2(320, 128)
+const BASE_POSITION = Vector2(0, 128)
 
 var all_levels
 
 func _ready() -> void:
-	map_panel.position = BASE_POSITION
 	GridManager.level_finished.connect(_on_level_finish)
 	_on_refresh_button_pressed()
 
@@ -71,8 +70,7 @@ func _on_refresh_button_pressed() -> void:
 	if level_list.item_count:
 		_now_level = 0
 		load_level(level_list.get_item_text(_now_level))
-		level_title.text = level_list.get_item_text(_now_level)
-		level_hint.text = all_levels[level_list.get_item_text(_now_level)]["hint"]
+		
 		level_list.select(_now_level)
 	else:
 		level_title.text = ""
@@ -83,8 +81,6 @@ func _on_load_button_pressed() -> void:
 	if select_item:
 		load_level(level_list.get_item_text(select_item[0]))
 		_now_level = select_item[0]
-		level_title.text = level_list.get_item_text(_now_level)
-		level_hint.text = all_levels[level_list.get_item_text(_now_level)]["hint"]
 	else:
 		level_title.text = ""
 		level_hint.text = ""
@@ -100,8 +96,6 @@ func _on_load_next_level():
 		_now_level += 1
 		if _now_level < level_list.item_count:
 			load_level(level_list.get_item_text(_now_level))
-			level_title.text = level_list.get_item_text(_now_level)
-			level_hint.text = all_levels[level_list.get_item_text(_now_level)]["hint"]
 			level_list.select(_now_level)
 	
 	if _now_level == level_list.item_count - 1:
@@ -132,6 +126,9 @@ func _is_valid_map_data(s: String) -> bool:
 # 读取地图 (高级版：不规则内腔提取与自适应边框)
 # ==========================================
 func load_level(level_name: String):
+	level_title.text = level_name
+	level_hint.text = all_levels[level_name]["hint"]
+	
 	var map_data = all_levels.get(level_name, {})
 	if map_data == {}:
 		log_print("找不到关卡：" + level_name)
@@ -150,6 +147,13 @@ func load_level(level_name: String):
 	if not _is_valid_map_data(map_data):
 		log_print("解析后的地图数据错误！")
 		return
+	
+	birds_controller.clear()
+	var quota = all_levels[level_name].get("quota", {})
+	if quota != {}:
+		for item in quota:
+			for k in range(quota[item]):
+				birds_controller.create(item)
 	
 	for i in range(len(map_data)):
 		if int(map_data[i]) != 0:
@@ -213,17 +217,19 @@ func load_level(level_name: String):
 	# 偏移至 MapPanel 的中心点 (512, 384)
 	var visual_offset = Vector2(512.0 - map_center_x, 384.0 - map_center_y)
 	
-	## 二选一：偏移map_panel
-	#if map_panel:
-		#map_panel.position = visual_offset + BASE_POSITION
-		#map_panel.size = Vector2(max_x - min_x + 1, max_y - min_y + 1) * 64
-		#log_print("使MapPanel居中")
+	# 二选一：偏移map_panel
+	if map_panel:
+		map_panel.position = visual_offset + BASE_POSITION
+		map_panel.size = Vector2(max_x - min_x + 1, max_y - min_y + 1) * 64
+		GameManager.map_panel_size = map_panel.size
+		GameManager.map_panel_position = map_panel.position
+		log_print("使MapPanel居中")
 	
 	# 二选一：偏移base
-	if base_tilemap:
-		base_tilemap.position = visual_offset
-		map_editor.position = visual_offset
-		log_print("使Base Tilemap居中")
+	#if base_tilemap:
+		#base_tilemap.position = visual_offset
+		#map_editor.position = visual_offset
+		#log_print("使Base Tilemap居中")
 		
 	
 	if base_tilemap:
