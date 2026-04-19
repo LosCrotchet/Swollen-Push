@@ -12,9 +12,14 @@ func _ready() -> void:
 	
 	match type:
 		GameManager.CONTENT.CUBE_NORMAL:
-			scale = Vector2(0.5, 0.5)
-			AnimatedOutlook.visible = true
-			AnimatedOutlook.animation = "simple_1"
+			#scale = Vector2(0.5, 0.5)
+			#AnimatedOutlook.visible = true
+			#AnimatedOutlook.animation = "simple_1"
+			
+			Area.scale = Vector2(0.5, 0.5)
+			Outlook.visible = true
+			AnimatedOutlook.visible = false
+			Outlook.region_rect = Rect2(0, 192 if GameManager.is_dark_mode else 64, 64, 64)
 		GameManager.CONTENT.CUBE_STICKY:
 			Area.scale = Vector2(0.5, 0.5)
 			Outlook.visible = true
@@ -22,9 +27,14 @@ func _ready() -> void:
 			Outlook.region_rect = Rect2(64, 192 if GameManager.is_dark_mode else 64, 64, 64)
 		GameManager.CONTENT.CUBE_FIXED:
 			is_fixed = true
-			scale = Vector2(0.5, 0.5)
-			AnimatedOutlook.visible = true
-			AnimatedOutlook.animation = "static_1"
+			#scale = Vector2(0.5, 0.5)
+			#AnimatedOutlook.visible = true
+			#AnimatedOutlook.animation = "static_1"
+			
+			Area.scale = Vector2(0.5, 0.5)
+			Outlook.visible = true
+			AnimatedOutlook.visible = false
+			Outlook.region_rect = Rect2(128, 192 if GameManager.is_dark_mode else 64, 64, 64)
 		GameManager.CONTENT.CUBE_BOOM:
 			Area.scale = Vector2(0.5, 0.5)
 			Outlook.visible = true

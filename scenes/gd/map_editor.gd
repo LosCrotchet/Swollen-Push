@@ -80,6 +80,8 @@ func create(what: GameManager.CONTENT, coord: Vector2i, radius: int = 1):
 		GameManager.CONTENT.FIREPIT:
 			return _create_firepit(coord)
 	
+	#SaveAndLoad._on_save_button_pressed()
+	
 	return null
 
 func _create_cube(coord: Vector2i, radius: int, type: GameManager.CONTENT):
@@ -187,12 +189,16 @@ func delete(coord: Vector2i) -> bool:
 			item.remove_from_group("FIREPIT")
 			item.remove_from_group("OBJECT")
 			item.queue_free()
+			
+			#SaveAndLoad._on_save_button_pressed()
+			
 			return true
 	return false
 
 func _on_reset_button_pressed() -> void:
 	is_left_pressing = false
 	is_right_pressing = false
+	GridManager.enable = true
 
 	for item in get_tree().get_nodes_in_group("OBJECT"):
 		item.remove_from_group("OBJECT")

@@ -60,12 +60,12 @@ func get_push_dir(from_coord: Vector2i):
 func _on_mouse_entered():
 	if is_hint_enable:
 		play_hint(Vector2.ONE * 1.1)
-		z_index += 999
+		z_index += 99
 
 func _on_mouse_exited():
 	if is_hint_enable:
 		play_hint(Vector2.ONE)
-		z_index -= 999
+		z_index -= 99
 
 func play_hint(to_scale: Vector2):
 	if _hint_tween:
@@ -73,3 +73,15 @@ func play_hint(to_scale: Vector2):
 	_hint_tween = get_tree().create_tween()
 	_hint_tween.set_trans(Tween.TRANS_CUBIC)
 	_hint_tween.tween_property(HoverWrapper, "scale", to_scale, GameManager.TWEEN_TIME)
+
+func shake():
+	var shake_tween = get_tree().create_tween()
+	
+	shake_tween.tween_method(_random_offset.bind(HoverWrapper), 10, 0, 0.6)
+	shake_tween.tween_callback(func ():
+		HoverWrapper.position = Vector2.ZERO
+	)
+
+func _random_offset(radius: float, obj: Object):
+	if obj:
+		obj.position = Vector2(randf_range(-radius, radius), randf_range(-radius, radius))

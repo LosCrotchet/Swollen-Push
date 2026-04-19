@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://dtevn83feobna"]
+
+[ext_resource type="PackedScene" uid="uid://dn37r1weaa6ae" path="res://scenes/cube_unit.tscn" id="1_m1txt"]
+[ext_resource type="Shader" uid="uid://nyg2vs71h4hk" path="res://assets/tres/firework.gdshader" id="2_iff28"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fyjda"]
+shader = ExtResource("2_iff28")
+shader_parameter/TWOPI = 6.2831855
+shader_parameter/NUM_EXPLOSIONS = 8.0
+shader_parameter/NUM_PARTICLES = 70.0
+shader_parameter/MOD3 = Vector3(0.1031, 0.11369, 0.13787)
+
+[node name="CubeUnit" unique_id=970972792 instance=ExtResource("1_m1txt")]
+
+[node name="Outlook" parent="HoverWrapper" parent_id_path=PackedInt32Array(1918037639) index="0" unique_id=1607158682]
+material = SubResource("ShaderMaterial_fyjda")
+region_enabled = false
+region_rect = Rect2(0, 0, 128, 128)
+
+[node name="AnimatedOutlook" parent="HoverWrapper" parent_id_path=PackedInt32Array(1918037639) index="1" unique_id=1524610261]
+visible = false

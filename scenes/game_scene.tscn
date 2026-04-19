@@ -4,11 +4,42 @@
 [ext_resource type="Script" uid="uid://dcklpslflfytw" path="res://scenes/gd/load_level.gd" id="2_8rpq6"]
 [ext_resource type="Texture2D" uid="uid://cj6r7xea2svdh" path="res://assets/bg_D.jpg" id="2_c8mr4"]
 [ext_resource type="TileSet" uid="uid://d3pd2pncqrgq3" path="res://assets/tres/textures.tres" id="2_sl1kl"]
-[ext_resource type="Texture2D" uid="uid://4fxwea31m6g8" path="res://assets/corner.png" id="3_f3g3v"]
+[ext_resource type="Shader" uid="uid://byj4khap1876n" path="res://assets/tres/fire.gdshader" id="3_b5spy"]
 [ext_resource type="Script" uid="uid://deolo8ggam6u0" path="res://scenes/gd/map_editor.gd" id="3_xt7w2"]
 [ext_resource type="Theme" uid="uid://0aif3jm84300" path="res://assets/tres/set_content_button.tres" id="6_0in77"]
+[ext_resource type="Shader" uid="uid://nyg2vs71h4hk" path="res://assets/tres/firework.gdshader" id="6_b5spy"]
+
+[sub_resource type="Gradient" id="Gradient_b5spy"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_utbpp"]
+noise_type = 0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_mw25s"]
+noise = SubResource("FastNoiseLite_utbpp")
+color_ramp = SubResource("Gradient_b5spy")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mw25s"]
+shader = ExtResource("3_b5spy")
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_mw25s")
+shader_parameter/brighter_color = Color(0.84, 0.7, 0, 1)
+shader_parameter/middle_color = Color(0.61, 0.31516665, 0, 1)
+shader_parameter/darker_color = Color(0.35, 0.11386665, 0.027999993, 1)
+shader_parameter/spread = 0.0
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_utbpp"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kk2rg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_b5spy"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_utbpp"]
+shader = ExtResource("6_b5spy")
+shader_parameter/TWOPI = 6.2831855
+shader_parameter/NUM_EXPLOSIONS = 10.0
+shader_parameter/NUM_PARTICLES = 100.0
+shader_parameter/MOD3 = Vector3(0.1031, 0.11369, 0.13787)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_b5spy"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_kk2rg"]
 font_size = 30
@@ -16,8 +47,14 @@ font_size = 30
 [sub_resource type="LabelSettings" id="LabelSettings_b5spy"]
 font_size = 22
 
+[sub_resource type="LabelSettings" id="LabelSettings_mw25s"]
+font_size = 30
+font_color = Color(1, 1, 1, 0.5019608)
+
 [sub_resource type="LabelSettings" id="LabelSettings_0in77"]
 font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_utbpp"]
 
 [node name="GameScene" type="Control" unique_id=532454969]
 layout_mode = 3
@@ -44,20 +81,18 @@ grow_vertical = 2
 texture = ExtResource("2_c8mr4")
 metadata/_edit_lock_ = true
 
-[node name="TextureRect2" type="TextureRect" parent="." unique_id=250853118]
+[node name="Fire" type="TextureRect" parent="." unique_id=250853118]
 visible = false
 z_index = 999
+material = SubResource("ShaderMaterial_mw25s")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -192.0
-offset_top = -192.0
-offset_right = 128.0
-offset_bottom = 220.0
+offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_f3g3v")
+texture = SubResource("CanvasTexture_utbpp")
 
 [node name="Birds" type="Panel" parent="." unique_id=1285499836]
 layout_mode = 0
@@ -73,13 +108,14 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -288.0
+offset_left = -480.0
 offset_top = -322.0
-offset_right = 736.0
+offset_right = 544.0
 offset_bottom = 446.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxEmpty_b5spy")
 metadata/_edit_group_ = true
 
 [node name="MapEditor" type="Control" parent="MapPanel" unique_id=272402046]
@@ -91,48 +127,64 @@ script = ExtResource("3_xt7w2")
 z_index = 90
 tile_set = ExtResource("2_sl1kl")
 
-[node name="DebugButton" type="Button" parent="." unique_id=557885032]
-layout_mode = 0
-offset_left = 32.0
-offset_top = 800.0
-offset_right = 192.0
-offset_bottom = 864.0
-theme = ExtResource("6_0in77")
-text = "进入编辑页面"
+[node name="Fireworks" type="TextureRect" parent="MapPanel" unique_id=387166463]
+visible = false
+z_index = 666
+material = SubResource("ShaderMaterial_utbpp")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("CanvasTexture_b5spy")
 
-[node name="LoadLevel" type="Node" parent="." unique_id=422341343 node_paths=PackedStringArray("map_editor", "level_list", "base_tilemap", "level_title", "level_hint", "map_panel")]
-script = ExtResource("2_8rpq6")
-map_editor = NodePath("../MapPanel/MapEditor")
-level_list = NodePath("../Panel/LevelList")
-base_tilemap = NodePath("../MapPanel/Base")
-level_title = NodePath("../LevelTitle")
-level_hint = NodePath("../LevelHint")
-map_panel = NodePath("../MapPanel")
-
-[node name="LevelTitle" type="Label" parent="." unique_id=143480006]
+[node name="LevelTitle" type="Label" parent="MapPanel" unique_id=143480006]
 layout_mode = 0
-offset_left = 512.0
-offset_right = 1536.0
-offset_bottom = 64.0
+offset_top = -128.0
+offset_right = 1024.0
+offset_bottom = -64.0
 text = "[关卡标题]"
 label_settings = SubResource("LabelSettings_kk2rg")
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 1
 
-[node name="LevelHint" type="Label" parent="." unique_id=2144594623]
+[node name="LevelHint" type="Label" parent="MapPanel" unique_id=2144594623]
 layout_mode = 0
-offset_left = 512.0
-offset_top = 64.0
-offset_right = 1536.0
-offset_bottom = 128.0
+offset_top = -64.0
+offset_right = 1024.0
 text = "如果你看到这句话，说明出现了bug！"
 label_settings = SubResource("LabelSettings_b5spy")
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 1
 
+[node name="LoadLevel" type="Node" parent="." unique_id=422341343 node_paths=PackedStringArray("map_editor", "level_list", "base_tilemap", "level_title", "level_hint", "map_panel", "fireworks", "fire")]
+script = ExtResource("2_8rpq6")
+map_editor = NodePath("../MapPanel/MapEditor")
+level_list = NodePath("../Panel/LevelList")
+base_tilemap = NodePath("../MapPanel/Base")
+level_title = NodePath("../MapPanel/LevelTitle")
+level_hint = NodePath("../MapPanel/LevelHint")
+map_panel = NodePath("../MapPanel")
+fireworks = NodePath("../MapPanel/Fireworks")
+fire = NodePath("../Fire")
+
+[node name="Hint" type="Label" parent="." unique_id=1596412942]
+layout_mode = 0
+offset_left = 416.0
+offset_top = 832.0
+offset_right = 1248.0
+offset_bottom = 896.0
+text = "[左键]放大方块  |  [右键]缩小方块  |  [R] 重新开始关卡"
+label_settings = SubResource("LabelSettings_mw25s")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 1
+
 [node name="Panel" type="Panel" parent="." unique_id=477024173]
+visible = false
 layout_mode = 0
 offset_left = 32.0
 offset_top = 64.0
@@ -176,6 +228,25 @@ offset_bottom = 576.0
 theme = ExtResource("6_0in77")
 text = "加载关卡"
 
-[connection signal="pressed" from="DebugButton" to="." method="_on_debug_button_pressed"]
+[node name="DebugButton" type="Button" parent="Panel" unique_id=557885032]
+layout_mode = 0
+offset_top = 736.0
+offset_right = 160.0
+offset_bottom = 800.0
+theme = ExtResource("6_0in77")
+text = "进入编辑页面"
+
+[node name="VersionLabel" type="Label" parent="." unique_id=684744139]
+layout_mode = 0
+offset_top = 864.0
+offset_right = 256.0
+offset_bottom = 896.0
+text = "Swollen Push - v0.3.2 alpha"
+label_settings = SubResource("LabelSettings_utbpp")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 1
+
 [connection signal="pressed" from="Panel/RefreshButton" to="LoadLevel" method="_on_refresh_button_pressed"]
 [connection signal="pressed" from="Panel/LoadButton" to="LoadLevel" method="_on_load_button_pressed"]
+[connection signal="pressed" from="Panel/DebugButton" to="." method="_on_debug_button_pressed"]

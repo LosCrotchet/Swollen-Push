@@ -6,18 +6,48 @@ extends Node
 @export var level_title: Label
 @export var level_hint: Label
 @export var map_panel: Panel
+@export var fireworks: Control
+@export var fire: Control
 
 var _now_level = -1
-const BASE_POSITION = Vector2(512, 128)
+#const BASE_POSITION = Vector2(512, 128)
+const BASE_POSITION = Vector2(320, 128)
 
 var all_levels
 
 func _ready() -> void:
-	GridManager.level_finished.connect(_on_load_next_level)
+	map_panel.position = BASE_POSITION
+	GridManager.level_finished.connect(_on_level_finish)
 	_on_refresh_button_pressed()
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("restart"):
+		_on_load_button_pressed()
 
 func log_print(s: String):
 	print("[%s] %s" % [Time.get_time_string_from_system(), s])
+
+func _set_fire_spread(x: float):
+	fire.material.set_shader_parameter("spread", x)
+
+func _on_level_finish():
+	
+	for item in get_tree().get_nodes_in_group("OBJECT"):
+		item.shake()
+	
+	var tmp = get_tree().create_tween().set_trans(Tween.TRANS_SINE)
+	#fire.material.set_shader_parameter("spread", 0)
+	GridManager.enable = false
+	
+	tmp.tween_callback(func():
+		fire.visible = true
+		fire.material.set_shader_parameter("spread", 0.001))
+	tmp.tween_property(fire.material, "shader_parameter/spread", 1, 2).set_delay(0.1)
+	tmp.tween_callback(_on_load_next_level)
+	tmp.tween_property(fire.material, "shader_parameter/spread", 0.001, 2)
+	tmp.tween_callback(func():
+		GridManager.enable = true
+		fire.visible = false)
 
 func _get_levels():
 	var file = FileAccess.open("res://levels.json", FileAccess.READ)
@@ -43,6 +73,7 @@ func _on_refresh_button_pressed() -> void:
 		load_level(level_list.get_item_text(_now_level))
 		level_title.text = level_list.get_item_text(_now_level)
 		level_hint.text = all_levels[level_list.get_item_text(_now_level)]["hint"]
+		level_list.select(_now_level)
 	else:
 		level_title.text = ""
 		level_hint.text = ""
@@ -57,17 +88,26 @@ func _on_load_button_pressed() -> void:
 	else:
 		level_title.text = ""
 		level_hint.text = ""
+	
+	if _now_level == level_list.item_count - 1:
+		fireworks.visible = true
+	else:
+		fireworks.visible = false
 
 func _on_load_next_level():
+	print("Load next level...")
 	if _now_level >= 0:
 		_now_level += 1
 		if _now_level < level_list.item_count:
 			load_level(level_list.get_item_text(_now_level))
 			level_title.text = level_list.get_item_text(_now_level)
 			level_hint.text = all_levels[level_list.get_item_text(_now_level)]["hint"]
-		else:
-			level_title.text = "CONGRATULATIONS"
-			level_hint.text = "你已完成所有关卡！"
+			level_list.select(_now_level)
+	
+	if _now_level == level_list.item_count - 1:
+		fireworks.visible = true
+	else:
+		fireworks.visible = false
 
 
 func _is_valid_base64(s: String) -> bool:
@@ -173,11 +213,18 @@ func load_level(level_name: String):
 	# 偏移至 MapPanel 的中心点 (512, 384)
 	var visual_offset = Vector2(512.0 - map_center_x, 384.0 - map_center_y)
 	
-	if map_panel:
-		map_panel.position = visual_offset + BASE_POSITION
-		map_panel.size = Vector2(max_x - min_x + 1, max_y - min_y + 1) * 64
+	## 二选一：偏移map_panel
+	#if map_panel:
+		#map_panel.position = visual_offset + BASE_POSITION
+		#map_panel.size = Vector2(max_x - min_x + 1, max_y - min_y + 1) * 64
+		#log_print("使MapPanel居中")
+	
+	# 二选一：偏移base
+	if base_tilemap:
+		base_tilemap.position = visual_offset
+		map_editor.position = visual_offset
+		log_print("使Base Tilemap居中")
 		
-	log_print("使MapPanel居中")
 	
 	if base_tilemap:
 		base_tilemap.clear()
