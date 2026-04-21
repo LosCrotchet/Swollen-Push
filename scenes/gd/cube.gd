@@ -56,10 +56,12 @@ func set_radius(to_radius: int) -> bool:
 		
 		if cube_scale_tween:
 			cube_scale_tween.kill()
-		cube_scale_tween = get_tree().create_tween()
+		#GridManager.enable = false
+		cube_scale_tween = get_tree().create_tween().set_parallel()
 		cube_scale_tween.set_ease(Tween.EASE_OUT)
-		cube_scale_tween.set_trans(Tween.TRANS_CIRC)
-		cube_scale_tween.tween_property(Outlook, "scale", to_scale, GameManager.TWEEN_TIME).set_delay(GameManager.TWEEN_TIME)
+		cube_scale_tween.set_trans(Tween.TRANS_BOUNCE)
+		cube_scale_tween.tween_property(Outlook, "scale", to_scale, GameManager.ANIMATION_TIME)
+		cube_scale_tween.tween_property(Area, "scale", to_scale*0.5, GameManager.ANIMATION_TIME)
 	
 	if AnimatedOutlook.visible:
 		var animation_string_head = ""

@@ -4,28 +4,19 @@
 [ext_resource type="Script" uid="uid://dcklpslflfytw" path="res://scenes/gd/load_level.gd" id="2_8rpq6"]
 [ext_resource type="Texture2D" uid="uid://cj6r7xea2svdh" path="res://assets/bg_D.jpg" id="2_c8mr4"]
 [ext_resource type="TileSet" uid="uid://d3pd2pncqrgq3" path="res://assets/tres/textures.tres" id="2_sl1kl"]
-[ext_resource type="Shader" uid="uid://byj4khap1876n" path="res://assets/tres/fire.gdshader" id="3_b5spy"]
+[ext_resource type="Shader" uid="uid://cv3kve08s8mlu" path="res://assets/tres/dark_spread.gdshader" id="3_utbpp"]
 [ext_resource type="Script" uid="uid://deolo8ggam6u0" path="res://scenes/gd/map_editor.gd" id="3_xt7w2"]
 [ext_resource type="Script" uid="uid://clbeiaka6uimy" path="res://scenes/gd/birds_controller.gd" id="4_mw25s"]
 [ext_resource type="Theme" uid="uid://0aif3jm84300" path="res://assets/tres/set_content_button.tres" id="6_0in77"]
 [ext_resource type="Shader" uid="uid://nyg2vs71h4hk" path="res://assets/tres/firework.gdshader" id="6_b5spy"]
-
-[sub_resource type="Gradient" id="Gradient_b5spy"]
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_utbpp"]
-noise_type = 0
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_mw25s"]
-noise = SubResource("FastNoiseLite_utbpp")
-color_ramp = SubResource("Gradient_b5spy")
+[ext_resource type="Texture2D" uid="uid://bac5luecantno" path="res://assets/setting_icon.png" id="10_mw25s"]
+[ext_resource type="Script" uid="uid://l8dad03at4u" path="res://scenes/gd/setting_button.gd" id="11_tcjrq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mw25s"]
-shader = ExtResource("3_b5spy")
-shader_parameter/noise_tex = SubResource("NoiseTexture2D_mw25s")
-shader_parameter/brighter_color = Color(0.84, 0.7, 0, 1)
-shader_parameter/middle_color = Color(0.61, 0.31516665, 0, 1)
-shader_parameter/darker_color = Color(0.35, 0.11386665, 0.027999993, 1)
+shader = ExtResource("3_utbpp")
 shader_parameter/spread = 0.0
+shader_parameter/feather = 0.2
+shader_parameter/mask_color = Color(0, 0, 0, 1)
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_utbpp"]
 
@@ -44,9 +35,6 @@ shader_parameter/MOD3 = Vector3(0.1031, 0.11369, 0.13787)
 
 [sub_resource type="LabelSettings" id="LabelSettings_kk2rg"]
 font_size = 30
-
-[sub_resource type="LabelSettings" id="LabelSettings_b5spy"]
-font_size = 22
 
 [sub_resource type="LabelSettings" id="LabelSettings_mw25s"]
 font_size = 30
@@ -82,8 +70,7 @@ grow_vertical = 2
 texture = ExtResource("2_c8mr4")
 metadata/_edit_lock_ = true
 
-[node name="Fire" type="TextureRect" parent="." unique_id=250853118]
-visible = false
+[node name="DarkMask" type="TextureRect" parent="." unique_id=250853118]
 z_index = 999
 material = SubResource("ShaderMaterial_mw25s")
 layout_mode = 1
@@ -105,6 +92,7 @@ script = ExtResource("4_mw25s")
 map_editor = NodePath("../GameRegion/MapPanel/MapEditor")
 
 [node name="GameRegion" type="Panel" parent="." unique_id=532152570]
+z_index = 100
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -139,7 +127,7 @@ tile_set = ExtResource("2_sl1kl")
 
 [node name="Fireworks" type="TextureRect" parent="GameRegion/MapPanel" unique_id=387166463]
 visible = false
-z_index = 666
+z_index = 300
 material = SubResource("ShaderMaterial_utbpp")
 layout_mode = 1
 anchors_preset = 15
@@ -159,30 +147,38 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 1
 
-[node name="LevelHint" type="Label" parent="GameRegion" unique_id=2144594623]
+[node name="LevelHint" type="RichTextLabel" parent="GameRegion" unique_id=1697318438]
 layout_mode = 0
 offset_top = 64.0
 offset_right = 1024.0
 offset_bottom = 128.0
-text = "如果你看到这句话，说明出现了bug！"
-label_settings = SubResource("LabelSettings_b5spy")
+theme_override_constants/line_separation = 8
+theme_override_font_sizes/normal_font_size = 20
+theme_override_font_sizes/bold_font_size = 20
+theme_override_font_sizes/bold_italics_font_size = 20
+theme_override_font_sizes/italics_font_size = 20
+theme_override_font_sizes/mono_font_size = 20
+bbcode_enabled = true
+text = "[b]支持BBCode的提示！[/b]"
+fit_content = true
+autowrap_mode = 1
 horizontal_alignment = 1
 vertical_alignment = 1
-autowrap_mode = 1
 
 [node name="LoadLevel" type="Node" parent="." unique_id=422341343 node_paths=PackedStringArray("map_editor", "level_list", "base_tilemap", "level_title", "level_hint", "map_panel", "fireworks", "fire", "birds_controller")]
 script = ExtResource("2_8rpq6")
 map_editor = NodePath("../GameRegion/MapPanel/MapEditor")
-level_list = NodePath("../Panel/LevelList")
+level_list = NodePath("../DebugPanel/LevelList")
 base_tilemap = NodePath("../GameRegion/MapPanel/Base")
 level_title = NodePath("../GameRegion/LevelTitle")
 level_hint = NodePath("../GameRegion/LevelHint")
 map_panel = NodePath("../GameRegion/MapPanel")
 fireworks = NodePath("../GameRegion/MapPanel/Fireworks")
-fire = NodePath("../Fire")
+fire = NodePath("../DarkMask")
 birds_controller = NodePath("../BirdsController")
 
 [node name="Hint" type="Label" parent="." unique_id=1596412942]
+z_index = 900
 layout_mode = 0
 offset_left = 288.0
 offset_top = 832.0
@@ -194,8 +190,9 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 1
 
-[node name="Panel" type="Panel" parent="." unique_id=477024173]
+[node name="DebugPanel" type="Panel" parent="." unique_id=477024173]
 visible = false
+z_index = 900
 layout_mode = 0
 offset_left = 32.0
 offset_top = 64.0
@@ -203,7 +200,7 @@ offset_right = 320.0
 offset_bottom = 640.0
 mouse_filter = 1
 
-[node name="LevelList" type="ItemList" parent="Panel" unique_id=2069964197]
+[node name="LevelList" type="ItemList" parent="DebugPanel" unique_id=2069964197]
 layout_mode = 0
 offset_top = 64.0
 offset_right = 288.0
@@ -211,7 +208,7 @@ offset_bottom = 512.0
 theme_override_constants/v_separation = 10
 theme_override_font_sizes/font_size = 24
 
-[node name="Title" type="Label" parent="Panel" unique_id=71056016]
+[node name="Title" type="Label" parent="DebugPanel" unique_id=71056016]
 layout_mode = 0
 offset_right = 288.0
 offset_bottom = 64.0
@@ -221,7 +218,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 1
 
-[node name="RefreshButton" type="Button" parent="Panel" unique_id=1414248394]
+[node name="RefreshButton" type="Button" parent="DebugPanel" unique_id=1414248394]
 layout_mode = 0
 offset_left = 32.0
 offset_top = 512.0
@@ -230,7 +227,7 @@ offset_bottom = 576.0
 theme = ExtResource("6_0in77")
 text = "刷新"
 
-[node name="LoadButton" type="Button" parent="Panel" unique_id=1809549661]
+[node name="LoadButton" type="Button" parent="DebugPanel" unique_id=1809549661]
 layout_mode = 0
 offset_left = 160.0
 offset_top = 512.0
@@ -239,7 +236,7 @@ offset_bottom = 576.0
 theme = ExtResource("6_0in77")
 text = "加载关卡"
 
-[node name="DebugButton" type="Button" parent="Panel" unique_id=557885032]
+[node name="DebugButton" type="Button" parent="DebugPanel" unique_id=557885032]
 layout_mode = 0
 offset_top = 736.0
 offset_right = 160.0
@@ -252,12 +249,34 @@ layout_mode = 0
 offset_top = 864.0
 offset_right = 256.0
 offset_bottom = 896.0
-text = "Swollen Push - v0.3.3 alpha"
+text = "Swollen Push - v[version] alpha"
 label_settings = SubResource("LabelSettings_utbpp")
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 1
 
-[connection signal="pressed" from="Panel/RefreshButton" to="LoadLevel" method="_on_refresh_button_pressed"]
-[connection signal="pressed" from="Panel/LoadButton" to="LoadLevel" method="_on_load_button_pressed"]
-[connection signal="pressed" from="Panel/DebugButton" to="." method="_on_debug_button_pressed"]
+[node name="SettingButton" type="TextureButton" parent="." unique_id=621554704]
+layout_mode = 0
+offset_left = 1504.0
+offset_top = 32.0
+offset_right = 1568.0
+offset_bottom = 96.0
+pivot_offset = Vector2(32, 32)
+texture_normal = ExtResource("10_mw25s")
+texture_pressed = ExtResource("10_mw25s")
+texture_hover = ExtResource("10_mw25s")
+texture_focused = ExtResource("10_mw25s")
+script = ExtResource("11_tcjrq")
+
+[node name="SettingPanel" type="Panel" parent="." unique_id=1502973776]
+visible = false
+layout_mode = 0
+offset_right = 1600.0
+offset_bottom = 896.0
+
+[connection signal="item_activated" from="DebugPanel/LevelList" to="LoadLevel" method="_on_load_button_pressed" unbinds=1]
+[connection signal="pressed" from="DebugPanel/RefreshButton" to="LoadLevel" method="_on_refresh_button_pressed"]
+[connection signal="pressed" from="DebugPanel/LoadButton" to="LoadLevel" method="_on_load_button_pressed"]
+[connection signal="pressed" from="DebugPanel/DebugButton" to="." method="_on_debug_button_pressed"]
+[connection signal="mouse_entered" from="SettingButton" to="SettingButton" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="SettingButton" to="SettingButton" method="_on_mouse_exited"]

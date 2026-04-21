@@ -111,43 +111,48 @@ func _on_area_2d_mouse_exited() -> void:
 func swirl_and_disappear():
 	var tmp = get_tree().create_tween().set_parallel(true)
 	
-	tmp.tween_property($AnimatedOutlook, "rotation_degrees", 720, GameManager.TWEEN_TIME)
-	tmp.tween_property($AnimatedOutlook, "scale", Vector2(0.01, 0.01), GameManager.TWEEN_TIME)
-	tmp.tween_property($AnimatedOutlookShadow, "scale", Vector2(0.01, 0.01), GameManager.TWEEN_TIME)
-	tmp.tween_property($AnimatedOutlook, "modulate", Color(1, 1, 1, 0), GameManager.TWEEN_TIME)
-	tmp.tween_property($AnimatedOutlookShadow, "modulate", Color(1, 1, 1, 0), GameManager.TWEEN_TIME)
+	tmp.tween_property($AnimatedOutlook, "rotation_degrees", 720, 2*GameManager.TWEEN_TIME)
+	tmp.tween_property($AnimatedOutlook, "scale", Vector2(0.01, 0.01), 2*GameManager.TWEEN_TIME)
+	tmp.tween_property($AnimatedOutlookShadow, "scale", Vector2(0.01, 0.01), 2*GameManager.TWEEN_TIME)
+	tmp.tween_property($AnimatedOutlook, "modulate", Color(1, 1, 1, 0), 2*GameManager.TWEEN_TIME)
+	tmp.tween_property($AnimatedOutlookShadow, "modulate", Color(1, 1, 1, 0), 2*GameManager.TWEEN_TIME)
 	
-	tmp.tween_property($Outlook, "modulate", Color(1, 1, 1, 1), GameManager.TWEEN_TIME)
-	tmp.tween_property($Outlook, "scale", Vector2(1, 1), GameManager.TWEEN_TIME)
-	tmp.tween_property($Outlook, "global_rotation_degrees", 0, GameManager.TWEEN_TIME)
+	tmp.tween_property($Outlook, "modulate", Color(1, 1, 1, 1), 2*GameManager.TWEEN_TIME)
+	tmp.tween_property($Outlook, "scale", Vector2(1, 1), 2*GameManager.TWEEN_TIME)
+	tmp.tween_property($Outlook, "global_rotation_degrees", 0, 2*GameManager.TWEEN_TIME)
 	
 
 func swirl_and_appear():
 	var tmp = get_tree().create_tween().set_parallel(true)
 	
-	tmp.tween_property($AnimatedOutlook, "rotation_degrees", 0, GameManager.TWEEN_TIME)
-	tmp.tween_property($AnimatedOutlook, "scale", Vector2(0.5, 0.5), GameManager.TWEEN_TIME)
-	tmp.tween_property($AnimatedOutlookShadow, "scale", Vector2(0.5, 0.5), GameManager.TWEEN_TIME)
-	tmp.tween_property($AnimatedOutlook, "modulate", Color(1, 1, 1, 1), GameManager.TWEEN_TIME)
-	tmp.tween_property($AnimatedOutlookShadow, "modulate", Color(1, 1, 1, 1), GameManager.TWEEN_TIME)
+	tmp.tween_property($AnimatedOutlook, "rotation_degrees", 0, 2*GameManager.TWEEN_TIME)
+	tmp.tween_property($AnimatedOutlook, "scale", Vector2(0.5, 0.5), 2*GameManager.TWEEN_TIME)
+	tmp.tween_property($AnimatedOutlookShadow, "scale", Vector2(0.5, 0.5), 2*GameManager.TWEEN_TIME)
+	tmp.tween_property($AnimatedOutlook, "modulate", Color(1, 1, 1, 1), 2*GameManager.TWEEN_TIME)
+	tmp.tween_property($AnimatedOutlookShadow, "modulate", Color(1, 1, 1, 1), 2*GameManager.TWEEN_TIME)
 	
-	tmp.tween_property($Outlook, "modulate", Color(1, 1, 1, 0), GameManager.TWEEN_TIME)
-	tmp.tween_property($Outlook, "scale", Vector2(0.01, 0.01), GameManager.TWEEN_TIME)
-	tmp.tween_property($Outlook, "global_rotation_degrees", 720, GameManager.TWEEN_TIME)
+	tmp.tween_property($Outlook, "modulate", Color(1, 1, 1, 0), 2*GameManager.TWEEN_TIME)
+	tmp.tween_property($Outlook, "scale", Vector2(0.01, 0.01), 2*GameManager.TWEEN_TIME)
+	tmp.tween_property($Outlook, "global_rotation_degrees", 720, 2*GameManager.TWEEN_TIME)
 
 
 
 func _on_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
-	
-	
+
 	if event.is_action_pressed("mouse_left"):
 		if _check_mouse_position():
 			return
+		
+		if get_tree().get_node_count_in_group("is_dragging") > 0:
+			return
+		
 		is_moving = false
 		is_dragging = true
 		swirl_and_disappear()
 		
 		z_index = 500
+		
+		add_to_group("is_dragging")
 		
 	if event.is_action_released("mouse_left"):
 		if not is_dragging:
@@ -156,15 +161,19 @@ func _on_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) 
 		if grid:
 			var obj = map_editor.create(real_type, grid, 1)
 			if obj:
+				remove_from_group("is_dragging")
 				queue_free()
+				return
 		
 		is_moving = true
 		is_dragging = false
 		swirl_and_appear()
 		_pick_new_target()
-		animated_outlook.set_instance_shader_parameter("enable", false)
+		#animated_outlook.set_instance_shader_parameter("enable", false)
 		
 		z_index = 0
+		
+		remove_from_group("is_dragging")
 
 func _check_mouse_position():
 	var mouse_position = get_global_mouse_position()

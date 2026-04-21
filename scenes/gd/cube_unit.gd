@@ -41,7 +41,7 @@ func move_to(to_coordinate: Vector2i) -> bool:
 	_pos_tween = get_tree().create_tween()
 	_pos_tween.set_ease(Tween.EASE_OUT)
 	_pos_tween.set_trans(Tween.TRANS_CUBIC)
-	_pos_tween.tween_property(self, "position", Vector2(to_position), GameManager.TWEEN_TIME).set_delay(2*GameManager.TWEEN_TIME)
+	_pos_tween.tween_property(self, "position", Vector2(to_position), GameManager.ANIMATION_TIME).set_delay(GameManager.TWEEN_TIME)
 	return true
 
 func get_rect(to_pos: Vector2i = coordinate, to_radius: int = radius) -> Rect2i:
@@ -77,7 +77,7 @@ func play_hint(to_scale: Vector2):
 func shake():
 	var shake_tween = get_tree().create_tween()
 	
-	shake_tween.tween_method(_random_offset.bind(HoverWrapper), 10, 0, 0.6)
+	shake_tween.tween_method(_random_offset.bind(HoverWrapper), 10, 0, 3*GameManager.TWEEN_TIME)
 	shake_tween.tween_callback(func ():
 		HoverWrapper.position = Vector2.ZERO
 	)

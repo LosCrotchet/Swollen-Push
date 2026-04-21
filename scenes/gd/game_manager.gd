@@ -5,7 +5,7 @@ var now_setting: CONTENT = CONTENT.CUBE_NORMAL
 var is_dark_mode: bool = true
 var now_mouse_click_mode: bool = true
 
-const ANIMATION_SPEED := 1.0
+var ANIMATION_TIME := 0.6
 const TWEEN_TIME := 0.1
 const HEIGHT: int = 12
 const WIDTH: int = 16
@@ -32,16 +32,3 @@ enum DIRECTION{
 	DOWN,
 	LEFT
 }
-
-func shake(obj):
-	if obj:
-		var shake_tween = get_tree().create_tween()
-		
-		shake_tween.tween_method(_random_offset.bind(obj, obj.position), 10, 0, 0.6)
-		shake_tween.tween_callback(func ():
-			if obj:
-				obj.position = (Vector2(obj.coordinate)) * 64 + Vector2(32, 32))
-
-func _random_offset(radius: float, obj: Object, origin: Vector2):
-	if obj:
-		obj.position = origin + Vector2(randf_range(-radius, radius), randf_range(-radius, radius))

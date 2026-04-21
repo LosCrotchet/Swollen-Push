@@ -28,7 +28,7 @@ func move_to(to_coordinate: Vector2i) -> bool:
 	_pos_tween = get_tree().create_tween().set_parallel()
 	_pos_tween.set_ease(Tween.EASE_OUT)
 	_pos_tween.set_trans(Tween.TRANS_CUBIC)
-	_pos_tween.tween_property(self, "position", Vector2(to_position), GameManager.TWEEN_TIME).set_delay(2*GameManager.TWEEN_TIME)
+	_pos_tween.tween_property(self, "position", Vector2(to_position), GameManager.ANIMATION_TIME).set_delay(GameManager.TWEEN_TIME)
 	#_pos_tween.tween_callback(func():
 		#rotation = -Vector2(facing).angle_to(Vector2.DOWN)
 		#).set_delay(2*GameManager.TWEEN_TIME)

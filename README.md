@@ -1,13 +1,11 @@
 # Swollen Push
 （中文名：胀缩）
 
-这是一个为Gamejam而写的类推箱子游戏。
-
-当前版本：0.3.3
+这是一个为Gamejam而准备的推箱子游戏。当前版本：`0.3.3`
 
 **内置一系列关卡，已经可以体验了！**
 
-### 操作说明
+## 操作说明
 鼠标左键：膨胀方块
 
 鼠标右键：收缩方块
@@ -51,6 +49,21 @@
 爆炸方块具有一次额外膨胀，且在此膨胀后会爆炸消失，除此之外与普通方块无异；爆炸可以无视边界和固定方块膨胀，但推不动固定方块；
 
 **现在新增了可以自由放置方块的关卡......**
+
+关卡的json格式：
+
+```json
+"TEST-1": {
+    "data": "MDAwMDAwMDAwMDAwMDc3NzAwMDAwMDAwMDAwMDA3NzcwMDAwMDAwMDAwMDAwNzc3MDAwMTAwNTAwNjAwMDc3NzAwMDAwMDAwMDAwMDA3NzcwMDAwMDAwMDAwMDAwNzc3MDAwMDAwMDAwMDAwMDc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3",
+    "hint": "[测试关卡]本关卡可以自由放置一些方块......",
+    "quota": {
+        "normal": 1,
+        "sticky": 1,
+        "fixed": 1,
+        "boom": 1
+    }
+}
+```
 
 ## 界面展示
 

@@ -4,7 +4,7 @@ extends Node
 @export var level_list: ItemList
 @export var base_tilemap: TileMapLayer
 @export var level_title: Label
-@export var level_hint: Label
+@export var level_hint: RichTextLabel
 @export var map_panel: Panel
 @export var fireworks: Control
 @export var fire: Control
@@ -31,12 +31,15 @@ func _set_fire_spread(x: float):
 
 func _on_level_finish():
 	
+	GridManager.enable = false
+	
+	await get_tree().create_timer(GameManager.ANIMATION_TIME).timeout
+	
 	for item in get_tree().get_nodes_in_group("OBJECT"):
 		item.shake()
 	
-	var tmp = get_tree().create_tween().set_trans(Tween.TRANS_SINE)
+	var tmp = get_tree().create_tween().set_trans(Tween.TRANS_EXPO)
 	#fire.material.set_shader_parameter("spread", 0)
-	GridManager.enable = false
 	
 	tmp.tween_callback(func():
 		fire.visible = true
@@ -50,6 +53,10 @@ func _on_level_finish():
 
 func _get_levels():
 	var file = FileAccess.open("res://levels.json", FileAccess.READ)
+	if not OS.has_feature("editor"):
+		file = FileAccess.open(OS.get_executable_path().get_base_dir().path_join("levels.json"), FileAccess.READ)
+		if file == null:
+			file = FileAccess.open("res://levels.json", FileAccess.READ)
 	var json = JSON.new()
 	var parse_result = json.parse(file.get_as_text())
 	file.close()
@@ -79,16 +86,11 @@ func _on_refresh_button_pressed() -> void:
 func _on_load_button_pressed() -> void:
 	var select_item = level_list.get_selected_items()
 	if select_item:
-		load_level(level_list.get_item_text(select_item[0]))
 		_now_level = select_item[0]
+		load_level(level_list.get_item_text(select_item[0]))
 	else:
 		level_title.text = ""
 		level_hint.text = ""
-	
-	if _now_level == level_list.item_count - 1:
-		fireworks.visible = true
-	else:
-		fireworks.visible = false
 
 func _on_load_next_level():
 	print("Load next level...")
@@ -97,11 +99,6 @@ func _on_load_next_level():
 		if _now_level < level_list.item_count:
 			load_level(level_list.get_item_text(_now_level))
 			level_list.select(_now_level)
-	
-	if _now_level == level_list.item_count - 1:
-		fireworks.visible = true
-	else:
-		fireworks.visible = false
 
 
 func _is_valid_base64(s: String) -> bool:
@@ -127,7 +124,17 @@ func _is_valid_map_data(s: String) -> bool:
 # ==========================================
 func load_level(level_name: String):
 	level_title.text = level_name
-	level_hint.text = all_levels[level_name]["hint"]
+	var hint = all_levels[level_name]["hint"]
+	
+	var regex = RegEx.create_from_string("\\[img=(\\d+x\\d+)\\](.*?)\\[/img\\]")
+	hint = regex.sub(hint, "[img=$1]res://assets/pic/$2.png[/img]", true)
+	
+	level_hint.text = hint
+	
+	if _now_level == level_list.item_count - 1:
+		fireworks.visible = true
+	else:
+		fireworks.visible = false
 	
 	var map_data = all_levels.get(level_name, {})
 	if map_data == {}:

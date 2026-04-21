@@ -1,80 +1,109 @@
 {
-	"TEST-1": {
-		"data": "MDAwMDAwMDAwMDAwMDc3NzAwMDAwMDAwMDAwMDA3NzcwMDAwMDAwMDAwMDAwNzc3MDAwMTAwNTAwNjAwMDc3NzAwMDAwMDAwMDAwMDA3NzcwMDAwMDAwMDAwMDAwNzc3MDAwMDAwMDAwMDAwMDc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3",
-		"hint": "[测试关卡]本关卡可以自由放置一些方块......",
-		"quota": {
-			"normal": 1,
-			"sticky": 1,
-			"fixed": 1,
-			"boom": 1
-		}
-	},
-	"A-T-1": {
+	"A-1 胀缩之道": {
 		"data": "MDAwMDAwMDA3Nzc3Nzc3NzAwMDAwMDAwNzc3Nzc3NzcwMTE1MDA2MDc3Nzc3Nzc3MDAwMDAwMDA3Nzc3Nzc3NzAwMDAwMDAwNzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3",
-		"hint": "方块可以推动物体；鼠标左键让方块膨胀，最多两次，鼠标右键让方块缩小。"
+		"hint": "方块  [img=48x48]normal_cube[/img]  可以推动物体；你需要把箱子  [img=48x48]box[/img]  推到钥匙  [img=48x48]key[/img]  上；\n[u]鼠标左键[/u]让方块膨胀，最多两次；[u]鼠标右键[/u]让方块收缩；"
 	},
-	"A-T-2": {
+	"A-2 斜角推动": {
 		"data": "MDAwMDAwMDc3Nzc3Nzc3NzAwMDA1MDA3Nzc3Nzc3NzcwMDEwMDAwNzc3Nzc3Nzc3MDAwMTAwMDc3Nzc3Nzc3NzAwMDYwMDA3Nzc3Nzc3NzcwMDEwMDAwNzc3Nzc3Nzc3MDAwMDAwMDc3Nzc3Nzc3NzAwMDAwMDA3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3",
-		"hint": "当物体处于方块的角上时会被斜向推动；把钥匙推到箱子上也可以！"
+		"hint": "当物体处于方块的角上时会被斜向地推动；把钥匙推到箱子上也可以！"
 	},
-	"A-T-3": {
+	"A-3 空中加油": {
 		"data": "MDAwMDAwMDA3Nzc3Nzc3NzAwMDAwNjAwNzc3Nzc3NzcwMDAwMDAwMDc3Nzc3Nzc3MDAwMDAwMDA3Nzc3Nzc3NzAwMTUwMDAwNzc3Nzc3NzcwMDAwMDEwMDc3Nzc3Nzc3MDAwMDAxMDA3Nzc3Nzc3NzAwMDAwMDAwNzc3Nzc3NzcwMDAwMDAwMDc3Nzc3Nzc3MDAwMDAwMDA3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3",
 		"hint": "利用方块的配合将箱子推到钥匙上吧！"
 	},
-	"A-T-4": {
+	"A-4 空中加油2": {
 		"data": "MDAwMDAwMDA3Nzc3Nzc3NzAwMDAwNjAwNzc3Nzc3NzcwMDAwMDAwMDc3Nzc3Nzc3MDAwMDAwMDA3Nzc3Nzc3NzAwMTUwMTAwNzc3Nzc3NzcwMDAwMDEwMDc3Nzc3Nzc3MDAwMDAxMDA3Nzc3Nzc3NzAwMDAwMDAwNzc3Nzc3NzcwMDAwMDAwMDc3Nzc3Nzc3MDAwMDAwMDA3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3",
-		"hint": "由于方块很重，无法在中间夹着一个箱子的情况下推动另一个方块，不然会把箱子夹扁。"
+		"hint": "[u]方块要比箱子和钥匙重[/u]，所以无法在中间夹着一个箱子或钥匙的情况下推动另一个方块，不然会把箱子压扁。"
 	},
-	"A-1": {
+	"A-5 鞭长莫及": {
 		"data": "MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAxMTEwMDAwMDAwMDA1NjAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3",
 		"hint": "方块最多能推多远呢......?"
 	},
-	"A-2": {
+	"A-6 循环往复": {
 		"data": "MDAwMDAwMDAwMDA3Nzc3NzAwMDAwMDAwMDAwNzc3NzcwMDAxMDAwMDAwMDc3Nzc3MDAwNTEwMDAwMDA3Nzc3NzAwMTAwMTAwMDAwNzc3NzcwMDAxMDAxMDAwMDc3Nzc3MDAwMDEwMDEwMDA3Nzc3NzAwMDAwMTAwMTAwNzc3NzcwMDAwMDAxNjAwMDc3Nzc3MDAwMDAwMDAwMDA3Nzc3NzAwMDAwMDAwMDAwNzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3",
 		"hint": "这是一条传送带。"
 	},
-	"B-T-1": {
-		"data": "MDAwMDAwMDAwMDA3Nzc3NzAwMDAwMDAwMDAwNzc3NzcwMDIwMDAwMDAwMDc3Nzc3MDAwMDA1MDAwMDA3Nzc3NzAwMDAwMDAwMjAwNzc3NzcwMDAwMDAwMDAwMDc3Nzc3MDAwMDAwMDAwMDA3Nzc3NzAwMDAwNjAwMDAwNzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3",
-		"hint": "黏性方块可以黏住其碰到的物体，一旦黏上就无法解除！但箱子或者钥匙可以被其它黏性方块黏走。"
-	},
-	"B-T-2": {
-		"data": "MDAwMDAwMDAwNzc3Nzc3NzAwMDAwMDAwMDc3Nzc3NzcwMDAwMDAwMDA3Nzc3Nzc3MDAwMjAyMDAwNzc3Nzc3NzAwMDAwMDAwMDc3Nzc3NzcwMDAwMDU2MDA3Nzc3Nzc3MDAwMDAwMDAwNzc3Nzc3NzAwMDAwMDAwMDc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3",
-		"hint": "黏性方块在黏连和移动的过程中容易产生自锁，导致死局，例如右侧的这个黏性方块......"
-	},
-	"B-T-3": {
-		"data": "MDAwMDAwMDAwMDAwMDA3NzAyMjAwMjAyMDAwMjAwNzcwMTAwMjEwMTEwMjAyMDc3MDAwMDAwMDIwMDAyMDA3NzAwMDAwMDAwMDAwMDAwNzc3Nzc3Nzc3Nzc3Nzc3Nzc3NzcwMDAwMDAwMDAwNzc3Nzc3MDAwMDAwMDAwMDc3Nzc3NzAwMjAyMDAwMDA3Nzc3NzcwMDAwMDYwMjAwNzc3Nzc3MDAwMDUwMDAwMDc3Nzc3NzAwMDAwMDAwMDA3Nzc3",
-		"hint": "下面展示了一些黏性方块自锁的情况——尽量避免这样的情况发生！"
-	},
-	"B-1": {
-		"data": "MDAwMDAwMDAwMDc3Nzc3NzAwMDAwMDAwMDA3Nzc3NzcwMDAwMjAwMDAwNzc3Nzc3MDAwMDAwMDAwMDc3Nzc3NzAwMDUwNjAxMDA3Nzc3NzcwMDAwMDAwMDAwNzc3Nzc3MDAwMDIwMDAwMDc3Nzc3NzAwMDAwMDAwMDA3Nzc3NzcwMDAwMDAwMDAwNzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3",
-		"hint": "很多时候，事情没有想象中那么复杂。"
-	},
-	"B-2": {
-		"data": "MDAwMDAwMDAwMDA3Nzc3NzAwMDAwMDAwMDAwNzc3NzcwMDAwMDAwMDAwMDc3Nzc3MDAwMDAwMDAwMDA3Nzc3NzAwMDAxMDEwMDAwNzc3NzcwMDAwMDIwMDAwMDc3Nzc3MDAwMDAwMDAwMDA3Nzc3NzAwMDAwMDAwMDAwNzc3NzcwMDAwMDAwMDAwMDc3Nzc3MDAwMDAwMDAwMDA3Nzc3NzAwMDUwMDA2MDAwNzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3",
-		"hint": "这是一台起重机。"
-	},
-	"B-3": {
-		"data": "MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAyMDAwMjAwMDAwMDUwMDAwMDAwMDAwMDAwNjAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDIwMDAyMDAwMjAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA3Nzc3Nzc3Nzc3Nzc3Nzc3",
-		"hint": "黏黏传递！"
-	},
-	"C-T-1": {
+
+	"B-1 固定方块": {
 		"data": "MDAwMDAwMDA3Nzc3Nzc3NzAwMDAwNjAwNzc3Nzc3NzcwMDAwMDAwMDc3Nzc3Nzc3MDAzNTAwMDA3Nzc3Nzc3NzAwMDEwMDAwNzc3Nzc3NzcwMDAwMDAwMDc3Nzc3Nzc3MDAwMDAwMDA3Nzc3Nzc3NzAwMDAwMzAwNzc3Nzc3NzcwMDAwMDAwMDc3Nzc3Nzc3MDAwMDAwMDA3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3",
-		"hint": "固定方块不能被推动。"
+		"hint": "固定方块  [img=48x48]fixed_cube[/img]  不能被推动。"
 	},
-	"C-T-2": {
+	"B-2 山谷传递": {
+		"data": "MDAwMDAwMDAwMDAwMDc3NzAzMDAwMDAwMDAwMzA3NzcwMDUzMDAwMDAzNjAwNzc3MDMwMDAwMDAwMDAzMDc3NzAwMDAzMDAwMzAwMDA3NzcwMDMwMDAwMDAwMzAwNzc3MDAwMDAzMDMwMDAwMDc3NzAwMDMwMDAwMDMwMDA3NzcwMDAwMDAzMDAwMDAwNzc3MDAwMDMwMDAzMDAwMDc3NzAwMDAwMDAwMDAwMDA3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3",
+		"hint": "不过固定方块在某种程度上也可以降低关卡的难度......"
+	},
+	"B-3 笨鸟化形": {
+		"data": "MDAwMDAwMDAwMDAwMDc3NzAwMDAwMDAwMDAwMDA3NzcwMDAwMDAwMDAwMDAwNzc3MDAwMDAzMDAwNjAwMDc3NzAwMDAwMDAwMDAwMDA3NzcwMDAwMDAwMDAwMDAwNzc3MDAwMDUwMDAwMDAwMDc3NzAwMDAwMDMwMDAwMDA3NzcwMDAwMDAwMDAwMDAwNzc3MDAwMDAwMDAwMDAwMDc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3",
+		"hint": "地图边上有一些鸟，你可以把它们抓起来放在地图上。\n不过当鸟跑到地图下面的时候就抓不到了。",
+		"quota": {
+			"normal": 1,
+			"sticky": 0,
+			"fixed": 1,
+			"boom": 0
+		}
+	},
+	"B-4 思维缜密": {
+		"data": "MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwNTAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA2MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw",
+		"hint": "最少可以用几只鸟完成关卡呢......？",
+		"quota": {
+			"normal": 2,
+			"sticky": 0,
+			"fixed": 2,
+			"boom": 0
+		}
+	},
+
+	"C-1 黏性地带": {
+		"data": "MDAwMDAwMDAwMDA3Nzc3NzAwMDAwMDAwMDAwNzc3NzcwMDIwMDAwMDAwMDc3Nzc3MDAwMDA1MDAwMDA3Nzc3NzAwMDAwMDAwMjAwNzc3NzcwMDAwMDAwMDAwMDc3Nzc3MDAwMDAwMDAwMDA3Nzc3NzAwMDAwNjAwMDAwNzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3",
+		"hint": "黏性方块  [img=48x48]sticky_cube[/img]  可以黏住其碰到的物体，一旦黏上就无法解除！\n箱子或者钥匙由于比较轻，可以被其它黏性方块黏走。\n巧妙利用黏性方块的[u]斜角推动[/u]特性可以改变物体的运动方向！"
+	},
+	"C-2 掣肘困境": {
+		"data": "MDAwMDAwMDAwMDc3Nzc3NzAwMDAwMDAwMDA3Nzc3NzcwMDAwMDAwMDAwNzc3Nzc3MDAwMjAwNjAwMDc3Nzc3NzAwMDAwMDAwMDA3Nzc3NzcwMDAyMDA1MDAwNzc3Nzc3MDAwMDAwMDAwMDc3Nzc3NzAwMDAwMDAwMDA3Nzc3NzcwMDAwMDAwMDAwNzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3",
+		"hint": "黏性方块在黏连和移动的过程中容易产生自锁，导致死局......"
+	},
+	"C-3 不动如山": {
 		"data": "MDAwMDAwMDAwNzc3Nzc3NzAwMDAwMDAwMDc3Nzc3NzcwMDMwMDAzMDA3Nzc3Nzc3MDAwMDAwMDAwNzc3Nzc3NzAwNjAyMDUwMDc3Nzc3NzcwMDAwMDAwMDA3Nzc3Nzc3MDAzMDAwMzAwNzc3Nzc3NzAwMDAwMDAwMDc3Nzc3NzcwMDAwMDAwMDA3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3",
 		"hint": "固定方块可以带动黏性方块，但黏性方块无法带动固定方块。"
 	},
-	"C-1": {
+	"C-4 咫尺天涯": {
+		"data": "MDAwMDAwNzAwMDAwMDc3NzAwMDAwMDcwMDAwMDA3NzcwMDAwMDA3MDAwMDAwNzc3MDAwMDA2NzUwMDAwMDc3NzAwMDAwNzc3MDAwMDA3NzcwMDAwMDAwMDAwMDAwNzc3MDAwMDAwMDAwMDAwMDc3NzAwMDAwMDAwMDAwMDA3NzcwMDAwMDAwMDAwMDAwNzc3MDAwMDAwMDAwMDAwMDc3NzAwMDAwMDAwMDAwMDA3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3",
+		"hint": "鸟又来了，不过这次是黏黏的。",
+		"quota": {
+			"normal": 0,
+			"sticky": 4,
+			"fixed": 0,
+			"boom": 0
+		}
+	},
+	
+	"EX-1 工业革命": {
+		"data": "MDAwMDAwMDAwMDA3Nzc3NzAwMDAwMDAwMDAwNzc3NzcwMDAwMDAwMDAwMDc3Nzc3MDAwMDAwMDAwMDA3Nzc3NzAwMDAxMDEwMDAwNzc3NzcwMDAwMDIwMDAwMDc3Nzc3MDAwMDAwMDAwMDA3Nzc3NzAwMDAwMDAwMDAwNzc3NzcwMDAwMDAwMDAwMDc3Nzc3MDAwMDAwMDAwMDA3Nzc3NzAwMDUwMDA2MDAwNzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3",
+		"hint": "这是一台起重机。"
+	},
+	"EX-2 黏黏传递": {
+		"data": "MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAyMDAwMjAwMDAwMDUwMDAwMDAwMDAwMDAwNjAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDIwMDAyMDAwMjAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA3Nzc3Nzc3Nzc3Nzc3Nzc3",
+		"hint": "黏黏传递！"
+	},
+	"EX-3 大放异彩": {
 		"data": "MDAwMDAwMDAwMDA3Nzc3NzAwMDAwMDAwMDAwNzc3NzcwMDAwMDMwMDAwMDc3Nzc3MDAwMDAwMDAwMDA3Nzc3NzAwMDAwMDAwMDAwNzc3NzcwMDIwMDMwMDUwMDc3Nzc3MDAwMDAwMDAwMDA3Nzc3NzAwMDAwMDAwMDAwNzc3NzcwMDAzMDYwMzAwMDc3Nzc3MDAwMDAwMDAwMDA3Nzc3NzAwMDAwMDAwMDAwNzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3",
 		"hint": "这像不像一颗星星？"
 	},
-	"C-2": {
-		"data": "NzcwMDAwMDAwMDA3Nzc3NzcwMDAwMDAwMDAwMDc3NzcwMDA3Nzc3Nzc3MDAwNzc3MDAyNTAwMDAwMDAwMDc3NzAwMjAwMDAwMDAwMDA3NzcwMDIwMDAwMDIwMDAwNzc3MDAyMDAwMDAwMDAwMDc3NzAwMjAwMDAwMDAwMDA3NzcwMDIwMDAwMDAwMDAwNzc3MDAwMDAwMjAwMDYwMDc3NzAwMDAwMDAwMDAwMDc3NzcwMDAwMDAwMDAwMDc3Nzc3",
-		"hint": "先这样，再这样，最后就......"
+	"EX-4 知所先后": {
+		"data": "MDAwMDAwMDAwMDAwMDc3NzAwMDAzMDAwMDAwMDA3NzcwMDAwMDAwMDAwMDAwNzc3MDAyNTAwMDAwMDAwMDc3NzAwMTAwMDAwMDAwMDA3NzcwMDIwMDAwMDIwMDAwNzc3MDAxMDAwMDAwMDAwMDc3NzAwMjAwMDAwMDAwMDA3NzcwMDEwMDAwMDAwMDAwNzc3MDAwMDAwMjAwMDYwMDc3NzAwMDAwMDAwMDAwMDA3NzcwMDAwMDAwMDAwMDAwNzc3",
+		"hint": "先...，再...，最后...，就完成啦！"
+	},
+	"EX-5 百鸟朝凤": {
+		"data": "MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA1MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDc3Nzc3NzAwMDAwMDAwMDA3Nzc3NzcwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwNjAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw",
+		"hint": "我把能叫来的鸟都叫来了，剩下的就靠你自行发挥了。",
+		"quota": {
+			"normal": 4,
+			"sticky": 4,
+			"fixed": 4,
+			"boom": 0
+		}
 	},
 	"END": {
 		"data": "MDAwMDAwMDAwMDAwMDAwMDAxMTExMDIwMDIwMzMzMDAwMTAwMDAyMjAyMDMwMDMwMDExMTEwMjAyMjAzMDAzMDAxMDAwMDIwMDIwMzAwMzAwMTExMTAyMDAyMDMzMzAwMDAwMDAwMDAwMDAwMDAwMDA1NTU1NTU1NTU1NTU1NTAwNjY2NjY2NjY2NjY2NjYwMDAwMDAwMDAwMDAwMDAwMDc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3",
-		"hint": "恭喜！你已完成所有关卡！"
+		"hint": "恭喜！你已完成所有关卡！\n按下[P]键切出调试面板，可以自由选择关卡；左下角可以进入编辑模式自由编辑关卡。\n尽情享受吧！"
 	} 
 }
