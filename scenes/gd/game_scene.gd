@@ -13,4 +13,5 @@ func _input(event: InputEvent) -> void:
 		$DebugPanel.visible = not $DebugPanel.visible
 
 func _on_debug_button_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/debug_scene.tscn")
+	SceneManager.change_scene("res://scenes/debug_scene.tscn", {"pattern": "scribbles"})
+	#get_tree().change_scene_to_file("res://scenes/debug_scene.tscn")
