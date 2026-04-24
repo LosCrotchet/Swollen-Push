@@ -11,7 +11,7 @@ extends Node
 @export var birds_controller: Control
 
 var _now_level = -1
-const BASE_POSITION = Vector2(0, 128)
+const BASE_POSITION = Vector2(0, 32)
 
 var all_levels
 
@@ -289,7 +289,8 @@ func load_level(level_name: String):
 		var obj = map_editor.create(type, coord, radius)
 		
 		# 如果是墙壁，且不在我们计算出的有效边界内，则作为无用填充剔除
-		if type == GameManager.CONTENT.WALL and not valid_map_coords.has(c):
-			obj.visible = false
+		if type == GameManager.CONTENT.WALL:
+			if c.x < min_x or c.x > max_x or c.y < min_y or c.y > max_y:
+				obj.visible = false
 		
 	log_print("地图读取完成！")

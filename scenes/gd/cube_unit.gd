@@ -20,6 +20,7 @@ var _offset := Vector2i(32, 32)
 @onready var HoverWrapper = $HoverWrapper
 @onready var Area = $Area2D
 
+
 #func _init(_coordinate: Vector2i, _mass: int, _type: GameManager.CONTENT, _radius: int = 1):
 	#coordinate = _coordinate
 	#mass = _mass
@@ -30,6 +31,10 @@ var _offset := Vector2i(32, 32)
 
 func _ready() -> void:
 	position =  coordinate * 64 + _offset
+	
+	AnimatedOutlook.set_instance_shader_parameter("enable", false)
+	AnimatedOutlook.set_instance_shader_parameter("width", 2)
+	AnimatedOutlook.set_instance_shader_parameter("pattern", 1)
 
 func move_to(to_coordinate: Vector2i) -> bool:
 	facing = sign(to_coordinate - coordinate)
@@ -60,11 +65,15 @@ func get_push_dir(from_coord: Vector2i):
 func _on_mouse_entered():
 	if is_hint_enable:
 		play_hint(Vector2.ONE * 1.1)
+		#AnimatedOutlook.set_instance_shader_parameter("enable", true)
+		#AnimatedOutlook.frame = 1
 		z_index += 99
 
 func _on_mouse_exited():
 	if is_hint_enable:
 		play_hint(Vector2.ONE)
+		#AnimatedOutlook.set_instance_shader_parameter("enable", false)
+		#AnimatedOutlook.frame = 0
 		z_index -= 99
 
 func play_hint(to_scale: Vector2):
