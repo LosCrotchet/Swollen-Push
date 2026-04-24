@@ -169,6 +169,7 @@ func _on_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) 
 			var obj = map_editor.create(real_type, grid, 1)
 			if obj:
 				remove_from_group("is_dragging")
+				get_tree().call_group("birds", "queue_free")
 				queue_free()
 				return
 		
