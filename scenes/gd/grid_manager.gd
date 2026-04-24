@@ -2,6 +2,7 @@ extends Node
 
 signal level_finished
 
+@export var now_level := -1
 @export var enable = true
 
 # ==========================================

@@ -78,6 +78,7 @@ func set_radius(to_radius: int) -> bool:
 		cube_scale_tween = get_tree().create_tween().set_parallel()
 		cube_scale_tween.set_ease(Tween.EASE_OUT)
 		cube_scale_tween.set_trans(Tween.TRANS_BOUNCE)
+		cube_scale_tween.tween_property(Area, "scale", to_scale, GameManager.ANIMATION_TIME)
 		cube_scale_tween.tween_property($LightOccluder2D, "scale", to_scale, GameManager.ANIMATION_TIME)
 	
 	return true

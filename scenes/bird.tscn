@@ -2,58 +2,20 @@
 
 [ext_resource type="Script" uid="uid://buqyesgqag578" path="res://scenes/gd/bird.gd" id="1_3po83"]
 [ext_resource type="SpriteFrames" uid="uid://bk22vwxxswhqe" path="res://assets/tres/bird_frames.tres" id="1_kqhkv"]
+[ext_resource type="Shader" uid="uid://fx4mej4d55x6" path="res://assets/tres/outline.gdshader" id="4_b7mtg"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_twsrt"]
 radius = 50.0
 
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_hq4t0"]
-polygon = PackedVector2Array(48, 0, 32, -32, 0, -64, -32, -32, -48, 0, -32, 32, 0, 64, 32, 32)
-
-[sub_resource type="Shader" id="Shader_twsrt"]
-code = "shader_type canvas_item;
-
-instance uniform bool enable = true;
-uniform vec4 outline_color : source_color = vec4(1.0, 1.0, 1.0, 1.0);
-uniform float width : hint_range(0.0, 10.0) = 1.0;
-uniform int pattern : hint_range(0, 2) = 0; // 0: 菱形, 1: 圆形, 2: 方形
-
-void fragment() {
-    float size = width * fwidth(UV.x); // 适配缩放
-    vec2 unit = TEXTURE_PIXEL_SIZE;
-    float alpha = 0.0;
-    
-    if (pattern == 0) {
-        // 菱形采样 (性能最好)
-        alpha += texture(TEXTURE, UV + vec2(0.0, -width) * unit).a;
-        alpha += texture(TEXTURE, UV + vec2(0.0, width) * unit).a;
-        alpha += texture(TEXTURE, UV + vec2(-width, 0.0) * unit).a;
-        alpha += texture(TEXTURE, UV + vec2(width, 0.0) * unit).a;
-    } else {
-        // 圆形采样 (效果最圆润)
-        for (float x = -width; x <= width; x++) {
-            for (float y = -width; y <= width; y++) {
-                if (pattern == 1 && length(vec2(x, y)) > width) continue;
-                alpha += texture(TEXTURE, UV + vec2(x, y) * unit).a;
-            }
-        }
-    }
-    
-    vec4 col = texture(TEXTURE, UV);
-    // 如果原像素透明且周围有像素，则显示描边
-    if (enable && col.a < 0.1 && alpha > 0.0) {
-        COLOR = outline_color;
-    } else {
-        COLOR = col;
-    }
-	
-	
-}"
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_twsrt"]
-shader = SubResource("Shader_twsrt")
+shader = ExtResource("4_b7mtg")
+shader_parameter/enable = false
 shader_parameter/outline_color = Color(1, 1, 0, 1)
 shader_parameter/width = 10.0
 shader_parameter/pattern = 1
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_twsrt"]
+polygon = PackedVector2Array(43, -2, 35, 17, 26, 28, 8, 34, 12, 67, -8, 71, -15, 35, -39, 27, -49, 2, -44, -20, -31, -44, -11, -56, 2, -72, 12, -53, 30, -41, 39, -26)
 
 [node name="Bird" type="Node2D" unique_id=2113065109]
 light_mask = 3
@@ -68,12 +30,6 @@ visibility_layer = 3
 light_mask = 3
 shape = SubResource("CircleShape2D_twsrt")
 
-[node name="LightOccluder2D" type="LightOccluder2D" parent="." unique_id=2002195105]
-light_mask = 3
-visibility_layer = 3
-occluder = SubResource("OccluderPolygon2D_hq4t0")
-occluder_light_mask = 3
-
 [node name="AnimatedOutlook" type="AnimatedSprite2D" parent="." unique_id=1489001230]
 light_mask = 4
 visibility_layer = 4
@@ -86,6 +42,9 @@ animation = &"fixed_walk"
 light_mask = 3
 texture_filter = 1
 region_rect = Rect2(0, 192, 64, 64)
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="." unique_id=1789330927]
+occluder = SubResource("OccluderPolygon2D_twsrt")
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

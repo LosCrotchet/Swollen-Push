@@ -10,8 +10,6 @@ var is_right_pressing: bool = false
 @onready var FIREPIT = preload("res://scenes/firepit.tscn")
 @onready var WALL = preload("res://scenes/wall.tscn")
 
-
-
 func _input(event: InputEvent) -> void:
 	if GameManager.is_editing:
 		if event.is_action_pressed("mouse_left"):

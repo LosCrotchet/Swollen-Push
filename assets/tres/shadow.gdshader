@@ -7,10 +7,10 @@ uniform vec4 shadow_color : source_color = vec4(0.0, 0.0, 0.0, 0.4);
 uniform float shadow_angle : hint_range(0.0, 360.0) = 45.0;
 
 // 阴影拉伸倍数（1.0为原始大小，数值越大影子被拉得越长）
-uniform float shadow_length : hint_range(1.0, 5.0) = 1.5;
+uniform float shadow_length : hint_range(1.0, 50.0) = 1.5;
 
 // 小鸟距离地面的高度（控制阴影的整体偏移距离）
-uniform float shadow_height : hint_range(0.0, 200.0) = 30.0;
+uniform float shadow_height : hint_range(0.0, 2000.0) = 30.0;
 
 // 错切/斜切因子（用于模拟不同视角的3D透视形变，0为无错切）
 uniform float skew_factor : hint_range(-2.0, 2.0) = 0.0;

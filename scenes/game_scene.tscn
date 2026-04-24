@@ -31,10 +31,6 @@ bg_color = Color(0.057996348, 0.057996348, 0.05799634, 1)
 [sub_resource type="LabelSettings" id="LabelSettings_kk2rg"]
 font_size = 30
 
-[sub_resource type="LabelSettings" id="LabelSettings_mw25s"]
-font_size = 30
-font_color = Color(1, 1, 1, 0.5019608)
-
 [sub_resource type="LabelSettings" id="LabelSettings_0in77"]
 font_size = 24
 
@@ -48,6 +44,10 @@ shader_parameter/NUM_PARTICLES = 120.0
 shader_parameter/MOD3 = Vector3(0.1031, 0.11369, 0.13787)
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_b5spy"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_mw25s"]
+font_size = 30
+font_color = Color(1, 1, 1, 0.5019608)
 
 [node name="GameScene" type="Control" unique_id=532454969]
 layout_mode = 3
@@ -68,6 +68,71 @@ offset_right = 1792.0
 offset_bottom = 984.0
 texture = ExtResource("2_c8mr4")
 
+[node name="TextureRect" type="TextureRect" parent="TextureRect" unique_id=381010348]
+z_index = -1000
+layout_mode = 0
+offset_left = -1920.0
+offset_bottom = 1080.0
+texture = ExtResource("2_c8mr4")
+
+[node name="TextureRect" type="TextureRect" parent="TextureRect/TextureRect" unique_id=1497946654]
+z_index = -1000
+layout_mode = 0
+offset_left = 3840.0
+offset_right = 5760.0
+offset_bottom = 1080.0
+texture = ExtResource("2_c8mr4")
+
+[node name="TextureRect" type="TextureRect" parent="TextureRect/TextureRect/TextureRect" unique_id=2016417205]
+z_index = -1000
+layout_mode = 0
+offset_left = -1888.0
+offset_top = 1056.0
+offset_right = 32.0
+offset_bottom = 2136.0
+texture = ExtResource("2_c8mr4")
+
+[node name="TextureRect" type="TextureRect" parent="TextureRect/TextureRect/TextureRect/TextureRect" unique_id=3587913]
+z_index = -1000
+layout_mode = 0
+offset_top = -2112.0
+offset_right = 1920.0
+offset_bottom = -1032.0
+texture = ExtResource("2_c8mr4")
+
+[node name="TextureRect" type="TextureRect" parent="TextureRect/TextureRect/TextureRect/TextureRect/TextureRect" unique_id=438075541]
+z_index = -1000
+layout_mode = 0
+offset_left = -1920.0
+offset_top = 32.0
+offset_bottom = 1112.0
+texture = ExtResource("2_c8mr4")
+
+[node name="TextureRect" type="TextureRect" parent="TextureRect/TextureRect/TextureRect/TextureRect/TextureRect/TextureRect" unique_id=2128139443]
+z_index = -1000
+layout_mode = 0
+offset_left = 3808.0
+offset_top = 32.0
+offset_right = 5728.0
+offset_bottom = 1112.0
+texture = ExtResource("2_c8mr4")
+
+[node name="TextureRect2" type="TextureRect" parent="TextureRect/TextureRect/TextureRect/TextureRect/TextureRect/TextureRect" unique_id=114448202]
+z_index = -1000
+layout_mode = 0
+offset_top = 2080.0
+offset_right = 1920.0
+offset_bottom = 3160.0
+texture = ExtResource("2_c8mr4")
+
+[node name="TextureRect" type="TextureRect" parent="TextureRect/TextureRect/TextureRect/TextureRect/TextureRect/TextureRect/TextureRect2" unique_id=908473141]
+z_index = -1000
+layout_mode = 0
+offset_left = 3808.0
+offset_right = 5728.0
+offset_bottom = 1080.0
+texture = ExtResource("2_c8mr4")
+
 [node name="DarkMask" type="TextureRect" parent="." unique_id=250853118]
 z_index = 999
 material = SubResource("ShaderMaterial_mw25s")
@@ -81,7 +146,7 @@ grow_vertical = 2
 texture = SubResource("CanvasTexture_utbpp")
 
 [node name="BirdsController" type="Panel" parent="." unique_id=1285499836 node_paths=PackedStringArray("map_editor")]
-z_index = 200
+z_index = 300
 layout_mode = 0
 offset_right = 1600.0
 offset_bottom = 896.0
@@ -91,7 +156,6 @@ script = ExtResource("4_mw25s")
 map_editor = NodePath("../GameRegion/MapPanel/MapEditor")
 
 [node name="GameRegion" type="Panel" parent="." unique_id=532152570]
-z_index = 100
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -177,19 +241,6 @@ map_panel = NodePath("../GameRegion/MapPanel")
 fireworks = NodePath("../Fireworks")
 fire = NodePath("../DarkMask")
 birds_controller = NodePath("../BirdsController")
-
-[node name="Hint" type="Label" parent="." unique_id=1596412942]
-z_index = 900
-layout_mode = 0
-offset_left = 288.0
-offset_top = 800.0
-offset_right = 1312.0
-offset_bottom = 896.0
-text = "[左键]放大方块  |  [右键]缩小方块  |  [中键] 重新开始关卡"
-label_settings = SubResource("LabelSettings_mw25s")
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 1
 
 [node name="DebugPanel" type="Panel" parent="." unique_id=477024173]
 visible = false
@@ -292,13 +343,28 @@ texture = SubResource("CanvasTexture_b5spy")
 [node name="DarkCorner" type="TextureRect" parent="." unique_id=256672228]
 z_index = 2000
 layout_mode = 0
-offset_left = -256.0
-offset_top = -288.0
-offset_right = 1856.0
-offset_bottom = 1184.0
+offset_left = -416.0
+offset_top = -384.0
+offset_right = 1984.0
+offset_bottom = 1280.0
 mouse_filter = 2
 texture = ExtResource("12_rvs2r")
-metadata/_edit_lock_ = true
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=132170846]
+position = Vector2(800, 448)
+zoom = Vector2(0.8, 0.8)
+
+[node name="Hint" type="Label" parent="Camera2D" unique_id=1596412942]
+z_index = 900
+offset_left = -512.0
+offset_top = 352.0
+offset_right = 512.0
+offset_bottom = 448.0
+text = "[左键]放大方块  |  [右键]缩小方块  |  [中键] 重新开始关卡"
+label_settings = SubResource("LabelSettings_mw25s")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 1
 
 [connection signal="item_activated" from="DebugPanel/LevelList" to="LoadLevel" method="_on_load_button_pressed" unbinds=1]
 [connection signal="pressed" from="DebugPanel/RefreshButton" to="LoadLevel" method="_on_refresh_button_pressed"]

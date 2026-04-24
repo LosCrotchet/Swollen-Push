@@ -10,12 +10,12 @@ extends Node
 @export var fire: Control
 @export var birds_controller: Control
 
-var _now_level = -1
 const BASE_POSITION = Vector2(0, 32)
 
 var all_levels
 
 func _ready() -> void:
+	GridManager.enable = true
 	GridManager.level_finished.connect(_on_level_finish)
 	_on_refresh_button_pressed()
 
@@ -38,18 +38,20 @@ func _on_level_finish():
 	for item in get_tree().get_nodes_in_group("OBJECT"):
 		item.shake()
 	
-	var tmp = get_tree().create_tween().set_trans(Tween.TRANS_EXPO)
-	#fire.material.set_shader_parameter("spread", 0)
+	#var tmp = get_tree().create_tween().set_trans(Tween.TRANS_EXPO)
+	##fire.material.set_shader_parameter("spread", 0)
+	#
+	#tmp.tween_callback(func():
+		#fire.visible = true
+		#fire.material.set_shader_parameter("spread", 0.001))
+	#tmp.tween_property(fire.material, "shader_parameter/spread", 1, 2).set_delay(0.1)
+	#tmp.tween_callback(_on_load_next_level)
+	#tmp.tween_property(fire.material, "shader_parameter/spread", 0.001, 2)
+	#tmp.tween_callback(func():
+		#GridManager.enable = true
+		#fire.visible = false)
 	
-	tmp.tween_callback(func():
-		fire.visible = true
-		fire.material.set_shader_parameter("spread", 0.001))
-	tmp.tween_property(fire.material, "shader_parameter/spread", 1, 2).set_delay(0.1)
-	tmp.tween_callback(_on_load_next_level)
-	tmp.tween_property(fire.material, "shader_parameter/spread", 0.001, 2)
-	tmp.tween_callback(func():
-		GridManager.enable = true
-		fire.visible = false)
+	_on_load_next_level()
 
 func _get_levels():
 	var file = FileAccess.open("res://levels.json", FileAccess.READ)
@@ -75,10 +77,11 @@ func _on_refresh_button_pressed() -> void:
 	for item in all_levels:
 		level_list.add_item(item)
 	if level_list.item_count:
-		_now_level = 0
-		load_level(level_list.get_item_text(_now_level))
+		if GridManager.now_level == -1:
+			GridManager.now_level = 0
+		load_level(level_list.get_item_text(GridManager.now_level))
 		
-		level_list.select(_now_level)
+		level_list.select(GridManager.now_level)
 	else:
 		level_title.text = ""
 		level_hint.text = ""
@@ -86,19 +89,21 @@ func _on_refresh_button_pressed() -> void:
 func _on_load_button_pressed() -> void:
 	var select_item = level_list.get_selected_items()
 	if select_item:
-		_now_level = select_item[0]
-		load_level(level_list.get_item_text(select_item[0]))
+		GridManager.now_level = select_item[0]
+		SceneManager.change_scene("res://scenes/game_scene.tscn", {"pattern": "circle", "speed": 2})
+		#load_level(level_list.get_item_text(select_item[0]))
 	else:
 		level_title.text = ""
 		level_hint.text = ""
 
 func _on_load_next_level():
 	print("Load next level...")
-	if _now_level >= 0:
-		_now_level += 1
-		if _now_level < level_list.item_count:
-			load_level(level_list.get_item_text(_now_level))
-			level_list.select(_now_level)
+	if GridManager.now_level >= 0:
+		GridManager.now_level += 1
+		if GridManager.now_level < level_list.item_count:
+			SceneManager.change_scene("res://scenes/game_scene.tscn", {"pattern": "squares", "speed": 1})
+			#load_level(level_list.get_item_text(GridManager.now_level))
+			#level_list.select(GridManager.now_level)
 
 
 func _is_valid_base64(s: String) -> bool:
@@ -131,7 +136,7 @@ func load_level(level_name: String):
 	
 	level_hint.text = hint
 	
-	if _now_level == level_list.item_count - 1:
+	if GridManager.now_level == level_list.item_count - 1:
 		fireworks.visible = true
 	else:
 		fireworks.visible = false
@@ -290,7 +295,7 @@ func load_level(level_name: String):
 		
 		# 如果是墙壁，且不在我们计算出的有效边界内，则作为无用填充剔除
 		if type == GameManager.CONTENT.WALL:
-			if c.x < min_x or c.x > max_x or c.y < min_y or c.y > max_y:
-				obj.visible = false
+			#if c.x < min_x or c.x > max_x or c.y < min_y or c.y > max_y:
+			obj.visible = false
 		
 	log_print("地图读取完成！")

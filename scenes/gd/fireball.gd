@@ -1,8 +1,6 @@
 extends CubeUnit
 class_name FireBall
 
-@onready var point_light_2d: PointLight2D = $PointLight2D
-
 func _ready() -> void:
 	z_index = 11
 	#Outlook.region_rect = Rect2(128, 128 if GameManager.is_dark_mode else 0, 64, 64)
@@ -33,7 +31,3 @@ func move_to(to_coordinate: Vector2i) -> bool:
 		rotation = -Vector2(facing).angle_to(Vector2.DOWN)
 	).set_delay(2*GameManager.TWEEN_TIME)
 	return true
-
-func _on_light_shake_timer_timeout() -> void:
-	point_light_2d.energy = randf_range(4.5, 5.5)
-	point_light_2d.offset = Vector2(randf_range(-5, 5), randf_range(-5, 5))

@@ -4,16 +4,16 @@
 [ext_resource type="Script" uid="uid://dhjrvy3mryjiw" path="res://scenes/gd/fireball.gd" id="2_1gl40"]
 
 [sub_resource type="Gradient" id="Gradient_1gl40"]
-offsets = PackedFloat32Array(0, 0.11298077, 0.26201922, 0.44951922, 0.62259614, 0.9254808)
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 0.5770087, 0.5770083, 0.57700837, 1, 0.24813592, 0.24813586, 0.24813595, 1, 0.2065543, 0.20655426, 0.20655435, 1, 0, 0, 0, 1)
+offsets = PackedFloat32Array(0, 0.84375, 1)
+colors = PackedColorArray(0.39232534, 0.39232537, 0.39232534, 1, 0.12005129, 0.12005124, 0.12005126, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_cb14k"]
 gradient = SubResource("Gradient_1gl40")
-width = 1024
-height = 1024
+width = 2000
+height = 2000
 fill = 1
 fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(0.14756945, 0.140625)
+fill_to = Vector2(0.921875, 0.2482639)
 
 [node name="Fireball" unique_id=970972792 instance=ExtResource("1_3s14c")]
 script = ExtResource("2_1gl40")
@@ -30,23 +30,13 @@ visibility_layer = 4
 light_mask = 4
 visibility_layer = 4
 
-[node name="PointLight2D" type="PointLight2D" parent="." index="2" unique_id=463462448]
-color = Color(1, 0.25800002, 0.16000003, 1)
-energy = 5.0
-range_z_min = -4000
-range_z_max = 4000
+[node name="PointLight2D" type="PointLight2D" parent="." index="2" unique_id=277032496]
 range_item_cull_mask = 3
 shadow_enabled = true
+shadow_color = Color(0, 0, 0, 1)
 shadow_item_cull_mask = 3
 texture = SubResource("GradientTexture2D_cb14k")
-texture_scale = 1.5
-height = 500.0
+texture_scale = 2.0
 
-[node name="LightShakeTimer" type="Timer" parent="." index="3" unique_id=160178988]
-wait_time = 0.1
-autostart = true
-
-[node name="LightOccluder2D" parent="." index="4" unique_id=1934953000]
-occluder_light_mask = 0
-
-[connection signal="timeout" from="LightShakeTimer" to="." method="_on_light_shake_timer_timeout"]
+[node name="LightOccluder2D" parent="." index="3" unique_id=195126855]
+visible = false
