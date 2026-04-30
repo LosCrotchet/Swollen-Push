@@ -40,7 +40,7 @@ func move_to(to_coordinate: Vector2i) -> bool:
 		_pos_tween.kill()
 	_pos_tween = get_tree().create_tween()
 	_pos_tween.set_ease(Tween.EASE_OUT)
-	_pos_tween.set_trans(Tween.TRANS_CUBIC)
+	_pos_tween.set_trans(Tween.TRANS_EXPO)
 	_pos_tween.tween_property(self, "position", Vector2(to_position), GameManager.ANIMATION_TIME).set_delay(GameManager.TWEEN_TIME)
 	return true
 

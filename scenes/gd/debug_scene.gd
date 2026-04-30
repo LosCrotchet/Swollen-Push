@@ -31,4 +31,4 @@ func _on_edit_mode_enable_toggled(toggled_on: bool) -> void:
 
 
 func _on_game_button_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/game_scene.tscn")
+	SceneManager.change_scene("res://scenes/game_scene.tscn", {"pattern": "scribbles"})

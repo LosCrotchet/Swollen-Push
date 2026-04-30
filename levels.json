@@ -1,4 +1,12 @@
 {
+	"T-0": {
+		"data": "MDAwMDAwMDc3Nzc3Nzc3NzAwMDAwMDA3Nzc3Nzc3NzcwMDEwNjUwNzc3Nzc3Nzc3MDAwMDAwMDc3Nzc3Nzc3NzAwMDAwMDA3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3",
+		"hint": "教学目的：鼠标左键可以放大方块"
+	},
+	"T-1": {
+		"data": "MDAwMDAwMDAwNzc3Nzc3NzAwMDAwMDAwMDc3Nzc3NzcwMTA2NTAxMDA3Nzc3Nzc3MDAwMDAwMDAwNzc3Nzc3NzAwMDAwMDAwMDc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3MDAwMDAwMDAwNzc3Nzc3NzAwMDAwMDAwMDc3Nzc3NzcwMDEwNTYwMTA3Nzc3Nzc3MDAwMDAwMDAwNzc3Nzc3NzAwMDAwMDAwMDc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3",
+		"hint": "教学目的：方块膨胀受环境限制"
+	},
 	"A-1 胀缩之道": {
 		"data": "MDAwMDAwMDA3Nzc3Nzc3NzAwMDAwMDAwNzc3Nzc3NzcwMTE1MDA2MDc3Nzc3Nzc3MDAwMDAwMDA3Nzc3Nzc3NzAwMDAwMDAwNzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3",
 		"hint": "方块  [img=48x48]normal_cube[/img]  可以推动物体；你需要把箱子  [img=48x48]box[/img]  推到钥匙  [img=48x48]key[/img]  上；\n[u]鼠标左键[/u]让方块膨胀，最多两次；[u]鼠标右键[/u]让方块收缩；"
@@ -32,26 +40,6 @@
 		"data": "MDAwMDAwMDAwMDAwMDc3NzAzMDAwMDAwMDAwMzA3NzcwMDUzMDAwMDAzNjAwNzc3MDMwMDAwMDAwMDAzMDc3NzAwMDAzMDAwMzAwMDA3NzcwMDMwMDAwMDAwMzAwNzc3MDAwMDAzMDMwMDAwMDc3NzAwMDMwMDAwMDMwMDA3NzcwMDAwMDAzMDAwMDAwNzc3MDAwMDMwMDAzMDAwMDc3NzAwMDAwMDAwMDAwMDA3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3",
 		"hint": "不过固定方块在某种程度上也可以降低关卡的难度......"
 	},
-	"B-3 笨鸟化形": {
-		"data": "MDAwMDAwMDAwMDAwMDc3NzAwMDAwMDAwMDAwMDA3NzcwMDAwMDAwMDAwMDAwNzc3MDAwMDAzMDAwNjAwMDc3NzAwMDAwMDAwMDAwMDA3NzcwMDAwMDAwMDAwMDAwNzc3MDAwMDUwMDAwMDAwMDc3NzAwMDAwMDMwMDAwMDA3NzcwMDAwMDAwMDAwMDAwNzc3MDAwMDAwMDAwMDAwMDc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3",
-		"hint": "地图边上有一些鸟，你可以把它们抓起来放在地图上。\n不过当鸟跑到地图下面的时候就抓不到了。",
-		"quota": {
-			"normal": 1,
-			"sticky": 0,
-			"fixed": 1,
-			"boom": 0
-		}
-	},
-	"B-4 思维缜密": {
-		"data": "MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwNTAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA2MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw",
-		"hint": "最少可以用几只鸟完成关卡呢......？",
-		"quota": {
-			"normal": 2,
-			"sticky": 0,
-			"fixed": 2,
-			"boom": 0
-		}
-	},
 
 	"C-1 黏性地带": {
 		"data": "MDAwMDAwMDAwMDA3Nzc3NzAwMDAwMDAwMDAwNzc3NzcwMDIwMDAwMDAwMDc3Nzc3MDAwMDA1MDAwMDA3Nzc3NzAwMDAwMDAwMjAwNzc3NzcwMDAwMDAwMDAwMDc3Nzc3MDAwMDAwMDAwMDA3Nzc3NzAwMDAwNjAwMDAwNzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3",
@@ -64,16 +52,6 @@
 	"C-3 不动如山": {
 		"data": "MDAwMDAwMDAwNzc3Nzc3NzAwMDAwMDAwMDc3Nzc3NzcwMDMwMDAzMDA3Nzc3Nzc3MDAwMDAwMDAwNzc3Nzc3NzAwNjAyMDUwMDc3Nzc3NzcwMDAwMDAwMDA3Nzc3Nzc3MDAzMDAwMzAwNzc3Nzc3NzAwMDAwMDAwMDc3Nzc3NzcwMDAwMDAwMDA3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3",
 		"hint": "固定方块可以带动黏性方块，但黏性方块无法带动固定方块。"
-	},
-	"C-4 咫尺天涯": {
-		"data": "MDAwMDAwNzAwMDAwMDc3NzAwMDAwMDcwMDAwMDA3NzcwMDAwMDA3MDAwMDAwNzc3MDAwMDA2NzUwMDAwMDc3NzAwMDAwNzc3MDAwMDA3NzcwMDAwMDAwMDAwMDAwNzc3MDAwMDAwMDAwMDAwMDc3NzAwMDAwMDAwMDAwMDA3NzcwMDAwMDAwMDAwMDAwNzc3MDAwMDAwMDAwMDAwMDc3NzAwMDAwMDAwMDAwMDA3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3",
-		"hint": "鸟又来了，不过这次是黏黏的。",
-		"quota": {
-			"normal": 0,
-			"sticky": 4,
-			"fixed": 0,
-			"boom": 0
-		}
 	},
 	
 	"EX-1 工业革命": {
@@ -91,16 +69,6 @@
 	"EX-4 知所先后": {
 		"data": "MDAwMDAwMDAwMDAwMDc3NzAwMDAzMDAwMDAwMDA3NzcwMDAwMDAwMDAwMDAwNzc3MDAyNTAwMDAwMDAwMDc3NzAwMTAwMDAwMDAwMDA3NzcwMDIwMDAwMDIwMDAwNzc3MDAxMDAwMDAwMDAwMDc3NzAwMjAwMDAwMDAwMDA3NzcwMDEwMDAwMDAwMDAwNzc3MDAwMDAwMjAwMDYwMDc3NzAwMDAwMDAwMDAwMDA3NzcwMDAwMDAwMDAwMDAwNzc3",
 		"hint": "先...，再...，最后...，就完成啦！"
-	},
-	"EX-5 百鸟朝凤": {
-		"data": "MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA1MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDc3Nzc3NzAwMDAwMDAwMDA3Nzc3NzcwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwNjAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw",
-		"hint": "我把能叫来的鸟都叫来了，剩下的就靠你自行发挥了。",
-		"quota": {
-			"normal": 4,
-			"sticky": 4,
-			"fixed": 4,
-			"boom": 0
-		}
 	},
 	"END": {
 		"data": "MDAwMDAwMDAwMDAwMDAwMDAxMTExMDIwMDIwMzMzMDAwMTAwMDAyMjAyMDMwMDMwMDExMTEwMjAyMjAzMDAzMDAxMDAwMDIwMDIwMzAwMzAwMTExMTAyMDAyMDMzMzAwMDAwMDAwMDAwMDAwMDAwMDA1NTU1NTU1NTU1NTU1NTAwNjY2NjY2NjY2NjY2NjYwMDAwMDAwMDAwMDAwMDAwMDc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3",

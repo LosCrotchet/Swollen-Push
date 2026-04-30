@@ -7,15 +7,13 @@ extends Node
 @export var level_hint: RichTextLabel
 @export var map_panel: Panel
 @export var fireworks: Control
-@export var fire: Control
-@export var birds_controller: Control
 
-var _now_level = -1
 const BASE_POSITION = Vector2(0, 128)
 
 var all_levels
 
 func _ready() -> void:
+	GridManager.enable = true
 	GridManager.level_finished.connect(_on_level_finish)
 	_on_refresh_button_pressed()
 
@@ -26,11 +24,10 @@ func _input(event: InputEvent) -> void:
 func log_print(s: String):
 	print("[%s] %s" % [Time.get_time_string_from_system(), s])
 
-func _set_fire_spread(x: float):
-	fire.material.set_shader_parameter("spread", x)
-
 func _on_level_finish():
 	
+	if not GridManager.enable:
+		return
 	GridManager.enable = false
 	
 	await get_tree().create_timer(GameManager.ANIMATION_TIME).timeout
@@ -38,18 +35,9 @@ func _on_level_finish():
 	for item in get_tree().get_nodes_in_group("OBJECT"):
 		item.shake()
 	
-	var tmp = get_tree().create_tween().set_trans(Tween.TRANS_EXPO)
-	#fire.material.set_shader_parameter("spread", 0)
-	
-	tmp.tween_callback(func():
-		fire.visible = true
-		fire.material.set_shader_parameter("spread", 0.001))
-	tmp.tween_property(fire.material, "shader_parameter/spread", 1, 2).set_delay(0.1)
-	tmp.tween_callback(_on_load_next_level)
-	tmp.tween_property(fire.material, "shader_parameter/spread", 0.001, 2)
-	tmp.tween_callback(func():
-		GridManager.enable = true
-		fire.visible = false)
+	GameManager.now_level += 1
+		
+	SceneManager.change_scene("res://scenes/game_scene.tscn", {"pattern": "circle"})
 
 func _get_levels():
 	var file = FileAccess.open("res://levels.json", FileAccess.READ)
@@ -68,6 +56,7 @@ func _get_levels():
 	var data = json.data
 	return data
 
+# 场景刚加载好的默认行为
 func _on_refresh_button_pressed() -> void:
 	all_levels = _get_levels()
 	
@@ -75,10 +64,11 @@ func _on_refresh_button_pressed() -> void:
 	for item in all_levels:
 		level_list.add_item(item)
 	if level_list.item_count:
-		_now_level = 0
-		load_level(level_list.get_item_text(_now_level))
+		if GameManager.now_level == -1:
+			GameManager.now_level = 0
+		load_level(level_list.get_item_text(GameManager.now_level))
 		
-		level_list.select(_now_level)
+		level_list.select(GameManager.now_level)
 	else:
 		level_title.text = ""
 		level_hint.text = ""
@@ -86,7 +76,7 @@ func _on_refresh_button_pressed() -> void:
 func _on_load_button_pressed() -> void:
 	var select_item = level_list.get_selected_items()
 	if select_item:
-		_now_level = select_item[0]
+		GameManager.now_level = select_item[0]
 		load_level(level_list.get_item_text(select_item[0]))
 	else:
 		level_title.text = ""
@@ -94,11 +84,11 @@ func _on_load_button_pressed() -> void:
 
 func _on_load_next_level():
 	print("Load next level...")
-	if _now_level >= 0:
-		_now_level += 1
-		if _now_level < level_list.item_count:
-			load_level(level_list.get_item_text(_now_level))
-			level_list.select(_now_level)
+	if GameManager.now_level >= 0:
+		GameManager.now_level += 1
+		if GameManager.now_level < level_list.item_count:
+			load_level(level_list.get_item_text(GameManager.now_level))
+			level_list.select(GameManager.now_level)
 
 
 func _is_valid_base64(s: String) -> bool:
@@ -124,14 +114,14 @@ func _is_valid_map_data(s: String) -> bool:
 # ==========================================
 func load_level(level_name: String):
 	level_title.text = level_name
-	var hint = all_levels[level_name]["hint"]
+	var hint = all_levels[level_name].get("hint", "")
 	
 	var regex = RegEx.create_from_string("\\[img=(\\d+x\\d+)\\](.*?)\\[/img\\]")
 	hint = regex.sub(hint, "[img=$1]res://assets/pic/$2.png[/img]", true)
 	
 	level_hint.text = hint
 	
-	if _now_level == level_list.item_count - 1:
+	if GameManager.now_level == level_list.item_count - 1:
 		fireworks.visible = true
 	else:
 		fireworks.visible = false
@@ -154,13 +144,6 @@ func load_level(level_name: String):
 	if not _is_valid_map_data(map_data):
 		log_print("解析后的地图数据错误！")
 		return
-	
-	birds_controller.clear()
-	var quota = all_levels[level_name].get("quota", {})
-	if quota != {}:
-		for item in quota:
-			for k in range(quota[item]):
-				birds_controller.create(item)
 	
 	for i in range(len(map_data)):
 		if int(map_data[i]) != 0:

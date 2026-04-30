@@ -272,7 +272,7 @@ offset_bottom = 352.0
 theme = ExtResource("5_2a6jk")
 toggle_mode = true
 button_group = ExtResource("7_tmisn")
-text = "火球"
+text = "箱子"
 
 [node name="SetFirePit" type="Button" parent="DebugPanel" unique_id=878309048]
 layout_mode = 0
@@ -283,7 +283,7 @@ offset_bottom = 352.0
 theme = ExtResource("5_2a6jk")
 toggle_mode = true
 button_group = ExtResource("7_tmisn")
-text = "火盆"
+text = "钥匙"
 
 [node name="MapPanel" type="Panel" parent="." unique_id=532152570]
 z_index = 100

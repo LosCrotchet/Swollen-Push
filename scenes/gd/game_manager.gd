@@ -5,16 +5,18 @@ var now_setting: CONTENT = CONTENT.CUBE_NORMAL
 var is_dark_mode: bool = true
 var now_mouse_click_mode: bool = true
 
-var ANIMATION_TIME := 0.6
+var ANIMATION_TIME := 0.5
 const TWEEN_TIME := 0.1
 const HEIGHT: int = 12
 const WIDTH: int = 16
 
 const RIGHT_POSITION = Vector2(512, 0)
-const MIDDLE_POSITION = Vector2(288, 0)
+const MIDDLE_POSITION = Vector2(288, -64)
 
 var map_panel_size := Vector2.ZERO
 var map_panel_position := Vector2.ZERO
+
+var now_level: int = -1
 
 enum CONTENT{
 	CUBE_NORMAL,

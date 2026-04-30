@@ -1,6 +1,6 @@
 [gd_resource type="SpriteFrames" format=3 uid="uid://b8so1l35hcudh"]
 
-[ext_resource type="Texture2D" uid="uid://bst0ol6tugmui" path="res://assets/fireball.png" id="1_8f8rj"]
+[ext_resource type="Texture2D" uid="uid://b4ahroo2pifqh" path="res://assets/fireball.png" id="1_8f8rj"]
 [ext_resource type="Texture2D" uid="uid://mvv8hkick7m6" path="res://assets/default_cube.png" id="1_231ui"]
 [ext_resource type="Texture2D" uid="uid://b6q1jfrgij2a5" path="res://assets/static_cube.png" id="2_apxcy"]
 

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Swollen Push"
-config/version="0.3.4"
+config/version="0.4.0"
 run/main_scene="uid://bdpn31pic2maq"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
@@ -21,12 +21,17 @@ config/icon="res://icon.svg"
 SaveAndLoad="*uid://cmvphyd8qyd0k"
 GameManager="*uid://cjvpmc55aycst"
 GridManager="*uid://ch5jbwb6lk6ix"
+SceneManager="*uid://j20v4cg7v8m1"
 
 [display]
 
 window/size/viewport_width=1600
 window/size/viewport_height=900
 window/stretch/mode="canvas_items"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/scene_manager/plugin.cfg")
 
 [input]
 
