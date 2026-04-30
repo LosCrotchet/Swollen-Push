@@ -16,8 +16,8 @@ func _on_button_toggled(toggled_on: bool, type: int) -> void:
 	match type:
 		1: GameManager.now_setting = GameManager.CONTENT.CUBE_NORMAL
 		2: GameManager.now_setting = GameManager.CONTENT.WALL
-		3: GameManager.now_setting = GameManager.CONTENT.FIREBALL
-		4: GameManager.now_setting = GameManager.CONTENT.FIREPIT
+		3: GameManager.now_setting = GameManager.CONTENT.BOX
+		4: GameManager.now_setting = GameManager.CONTENT.KEY
 		5: GameManager.now_setting = GameManager.CONTENT.CUBE_STICKY
 		6: GameManager.now_setting = GameManager.CONTENT.CUBE_FIXED
 		7: GameManager.now_setting = GameManager.CONTENT.CUBE_BOOM

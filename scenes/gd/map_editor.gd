@@ -6,8 +6,8 @@ var is_left_pressing: bool = false
 var is_right_pressing: bool = false
 
 @onready var CUBE = preload("res://scenes/cube.tscn")
-@onready var FIREBALL = preload("res://scenes/fireball.tscn")
-@onready var FIREPIT = preload("res://scenes/firepit.tscn")
+@onready var BOX = preload("res://scenes/box.tscn")
+@onready var KEY = preload("res://scenes/key.tscn")
 @onready var WALL = preload("res://scenes/wall.tscn")
 
 
@@ -75,12 +75,12 @@ func create(what: GameManager.CONTENT, coord: Vector2i, radius: int = 1):
 		GameManager.CONTENT.CUBE_FIXED,\
 		GameManager.CONTENT.CUBE_BOOM:
 			return _create_cube(coord, radius, what)
-		GameManager.CONTENT.FIREBALL:
-			return _create_fireball(coord)
+		GameManager.CONTENT.BOX:
+			return _create_box(coord)
 		GameManager.CONTENT.WALL:
 			return _create_wall(coord)
-		GameManager.CONTENT.FIREPIT:
-			return _create_firepit(coord)
+		GameManager.CONTENT.KEY:
+			return _create_key(coord)
 	
 	#SaveAndLoad._on_save_button_pressed()
 	
@@ -108,20 +108,20 @@ func _create_cube(coord: Vector2i, radius: int, type: GameManager.CONTENT):
 	
 	return tmp
 
-func _create_fireball(coord: Vector2i):
+func _create_box(coord: Vector2i):
 	for item in get_tree().get_nodes_in_group("CUBE"):
 		if item.get_rect().has_point(coord):
 			return null
 
-	for item in get_tree().get_nodes_in_group("FIREBALL"):
+	for item in get_tree().get_nodes_in_group("BOX"):
 		if item.coordinate == coord:
-			item.remove_from_group("FIREBALL")
+			item.remove_from_group("BOX")
 			item.remove_from_group("OBJECT")
 			item.queue_free()
 			return null
 	
-	var tmp: FireBall = FIREBALL.instantiate()
-	tmp.type = GameManager.CONTENT.FIREBALL
+	var tmp: Box = BOX.instantiate()
+	tmp.type = GameManager.CONTENT.BOX
 	tmp.radius = 1
 	tmp.coordinate = coord
 	tmp.mass = 1
@@ -129,7 +129,7 @@ func _create_fireball(coord: Vector2i):
 	add_child(tmp)
 	
 	tmp.add_to_group("OBJECT")
-	tmp.add_to_group("FIREBALL")
+	tmp.add_to_group("BOX")
 	
 	return tmp
 
@@ -158,19 +158,19 @@ func _create_wall(coord: Vector2i):
 	
 	return tmp
 
-func _create_firepit(coord: Vector2i):
+func _create_key(coord: Vector2i):
 	for item in get_tree().get_nodes_in_group("CUBE"):
 		if item.get_rect().has_point(coord):
 			return null
-	for item in get_tree().get_nodes_in_group("FIREPIT"):
+	for item in get_tree().get_nodes_in_group("KEY"):
 		if item.coordinate == coord:
-			item.remove_from_group("FIREPIT")
+			item.remove_from_group("KEY")
 			item.remove_from_group("OBJECT")
 			item.queue_free()
 			return null
 	
-	var tmp: FirePit = FIREPIT.instantiate()
-	tmp.type = GameManager.CONTENT.FIREPIT
+	var tmp: Key = KEY.instantiate()
+	tmp.type = GameManager.CONTENT.KEY
 	tmp.radius = 1
 	tmp.coordinate = coord
 	tmp.mass = 1
@@ -178,7 +178,7 @@ func _create_firepit(coord: Vector2i):
 	add_child(tmp)
 	
 	tmp.add_to_group("OBJECT")
-	tmp.add_to_group("FIREPIT")
+	tmp.add_to_group("KEY")
 	
 	return tmp
 
@@ -186,9 +186,9 @@ func delete(coord: Vector2i) -> bool:
 	for item in get_tree().get_nodes_in_group("OBJECT"):
 		if item.get_rect().has_point(coord):
 			item.remove_from_group("CUBE")
-			item.remove_from_group("FIREBALL")
+			item.remove_from_group("BOX")
 			item.remove_from_group("WALL")
-			item.remove_from_group("FIREPIT")
+			item.remove_from_group("KEY")
 			item.remove_from_group("OBJECT")
 			item.queue_free()
 			
@@ -206,8 +206,8 @@ func _on_reset_button_pressed() -> void:
 		item.remove_from_group("OBJECT")
 		item.remove_from_group("CUBE")
 		item.remove_from_group("WALL")
-		item.remove_from_group("FIREBALL")
-		item.remove_from_group("FIREPIT")
+		item.remove_from_group("BOX")
+		item.remove_from_group("KEY")
 		item.queue_free()
 	
 	

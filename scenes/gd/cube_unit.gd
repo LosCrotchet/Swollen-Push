@@ -16,17 +16,8 @@ var _hint_tween: Tween
 var _offset := Vector2i(32, 32)
 
 @onready var Outlook = $HoverWrapper/Outlook
-@onready var AnimatedOutlook = $HoverWrapper/AnimatedOutlook
 @onready var HoverWrapper = $HoverWrapper
 @onready var Area = $Area2D
-
-#func _init(_coordinate: Vector2i, _mass: int, _type: GameManager.CONTENT, _radius: int = 1):
-	#coordinate = _coordinate
-	#mass = _mass
-	#type = _type
-	#radius = _radius
-	#
-	#position =  _coordinate * 64 + _offset
 
 func _ready() -> void:
 	position =  coordinate * 64 + _offset

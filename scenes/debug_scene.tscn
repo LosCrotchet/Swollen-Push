@@ -139,19 +139,19 @@ text = "清空并重置"
 
 [node name="SaveButton" type="Button" parent="DebugPanel" unique_id=131303753]
 layout_mode = 0
-offset_left = 64.0
-offset_top = 384.0
-offset_right = 160.0
-offset_bottom = 448.0
+offset_left = 32.0
+offset_top = 352.0
+offset_right = 128.0
+offset_bottom = 416.0
 theme = ExtResource("5_2a6jk")
 text = "保存"
 
 [node name="LoadButton" type="Button" parent="DebugPanel" unique_id=2134538258]
 layout_mode = 0
-offset_left = 256.0
-offset_top = 384.0
-offset_right = 352.0
-offset_bottom = 448.0
+offset_left = 160.0
+offset_top = 352.0
+offset_right = 256.0
+offset_bottom = 416.0
 theme = ExtResource("5_2a6jk")
 text = "加载"
 
@@ -255,31 +255,31 @@ text = "爆炸
 [node name="SetWall" type="Button" parent="DebugPanel" unique_id=1026061011]
 layout_mode = 0
 offset_left = 32.0
-offset_top = 288.0
+offset_top = 256.0
 offset_right = 96.0
-offset_bottom = 352.0
+offset_bottom = 320.0
 theme = ExtResource("5_2a6jk")
 toggle_mode = true
 button_group = ExtResource("7_tmisn")
 text = "墙壁"
 
-[node name="SetFireBall" type="Button" parent="DebugPanel" unique_id=1588803112]
+[node name="SetBox" type="Button" parent="DebugPanel" unique_id=1588803112]
 layout_mode = 0
 offset_left = 128.0
-offset_top = 288.0
+offset_top = 256.0
 offset_right = 192.0
-offset_bottom = 352.0
+offset_bottom = 320.0
 theme = ExtResource("5_2a6jk")
 toggle_mode = true
 button_group = ExtResource("7_tmisn")
 text = "箱子"
 
-[node name="SetFirePit" type="Button" parent="DebugPanel" unique_id=878309048]
+[node name="SetKey" type="Button" parent="DebugPanel" unique_id=878309048]
 layout_mode = 0
 offset_left = 224.0
-offset_top = 288.0
+offset_top = 256.0
 offset_right = 288.0
-offset_bottom = 352.0
+offset_bottom = 320.0
 theme = ExtResource("5_2a6jk")
 toggle_mode = true
 button_group = ExtResource("7_tmisn")
@@ -323,5 +323,5 @@ tile_set = ExtResource("10_wf6om")
 [connection signal="toggled" from="DebugPanel/SetStaticCube" to="." method="_on_button_toggled" binds= [6]]
 [connection signal="toggled" from="DebugPanel/SetBoomCube" to="." method="_on_button_toggled" binds= [7]]
 [connection signal="toggled" from="DebugPanel/SetWall" to="." method="_on_button_toggled" binds= [2]]
-[connection signal="toggled" from="DebugPanel/SetFireBall" to="." method="_on_button_toggled" binds= [3]]
-[connection signal="toggled" from="DebugPanel/SetFirePit" to="." method="_on_button_toggled" binds= [4]]
+[connection signal="toggled" from="DebugPanel/SetBox" to="." method="_on_button_toggled" binds= [3]]
+[connection signal="toggled" from="DebugPanel/SetKey" to="." method="_on_button_toggled" binds= [4]]

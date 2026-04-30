@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://cehalnncbq0d7"]
+
+[ext_resource type="PackedScene" uid="uid://dn37r1weaa6ae" path="res://scenes/cube_unit.tscn" id="1_ks2v0"]
+[ext_resource type="Script" uid="uid://dkvj28khktdvh" path="res://scenes/gd/box.gd" id="2_ks2v0"]
+
+[node name="Box" unique_id=970972792 instance=ExtResource("1_ks2v0")]
+script = ExtResource("2_ks2v0")

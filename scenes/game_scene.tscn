@@ -21,19 +21,20 @@ shader_parameter/MOD3 = Vector3(0.1031, 0.11369, 0.13787)
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_b5spy"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_kk2rg"]
-font_size = 30
+[sub_resource type="LabelSettings" id="LabelSettings_utbpp"]
+font_size = 20
+font_color = Color(1, 1, 1, 0.5019608)
 
 [sub_resource type="LabelSettings" id="LabelSettings_mw25s"]
 font_size = 30
 font_color = Color(1, 1, 1, 0.5019608)
 
+[sub_resource type="LabelSettings" id="LabelSettings_kk2rg"]
+font_size = 30
+font_color = Color(1, 1, 1, 0.5019608)
+
 [sub_resource type="LabelSettings" id="LabelSettings_0in77"]
 font_size = 24
-
-[sub_resource type="LabelSettings" id="LabelSettings_utbpp"]
-font_size = 24
-font_color = Color(1, 1, 1, 0.5019608)
 
 [node name="GameScene" type="Control" unique_id=532454969]
 layout_mode = 3
@@ -84,9 +85,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -512.0
-offset_top = -514.0
-offset_right = 512.0
+offset_left = -800.0
+offset_top = -450.0
+offset_right = 800.0
 offset_bottom = 450.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -121,18 +122,6 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("CanvasTexture_b5spy")
 
-[node name="LevelTitle" type="Label" parent="GameRegion" unique_id=143480006]
-layout_mode = 0
-offset_left = 992.0
-offset_top = 992.0
-offset_right = 1440.0
-offset_bottom = 1056.0
-text = "[关卡标题]"
-label_settings = SubResource("LabelSettings_kk2rg")
-horizontal_alignment = 2
-vertical_alignment = 1
-autowrap_mode = 1
-
 [node name="LevelHint" type="RichTextLabel" parent="GameRegion" unique_id=1697318438]
 visible = false
 layout_mode = 0
@@ -155,37 +144,57 @@ vertical_alignment = 1
 [node name="LoadLevel" type="Node" parent="." unique_id=422341343 node_paths=PackedStringArray("map_editor", "level_list", "base_tilemap", "level_title", "level_hint", "map_panel", "fireworks")]
 script = ExtResource("2_8rpq6")
 map_editor = NodePath("../GameRegion/MapPanel/MapEditor")
-level_list = NodePath("../DebugPanel/LevelList")
+level_list = NodePath("../CanvasLayer/DebugPanel/LevelList")
 base_tilemap = NodePath("../GameRegion/MapPanel/Base")
-level_title = NodePath("../GameRegion/LevelTitle")
+level_title = NodePath("../CanvasLayer/LevelTitle")
 level_hint = NodePath("../GameRegion/LevelHint")
 map_panel = NodePath("../GameRegion/MapPanel")
 fireworks = NodePath("../GameRegion/MapPanel/Fireworks")
 
-[node name="Hint" type="Label" parent="." unique_id=1596412942]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=507849725]
+
+[node name="VersionLabel" type="Label" parent="CanvasLayer" unique_id=684744139]
+offset_top = 832.0
+offset_right = 448.0
+offset_bottom = 898.0
+text = "Swollen Push - v[version] alpha"
+label_settings = SubResource("LabelSettings_utbpp")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 1
+
+[node name="Hint" type="Label" parent="CanvasLayer" unique_id=1596412942]
 z_index = 900
-layout_mode = 0
-offset_left = 288.0
-offset_top = 928.0
-offset_right = 1312.0
-offset_bottom = 992.0
-text = "[左键]放大方块  |  [右键]缩小方块  |  [R] 重新开始关卡"
+offset_left = 448.0
+offset_top = 832.0
+offset_right = 1152.0
+offset_bottom = 896.0
+text = "[左键]放大  |  [右键]缩小  |  [中键] 重新开始"
 label_settings = SubResource("LabelSettings_mw25s")
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 1
 
-[node name="DebugPanel" type="Panel" parent="." unique_id=477024173]
-visible = false
+[node name="LevelTitle" type="Label" parent="CanvasLayer" unique_id=143480006]
+offset_left = 1152.0
+offset_top = 832.0
+offset_right = 1600.0
+offset_bottom = 896.0
+text = "[关卡标题]"
+label_settings = SubResource("LabelSettings_kk2rg")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 1
+
+[node name="DebugPanel" type="Panel" parent="CanvasLayer" unique_id=477024173]
 z_index = 900
-layout_mode = 0
-offset_left = -160.0
-offset_top = -64.0
-offset_right = 128.0
-offset_bottom = 512.0
+offset_left = 32.0
+offset_top = 32.0
+offset_right = 320.0
+offset_bottom = 608.0
 mouse_filter = 1
 
-[node name="LevelList" type="ItemList" parent="DebugPanel" unique_id=2069964197]
+[node name="LevelList" type="ItemList" parent="CanvasLayer/DebugPanel" unique_id=2069964197]
 layout_mode = 0
 offset_top = 64.0
 offset_right = 288.0
@@ -193,7 +202,7 @@ offset_bottom = 512.0
 theme_override_constants/v_separation = 10
 theme_override_font_sizes/font_size = 24
 
-[node name="Title" type="Label" parent="DebugPanel" unique_id=71056016]
+[node name="Title" type="Label" parent="CanvasLayer/DebugPanel" unique_id=71056016]
 layout_mode = 0
 offset_right = 288.0
 offset_bottom = 64.0
@@ -203,7 +212,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 1
 
-[node name="RefreshButton" type="Button" parent="DebugPanel" unique_id=1414248394]
+[node name="RefreshButton" type="Button" parent="CanvasLayer/DebugPanel" unique_id=1414248394]
 layout_mode = 0
 offset_left = 32.0
 offset_top = 512.0
@@ -212,7 +221,7 @@ offset_bottom = 576.0
 theme = ExtResource("6_0in77")
 text = "刷新"
 
-[node name="LoadButton" type="Button" parent="DebugPanel" unique_id=1809549661]
+[node name="LoadButton" type="Button" parent="CanvasLayer/DebugPanel" unique_id=1809549661]
 layout_mode = 0
 offset_left = 160.0
 offset_top = 512.0
@@ -221,7 +230,7 @@ offset_bottom = 576.0
 theme = ExtResource("6_0in77")
 text = "加载关卡"
 
-[node name="DebugButton" type="Button" parent="DebugPanel" unique_id=557885032]
+[node name="DebugButton" type="Button" parent="CanvasLayer/DebugPanel" unique_id=557885032]
 layout_mode = 0
 offset_top = 608.0
 offset_right = 160.0
@@ -229,24 +238,11 @@ offset_bottom = 672.0
 theme = ExtResource("6_0in77")
 text = "进入编辑页面"
 
-[node name="VersionLabel" type="Label" parent="." unique_id=684744139]
-layout_mode = 0
-offset_left = -160.0
-offset_top = 928.0
-offset_right = 224.0
-offset_bottom = 994.0
-text = "Swollen Push - v[version] alpha"
-label_settings = SubResource("LabelSettings_utbpp")
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 1
-
-[node name="SettingButton" type="TextureButton" parent="." unique_id=621554704]
-layout_mode = 0
-offset_left = 1696.0
-offset_top = -79.0
-offset_right = 1760.0
-offset_bottom = -15.0
+[node name="SettingButton" type="TextureButton" parent="CanvasLayer" unique_id=621554704]
+offset_left = 1504.0
+offset_top = 32.0
+offset_right = 1568.0
+offset_bottom = 96.0
 pivot_offset = Vector2(32, 32)
 texture_normal = ExtResource("8_utbpp")
 texture_pressed = ExtResource("8_utbpp")
@@ -261,6 +257,7 @@ offset_right = 1600.0
 offset_bottom = 896.0
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=387937987]
+z_index = 4096
 zoom = Vector2(0.8, 0.8)
 limit_left = 0
 limit_top = 0
@@ -268,9 +265,9 @@ limit_right = 1600
 limit_bottom = 900
 metadata/_edit_lock_ = true
 
-[connection signal="item_activated" from="DebugPanel/LevelList" to="LoadLevel" method="_on_load_button_pressed" unbinds=1]
-[connection signal="pressed" from="DebugPanel/RefreshButton" to="LoadLevel" method="_on_refresh_button_pressed"]
-[connection signal="pressed" from="DebugPanel/LoadButton" to="LoadLevel" method="_on_load_button_pressed"]
-[connection signal="pressed" from="DebugPanel/DebugButton" to="." method="_on_debug_button_pressed"]
-[connection signal="mouse_entered" from="SettingButton" to="SettingButton" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="SettingButton" to="SettingButton" method="_on_mouse_exited"]
+[connection signal="item_activated" from="CanvasLayer/DebugPanel/LevelList" to="LoadLevel" method="_on_load_button_pressed" unbinds=1]
+[connection signal="pressed" from="CanvasLayer/DebugPanel/RefreshButton" to="LoadLevel" method="_on_refresh_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/DebugPanel/LoadButton" to="LoadLevel" method="_on_load_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/DebugPanel/DebugButton" to="." method="_on_debug_button_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer/SettingButton" to="CanvasLayer/SettingButton" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="CanvasLayer/SettingButton" to="CanvasLayer/SettingButton" method="_on_mouse_exited"]

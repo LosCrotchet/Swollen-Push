@@ -2,7 +2,6 @@
 
 [ext_resource type="Texture2D" uid="uid://0i1bludgdjr8" path="res://assets/textures.png" id="1_07gg7"]
 [ext_resource type="Script" uid="uid://k6xw6pybr1dx" path="res://scenes/gd/cube_unit.gd" id="1_cbphm"]
-[ext_resource type="SpriteFrames" uid="uid://b8so1l35hcudh" path="res://assets/tres/cube_frames.tres" id="2_cbphm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oh21m"]
 size = Vector2(128, 128)
@@ -16,10 +15,6 @@ script = ExtResource("1_cbphm")
 texture_filter = 1
 texture = ExtResource("1_07gg7")
 region_enabled = true
-
-[node name="AnimatedOutlook" type="AnimatedSprite2D" parent="HoverWrapper" unique_id=1524610261]
-sprite_frames = ExtResource("2_cbphm")
-animation = &"fireball"
 
 [node name="Area2D" type="Area2D" parent="." unique_id=278347110]
 

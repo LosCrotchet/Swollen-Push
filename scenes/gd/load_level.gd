@@ -37,7 +37,7 @@ func _on_level_finish():
 	
 	GameManager.now_level += 1
 		
-	SceneManager.change_scene("res://scenes/game_scene.tscn", {"pattern": "circle"})
+	SceneManager.change_scene("res://scenes/game_scene.tscn", {"pattern": "horizontal"})
 
 func _get_levels():
 	var file = FileAccess.open("res://levels.json", FileAccess.READ)
@@ -161,8 +161,8 @@ func load_level(level_name: String):
 		item.remove_from_group("OBJECT")
 		item.remove_from_group("CUBE")
 		item.remove_from_group("WALL")
-		item.remove_from_group("FIREBALL")
-		item.remove_from_group("FIREPIT")
+		item.remove_from_group("BOX")
+		item.remove_from_group("KEY")
 		item.queue_free()
 
 	log_print("地图清空完成！")
@@ -258,7 +258,8 @@ func load_level(level_name: String):
 			elif D: atlas_coords = Vector2i(4, 0)          # 下边框
 			
 			# 假设 TileSet 的 source_id 是 1
-			base_tilemap.set_cell(c, 1, atlas_coords)
+			#base_tilemap.set_cell(c, 1, atlas_coords)
+			base_tilemap.set_cell(c, 0, Vector2i(0, 0))
 
 	log_print("地图地板绘制完成！")
 	# --- 优化步骤 4：还原物体并剔除多余墙壁 ---

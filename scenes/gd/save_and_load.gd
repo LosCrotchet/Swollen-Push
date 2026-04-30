@@ -92,8 +92,8 @@ func load_level():
 		item.remove_from_group("OBJECT")
 		item.remove_from_group("CUBE")
 		item.remove_from_group("WALL")
-		item.remove_from_group("FIREBALL")
-		item.remove_from_group("FIREPIT")
+		item.remove_from_group("BOX")
+		item.remove_from_group("KEY")
 		item.queue_free()
 
 	# --- 优化步骤 1：解析不规则地图形态 ---

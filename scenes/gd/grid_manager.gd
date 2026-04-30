@@ -14,8 +14,8 @@ func _can_overlap(obj_a: Node, obj_b: Node) -> bool:
 	var type_a = obj_a.type
 	var type_b = obj_b.type
 	
-	if (type_a == GameManager.CONTENT.FIREBALL and type_b == GameManager.CONTENT.FIREPIT) or \
-	   (type_a == GameManager.CONTENT.FIREPIT and type_b == GameManager.CONTENT.FIREBALL):
+	if (type_a == GameManager.CONTENT.BOX and type_b == GameManager.CONTENT.KEY) or \
+	   (type_a == GameManager.CONTENT.KEY and type_b == GameManager.CONTENT.BOX):
 		return true
 		
 	return false
@@ -324,9 +324,9 @@ func apply_cube_scaling(coord: Vector2i, delta: int = 1) -> bool:
 		if obj.has_method("move_to"):
 			obj.move_to(obj.coordinate + moves[obj])
 
-	for item in get_tree().get_nodes_in_group("FIREBALL"):
+	for item in get_tree().get_nodes_in_group("BOX"):
 		var is_finished = false
-		for hole in get_tree().get_nodes_in_group("FIREPIT"):
+		for hole in get_tree().get_nodes_in_group("KEY"):
 			if item.coordinate == hole.coordinate:
 				is_finished = true
 				break
